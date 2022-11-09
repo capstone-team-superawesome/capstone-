@@ -13,6 +13,23 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
+  },
+  email:{
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique:true,
+    validator: {
+      isEmail: true,
+      notEmpty: true
+    }
+  },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  totalScore:{
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   }
 })
 

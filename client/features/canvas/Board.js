@@ -37,11 +37,17 @@ const Board = () => {
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
+      const drawingContainer = document.getElementById("container");
+      const canvasOffsetX = drawingContainer.offsetLeft;
+      const canvasOffsetY = drawingContainer.offsetTop;
+      console.log("X :", canvasOffsetX, "Y :", canvasOffsetY);
+
+      console.log(x0, y0, x1, y1, color);
       context.beginPath();
-      context.moveTo(x0, y0);
-      context.lineTo(x1, y1);
+      context.moveTo(x0, y0 - canvasOffsetY);
+      context.lineTo(x1, y1 - canvasOffsetY);
       context.strokeStyle = color;
-      context.lineWidth = 2;
+      context.lineWidth = 5;
       context.stroke();
       context.closePath();
 
@@ -73,15 +79,15 @@ const Board = () => {
         return;
       }
       drawLine(
-        current.x,
-        current.y,
+        current.x, //- canvasOffsetX,
+        current.y, // - canvasOffsetY,
         e.clientX || e.touches[0].clientX,
         e.clientY || e.touches[0].clientY,
         current.color,
         true
       );
-      current.x = e.clientX || e.touches[0].clientX;
-      current.y = e.clientY || e.touches[0].clientY;
+      current.x = e.clientX || e.touches[0].clientX; //- canvasOffsetX;
+      current.y = e.clientY || e.touches[0].clientY; //- canvasOffsetY;
     };
 
     const onMouseUp = (e) => {
@@ -92,8 +98,8 @@ const Board = () => {
       drawLine(
         current.x,
         current.y,
-        e.clientX || e.touches[0].clientX,
-        e.clientY || e.touches[0].clientY,
+        e.clientX || e.touches[0].clientX, //- canvasOffsetX,
+        e.clientY || e.touches[0].clientY, // - canvasOffsetY,
         current.color,
         true
       );
@@ -127,14 +133,10 @@ const Board = () => {
     canvas.addEventListener("touchmove", throttle(onMouseMove, 10), false);
 
     // -------------- make the canvas fill its parent component -----------------
-    // const drawingContainer = document.getElementById("container");
-    // const canvasOffsetX = drawingContainer.offsetLeft;
-    // const canvasOffsetY = drawingContainer.offsetTop;
-    // console.log("X :", canvasOffsetX, "Y :", canvasOffsetY);
 
     const onResize = () => {
-      canvas.width = window.innerWidth - 100;
-      canvas.height = window.innerHeight - 100;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
 
     window.addEventListener("resize", onResize, false);
@@ -152,10 +154,9 @@ const Board = () => {
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
-
+  // className = "whiteboard";
   return (
     <div>
-      <canvas id="container" ref={canvasRef} className="whiteboard" />
       <div ref={colorsRef} className="colors">
         <div className="color black" />
         <div className="color red" />
@@ -163,6 +164,11 @@ const Board = () => {
         <div className="color blue" />
         <div className="color yellow" />
       </div>
+      <canvas
+        id="container"
+        ref={canvasRef}
+        style={{ border: "2px solid black" }}
+      />
       {/* <div className="whiteboard">hello</div> */}
     </div>
   );

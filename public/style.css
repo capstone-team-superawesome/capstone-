@@ -19,3 +19,15 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#canvas {
+  /* height: 600px;
+  width: 600px; */
+  border: solid;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -18,14 +18,13 @@ const AuthForm = ({ name, displayName }) => {
     const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    const email = evt.target.email.value;
-    dispatch(authenticate({ username, password, email, method: formName }));
+    dispatch(authenticate({ username, password, method: formName }));
   };
 
   return (
     <div style={{ width: "100%" }}>
       <div className="container-left" style={{ float: "left", width: "40%" }}>
-        <h1 id="game-title">Game Description</h1>
+        <h1 id="game-title">Describe the game.</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
           luctus id ligula non pellentesque. Aenean ultrices posuere imperdiet.
@@ -37,39 +36,33 @@ const AuthForm = ({ name, displayName }) => {
         </p>
       </div>
       <div className="container-right" style={{ float: "right" }}>
+        <h1 id="signup-form">{name}</h1>
         <div>
           <form onSubmit={handleSubmit} name={name}>
             <div>
               <label htmlFor="username">
-                <small>Username</small>
+                <small className="input-name">Username</small>
               </label>
               <input name="username" type="text" />
             </div>
             <div>
               <label htmlFor="password">
-                <small>Password</small>
+                <small className="input-name">Password</small>
               </label>
               <input name="password" type="password" />
             </div>
-            {displayName === "Sign Up" ? (
-              <div>
-                <label htmlFor="email">
-                  <small>Email</small>
-                </label>
-                <input name="email" type="email" />
-              </div>
-            ) : null}
+
             <div>
               <button type="submit">{displayName}</button>
             </div>
             {error && <div> {error} </div>}
           </form>
           {name === "login" ? (
-            <p>
+            <p id="form-option">
               Not a member? <Link to="/signup">Sign up</Link>
             </p>
           ) : (
-            <p>
+            <p id="form-option">
               Already a member? <Link to="/login">Log in</Link>
             </p>
           )}

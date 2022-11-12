@@ -105,3 +105,13 @@ input {
   border-radius: 25px;
   font-size: 25px;
 }
+
+.about-us-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#about-us-title {
+  text-align: center;
+}

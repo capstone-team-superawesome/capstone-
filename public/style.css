@@ -42,6 +42,7 @@ form div {
   display: inline-block;
   height: 48px;
   width: 48px;
+  border-radius: 20px;
 }
 
 .color.black {
@@ -58,4 +59,23 @@ form div {
 }
 .color.yellow {
   background-color: yellow;
+}
+
+.navbar {
+  text-align: right;
+}
+
+.container-right {
+  align-items: center;
+}
+
+.container-left {
+  margin: 50px;
+}
+
+form {
+  text-align: center;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
 }

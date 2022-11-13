@@ -5,6 +5,7 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import Board from "../features/canvas/Board";
+import About from "../features/About/About";
 
 /**
  * COMPONENT
@@ -40,6 +41,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/about" element={<About />} />
         </Routes>
       )}
     </div>

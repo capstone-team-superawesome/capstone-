@@ -139,7 +139,7 @@ const Board = () => {
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", onResize, false);
+    //window.addEventListener("resize", onResize, false);
     onResize();
 
     // ----------------------- socket.io connection ----------------------------

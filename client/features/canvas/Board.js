@@ -16,8 +16,7 @@ const Board = () => {
     // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName("color");
-    console.log(colors, "the colors");
-    console.log(test);
+
     // set the current color
     const current = {
       color: "black",

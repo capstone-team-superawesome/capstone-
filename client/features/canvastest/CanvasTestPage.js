@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
+// o: is this being used?
 const canvasTestPage = () => {
   console.log("Canvas test page");
   const [brushSize, setBrushSize] = useState(5);

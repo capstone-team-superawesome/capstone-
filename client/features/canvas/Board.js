@@ -16,8 +16,12 @@ const Board = () => {
     // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName("color");
+
+    // o: recommendation, take these out BEFORE merging to main or use debugger
     console.log(colors, "the colors");
     console.log(test);
+
+    // o: current what? ... also, why is this an object?
     // set the current color
     const current = {
       color: "black",
@@ -32,16 +36,21 @@ const Board = () => {
     for (let i = 0; i < colors.length; i++) {
       colors[i].addEventListener("click", onColorUpdate, false);
     }
+
+    // o: this should be a stateful variable
     let drawing = false;
 
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
       const drawingContainer = document.getElementById("container");
+
+      // o: you can store this as one object with keys x / y
       const canvasOffsetX = drawingContainer.offsetLeft;
       const canvasOffsetY = drawingContainer.offsetTop;
       console.log("X :", canvasOffsetX, "Y :", canvasOffsetY);
 
+      // o: remove
       console.log(x0, y0, x1, y1, color);
       context.beginPath();
       context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
@@ -51,9 +60,13 @@ const Board = () => {
       context.stroke();
       context.closePath();
 
+      // o: why is this happening exactly?
       if (!emit) {
         return;
       }
+
+      // o: w and h 🤔... we can do better here... also, why is this even being
+      //  redefined? ... also, why not just destructure?
       const w = canvas.width;
       const h = canvas.height;
 
@@ -68,6 +81,7 @@ const Board = () => {
 
     // ---------------- mouse movement --------------------------------------
 
+    // o: switch the e's to event
     const onMouseDown = (e) => {
       drawing = true;
       current.x = e.clientX || e.touches[0].clientX;
@@ -107,13 +121,16 @@ const Board = () => {
 
     // ----------- limit the number of events per second -----------------------
 
+    // o: did you do this on your own?
     const throttle = (callback, delay) => {
       let previousCall = new Date().getTime();
+      
       return function () {
         const time = new Date().getTime();
 
         if (time - previousCall >= delay) {
           previousCall = time;
+          // o: avoid using arguments... use ...args for clarity
           callback.apply(null, arguments);
         }
       };
@@ -134,6 +151,7 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
+    // o: why is this a function?
     const onResize = () => {
       canvas.width = 1000;
       canvas.height = 500;
@@ -143,6 +161,7 @@ const Board = () => {
     onResize();
 
     // ----------------------- socket.io connection ----------------------------
+    // o: you can define this inline below
     const onDrawingEvent = (data) => {
       const w = canvas.width;
       const h = canvas.height;
@@ -154,6 +173,8 @@ const Board = () => {
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
+
+  // o: ???
   // className = "whiteboard";
   return (
     <div>
@@ -176,6 +197,7 @@ const Board = () => {
           display: "block",
         }}
       />
+      {/* o: remove */}
       {/* <div className="whiteboard">hello</div> */}
     </div>
   );

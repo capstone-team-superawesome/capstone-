@@ -8,6 +8,7 @@ const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
 
+// o: we should talk a little more about this
 const onConnection = (socket) => {
   socket.on("drawing", (data) => socket.broadcast.emit("drawing", data));
 };

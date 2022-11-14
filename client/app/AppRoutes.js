@@ -5,7 +5,7 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import Board from "../features/canvas/Board";
-import About from "../features/About/About";
+import About from "../features/about/About";
 
 /**
  * COMPONENT

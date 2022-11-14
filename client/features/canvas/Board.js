@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import io from "socket.io-client";
 
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+  //const [drawing, setDrawing] = useState(false);
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -16,8 +17,7 @@ const Board = () => {
     // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName("color");
-    console.log(colors, "the colors");
-    console.log(test);
+
     // set the current color
     const current = {
       color: "black",
@@ -40,9 +40,9 @@ const Board = () => {
       const drawingContainer = document.getElementById("container");
       const canvasOffsetX = drawingContainer.offsetLeft;
       const canvasOffsetY = drawingContainer.offsetTop;
-      console.log("X :", canvasOffsetX, "Y :", canvasOffsetY);
 
-      console.log(x0, y0, x1, y1, color);
+      console.log(x0, y0);
+
       context.beginPath();
       context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
       context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
@@ -51,9 +51,11 @@ const Board = () => {
       context.stroke();
       context.closePath();
 
+      //emit is necessary for sending the
       if (!emit) {
         return;
       }
+
       const w = canvas.width;
       const h = canvas.height;
 
@@ -134,19 +136,19 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    const onResize = () => {
-      canvas.width = 1000;
-      canvas.height = 500;
-    };
-
-    //window.addEventListener("resize", onResize, false);
-    onResize();
+    canvas.width = 1000;
+    canvas.height = 500;
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
-      const w = canvas.width;
-      const h = canvas.height;
-      drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+      const { width, height } = canvas;
+      drawLine(
+        data.x0 * width,
+        data.y0 * height,
+        data.x1 * width,
+        data.y1 * height,
+        data.color
+      );
     };
 
     socketRef.current = io.connect("/");
@@ -154,7 +156,6 @@ const Board = () => {
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
-  // className = "whiteboard";
   return (
     <div>
       <div ref={colorsRef} className="colors">
@@ -176,7 +177,6 @@ const Board = () => {
           display: "block",
         }}
       />
-      {/* <div className="whiteboard">hello</div> */}
     </div>
   );
 };

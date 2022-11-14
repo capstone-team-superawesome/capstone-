@@ -44,8 +44,8 @@ const Board = () => {
 
       console.log(x0, y0, x1, y1, color);
       context.beginPath();
-      context.moveTo(x0, y0 - canvasOffsetY);
-      context.lineTo(x1, y1 - canvasOffsetY);
+      context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
+      context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
       context.strokeStyle = color;
       context.lineWidth = 5;
       context.stroke();
@@ -135,8 +135,8 @@ const Board = () => {
     // -------------- make the canvas fill its parent component -----------------
 
     const onResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      canvas.width = 1000;
+      canvas.height = 500;
     };
 
     //window.addEventListener("resize", onResize, false);
@@ -167,7 +167,14 @@ const Board = () => {
       <canvas
         id="container"
         ref={canvasRef}
-        style={{ border: "2px solid black" }}
+        style={{
+          border: "2px solid black",
+          paddingLeft: "0",
+          paddingRight: "0",
+          marginLeft: "auto",
+          marginRight: "auto",
+          display: "block",
+        }}
       />
       {/* <div className="whiteboard">hello</div> */}
     </div>

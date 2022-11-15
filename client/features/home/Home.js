@@ -1,28 +1,34 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
+import { makeGameCode } from "../../app/store";
 
 /**
  * COMPONENT
  */
 const Home = (props) => {
+  const dispatch = useDispatch();
+
   const username = useSelector((state) => state.auth.me.username);
 
-  const [gameCode, setGameCode] = useState("");
+  const gameCode = useSelector((state) => state.home);
+
+  const navigate = useNavigate();
+  // const [gameCode, setGameCode] = useState("");
   const [users, setUsers] = useState([]);
 
-  const handleCreateGame = (event) => {};
+  const handleCreateGame = () => {
+    dispatch(makeGameCode(5));
+    navigate("/canvas");
+  };
 
   const handleJoinGame = (event) => {};
 
   return (
     <div id="initialScreen">
       <div>
-        <button
-          type="submit"
-          id="newGameButton"
-          onClick={() => handleCreateGame()}
-        >
+        <button id="newGameButton" onClick={() => handleCreateGame()}>
           {" "}
           Create a Room{" "}
         </button>

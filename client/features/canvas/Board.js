@@ -10,6 +10,7 @@ const Board = () => {
   const socketRef = useRef();
 
   const username = useSelector((state) => state.auth.me.username);
+  const gameCode = useSelector((state) => state.home);
 
   //const [drawing, setDrawing] = useState(false);
 
@@ -165,9 +166,6 @@ const Board = () => {
     socketRef.current.on("userList", (userList) => console.log(userList));
 
     //Disconnecting not fully working, maybe completed rooms may help
-
-
-
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
@@ -180,6 +178,9 @@ const Board = () => {
         <div className="color blue" />
         <div className="color yellow" />
       </div>
+      <span>
+        <div>Your game session code is {gameCode}</div>
+      </span>
       <canvas
         id="container"
         ref={canvasRef}

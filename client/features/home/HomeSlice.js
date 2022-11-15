@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = "";
+const initialState = {
+  createdGameCode: "",
+  inputtedGameCode: "",
+};
 
 const HomeSlice = createSlice({
   name: "gameCode",
@@ -17,12 +20,16 @@ const HomeSlice = createSlice({
         );
       }
       window.localStorage.setItem("gameCode", result);
-      state = result;
-      return state;
+      state.createdGameCode = result;
+      // return state.createdGameCode;
+    },
+    updateInputtedGameCode: (state, action) => {
+      state.inputtedGameCode = action.payload;
+      // return state.inputtedGameCode;
     },
   },
 });
 
-export const { makeGameCode } = HomeSlice.actions;
+export const { makeGameCode, updateInputtedGameCode } = HomeSlice.actions;
 
 export default HomeSlice.reducer;

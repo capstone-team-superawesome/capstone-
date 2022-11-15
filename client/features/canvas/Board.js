@@ -10,7 +10,8 @@ const Board = () => {
   const socketRef = useRef();
 
   const username = useSelector((state) => state.auth.me.username);
-  const gameCode = useSelector((state) => state.home);
+  const gameCode = useSelector((state) => state.home.createdGameCode);
+  const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
 
   //const [drawing, setDrawing] = useState(false);
 
@@ -159,11 +160,16 @@ const Board = () => {
     };
 
     socketRef.current = io.connect("/");
-    socketRef.current.on("drawing", onDrawingEvent);
 
-    socketRef.current.emit("joinServer", username);
+    if (inputtedGameCode) {
+      socketRef.current.emit("joinRoom", inputtedGameCode);
+    } else {
+      socketRef.current.emit("joinRoom", gameCode);
+    }
 
-    socketRef.current.on("userList", (userList) => console.log(userList));
+    socketRef.current.on("drawing", { onDrawingEvent, gameCode });
+
+    //socketRef.current.on("userList", (userList) => console.log(userList));
 
     //Disconnecting not fully working, maybe completed rooms may help
   }, []);
@@ -179,7 +185,9 @@ const Board = () => {
         <div className="color yellow" />
       </div>
       <span>
-        <div>Your game session code is {gameCode}</div>
+        <div>
+          Your game session code is {gameCode ? gameCode : inputtedGameCode}
+        </div>
       </span>
       <canvas
         id="container"

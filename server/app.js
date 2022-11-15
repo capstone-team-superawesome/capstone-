@@ -2,16 +2,8 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-const http = require("http");
-const server = http.createServer(app);
 
-const socket = require("socket.io");
-const io = socket(server);
-const onConnection = require("./socket");
-
-io.on("connection", onConnection);
-
-module.exports = server;
+module.exports = app;
 
 // logging middleware
 app.use(morgan("dev"));

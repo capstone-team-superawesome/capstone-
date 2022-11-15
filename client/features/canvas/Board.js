@@ -1,4 +1,3 @@
-
 import { useSelector } from "react-redux";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -13,7 +12,6 @@ const Board = () => {
   const username = useSelector((state) => state.auth.me.username);
 
   //const [drawing, setDrawing] = useState(false);
-
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -165,6 +163,11 @@ const Board = () => {
     socketRef.current.emit("joinServer", username);
 
     socketRef.current.on("userList", (userList) => console.log(userList));
+
+    //Disconnecting not fully working, maybe completed rooms may help
+
+
+
   }, []);
 
   // ------------- The Canvas and color elements --------------------------

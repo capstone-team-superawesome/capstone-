@@ -29,6 +29,10 @@ const User = db.define("user", {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  isDrawer: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = User;

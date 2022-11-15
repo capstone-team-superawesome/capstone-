@@ -1,3 +1,5 @@
+
+
 body {
   font-family: sans-serif;
 }
@@ -48,15 +50,19 @@ form div {
 .color.black {
   background-color: black;
 }
+
 .color.red {
   background-color: red;
 }
+
 .color.green {
   background-color: green;
 }
+
 .color.blue {
   background-color: blue;
 }
+
 .color.yellow {
   background-color: yellow;
 }
@@ -80,6 +86,7 @@ form div {
   background-color: #989898;
   outline: none;
 }
+
 #signup-form {
   text-align: center;
 }

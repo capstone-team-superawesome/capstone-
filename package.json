@@ -4,6 +4,7 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
+    "build:css": "tailwind build public/style.css -o public/style.css",
     "build": "webpack",
     "build:dev": "npm run build -- --watch --mode=development",
     "seed": "node script/seed.js",
@@ -30,7 +31,8 @@
     "react-icons": "^4.6.0",
     "sequelize": "^6.25.3",
     "socket.io": "^4.5.3",
-    "socket.io-client": "^4.5.3"
+    "socket.io-client": "^4.5.3",
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",

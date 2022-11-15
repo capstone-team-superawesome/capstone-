@@ -1,10 +1,12 @@
 import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import io from "socket.io-client";
 
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+  const username = useSelector((state) => state.auth.me.username);
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -150,6 +152,10 @@ const Board = () => {
 
     socketRef.current = io.connect("/");
     socketRef.current.on("drawing", onDrawingEvent);
+
+    socketRef.current.emit("joinServer", username);
+
+    socketRef.current.on("userList", (userList) => console.log(userList));
   }, []);
 
   // ------------- The Canvas and color elements --------------------------

@@ -9,17 +9,18 @@ let users = [];
 
 const onConnection = (socket) => {
   //whenever a user joins the server we create a user with their username and socket id and emit it
-  socket.on("join server", (username) => {
+  socket.on("joinServer", (username) => {
     const user = {
       username,
       id: socket.id,
     };
     users.push(user);
-    io.emit("new user", users);
+    console.log("new client has connected :" + socket.id);
+    socket.emit("userList", users);
   });
 
   //joining the room
-  socket.on("join room", (roomName) => {
+  socket.on("joinRoom", (roomName) => {
     socket.join(roomName);
   });
 

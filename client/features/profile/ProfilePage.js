@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser } from "../editprofile/EditProfilePageSlice";
 
 const Profile = () => {
-  const { username, profilePicture, bio } = useSelector(
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser(id));
+  });
+
+  const { username, profilePicture, bio, id } = useSelector(
     (state) => state.auth.me
   );
 
@@ -54,7 +61,7 @@ const Profile = () => {
                   width: "500px",
                 }}
                 rows="7"
-                defaultValue="example bio"
+                defaultValue={bio}
               ></textarea>
               <Link to="/editprofile">
                 <img

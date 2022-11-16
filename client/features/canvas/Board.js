@@ -67,12 +67,16 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
+      const roomName =  gameCode ? gameCode : inputtedGameCode
+
       socketRef.current.emit("drawing", {
         x0: x0 / w,
         y0: y0 / h,
         x1: x1 / w,
         y1: y1 / h,
         color,
+        roomName
+
       });
     };
 
@@ -163,11 +167,15 @@ const Board = () => {
 
     if (inputtedGameCode) {
       socketRef.current.emit("joinRoom", inputtedGameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
     } else {
       socketRef.current.emit("joinRoom", gameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
     }
 
-    socketRef.current.on("drawing", { onDrawingEvent, gameCode });
+    //! ONLY ONE CAN DRAW ATM, LOOK INTO WHY
+
+    // socketRef.current.on("drawing", (onDrawingEvent, gameCode));
 
     //socketRef.current.on("userList", (userList) => console.log(userList));
 

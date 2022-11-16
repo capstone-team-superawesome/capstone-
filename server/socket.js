@@ -14,13 +14,16 @@ module.exports = (io) => {
       console.log(
         `a user has connected with id of ${socket.id} to room ${roomName}`
       );
-      // socket.on("drawing", ({ data, roomName }) => {
-      //   socket.to(roomName).emit("drawing", data);
-      // });
+      socket.on("drawing", ( data) => {
+        console.log(data)
+        const {roomName} = data;
+        // socket.to(roomName).emit("drawing", data);
+        socket.to(roomName).emit("drawing" , data)
+      });
     });
-    socket.on("drawing", (data) => {
-      socket.emit("drawing", data);
-    });
+    // socket.on("drawing", (data) => {
+    //   socket.emit("drawing", data);
+    // });
 
     //emitting the drawing event to only players inside the room
   });

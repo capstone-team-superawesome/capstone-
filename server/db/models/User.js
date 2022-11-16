@@ -29,6 +29,19 @@ const User = db.define("user", {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  profilePicture: {
+    type: Sequelize.STRING,
+    defaultValue:
+      "https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png",
+  },
+  bio: {
+    type: Sequelize.STRING,
+    defaultValue: "",
+  },
+  isDrawer: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
 });
 
 module.exports = User;

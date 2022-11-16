@@ -1,10 +1,19 @@
-import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+
+import React, { useRef, useEffect, useState } from "react";
+
 import io from "socket.io-client";
 
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+
+  const username = useSelector((state) => state.auth.me.username);
+  const gameCode = useSelector((state) => state.home.createdGameCode);
+  const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
+
+  //const [drawing, setDrawing] = useState(false);
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -16,8 +25,7 @@ const Board = () => {
     // ----------------------- Colors --------------------------------------------------
 
     const colors = document.getElementsByClassName("color");
-    console.log(colors, "the colors");
-    console.log(test);
+
     // set the current color
     const current = {
       color: "black",
@@ -40,9 +48,7 @@ const Board = () => {
       const drawingContainer = document.getElementById("container");
       const canvasOffsetX = drawingContainer.offsetLeft;
       const canvasOffsetY = drawingContainer.offsetTop;
-      console.log("X :", canvasOffsetX, "Y :", canvasOffsetY);
 
-      console.log(x0, y0, x1, y1, color);
       context.beginPath();
       context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
       context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
@@ -54,8 +60,12 @@ const Board = () => {
       if (!emit) {
         return;
       }
+
       const w = canvas.width;
       const h = canvas.height;
+
+
+      const roomName = gameCode ? gameCode : inputtedGameCode;
 
       socketRef.current.emit("drawing", {
         x0: x0 / w,
@@ -63,6 +73,8 @@ const Board = () => {
         x1: x1 / w,
         y1: y1 / h,
         color,
+        roomName,
+
       });
     };
 
@@ -134,27 +146,41 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    const onResize = () => {
-      canvas.width = 1000;
-      canvas.height = 500;
-    };
-
-    //window.addEventListener("resize", onResize, false);
-    onResize();
+    canvas.width = 1000;
+    canvas.height = 500;
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
-      const w = canvas.width;
-      const h = canvas.height;
-      drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+      const { width, height } = canvas;
+      drawLine(
+        data.x0 * width,
+        data.y0 * height,
+        data.x1 * width,
+        data.y1 * height,
+        data.color
+      );
     };
 
     socketRef.current = io.connect("/");
-    socketRef.current.on("drawing", onDrawingEvent);
+
+    if (inputtedGameCode) {
+      socketRef.current.emit("joinRoom", inputtedGameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
+    } else {
+      socketRef.current.emit("joinRoom", gameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
+    }
+
+    //! ONLY ONE CAN DRAW ATM, LOOK INTO WHY
+
+    // socketRef.current.on("drawing", (onDrawingEvent, gameCode));
+
+    //socketRef.current.on("userList", (userList) => console.log(userList));
+
+    //Disconnecting not fully working, maybe completed rooms may help
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
-  // className = "whiteboard";
   return (
     <div>
       <div ref={colorsRef} className="colors">
@@ -164,6 +190,11 @@ const Board = () => {
         <div className="color blue" />
         <div className="color yellow" />
       </div>
+      <span>
+        <div>
+          Your game session code is {gameCode ? gameCode : inputtedGameCode}
+        </div>
+      </span>
       <canvas
         id="container"
         ref={canvasRef}
@@ -176,7 +207,6 @@ const Board = () => {
           display: "block",
         }}
       />
-      {/* <div className="whiteboard">hello</div> */}
     </div>
   );
 };

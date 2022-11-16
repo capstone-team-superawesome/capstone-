@@ -5,7 +5,9 @@ import AuthForm from "../features/auth/AuthForm";
 import Home from "../features/home/Home";
 import { me } from "./store";
 import Board from "../features/canvas/Board";
-import About from "../features/About/About";
+import About from "../features/about/About";
+import Profile from "../features/profile/ProfilePage";
+import EditProfile from "../features/editprofile/EditProfilePage";
 
 /**
  * COMPONENT
@@ -26,6 +28,8 @@ const AppRoutes = () => {
           <Route path="/*" element={<Home />} />
           <Route to="/home" element={<Home />} />
           <Route path="/canvas" element={<Board />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/editprofile" element={<EditProfile />} />
         </Routes>
       ) : (
         <Routes>

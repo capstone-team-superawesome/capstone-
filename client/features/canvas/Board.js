@@ -10,6 +10,8 @@ const Board = () => {
   const socketRef = useRef();
 
   const username = useSelector((state) => state.auth.me.username);
+  const gameCode = useSelector((state) => state.home.createdGameCode);
+  const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
 
   //const [drawing, setDrawing] = useState(false);
 
@@ -65,12 +67,16 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
+      const roomName =  gameCode ? gameCode : inputtedGameCode
+
       socketRef.current.emit("drawing", {
         x0: x0 / w,
         y0: y0 / h,
         x1: x1 / w,
         y1: y1 / h,
         color,
+        roomName
+
       });
     };
 
@@ -158,16 +164,22 @@ const Board = () => {
     };
 
     socketRef.current = io.connect("/");
-    socketRef.current.on("drawing", onDrawingEvent);
 
-    socketRef.current.emit("joinServer", username);
+    if (inputtedGameCode) {
+      socketRef.current.emit("joinRoom", inputtedGameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
+    } else {
+      socketRef.current.emit("joinRoom", gameCode);
+      socketRef.current.on("drawing", onDrawingEvent);
+    }
 
-    socketRef.current.on("userList", (userList) => console.log(userList));
+    //! ONLY ONE CAN DRAW ATM, LOOK INTO WHY
+
+    // socketRef.current.on("drawing", (onDrawingEvent, gameCode));
+
+    //socketRef.current.on("userList", (userList) => console.log(userList));
 
     //Disconnecting not fully working, maybe completed rooms may help
-
-
-
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
@@ -180,6 +192,11 @@ const Board = () => {
         <div className="color blue" />
         <div className="color yellow" />
       </div>
+      <span>
+        <div>
+          Your game session code is {gameCode ? gameCode : inputtedGameCode}
+        </div>
+      </span>
       <canvas
         id="container"
         ref={canvasRef}

@@ -1,28 +1,39 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
-
+import { useNavigate } from "react-router-dom";
+import { makeGameCode, updateInputtedGameCode } from "../../app/store";
+const clientSocket = io(window.location.origin);
 /**
  * COMPONENT
  */
 const Home = (props) => {
+  const dispatch = useDispatch();
+
   const username = useSelector((state) => state.auth.me.username);
 
-  const [gameCode, setGameCode] = useState("");
+  const gameCode = useSelector((state) => state.home.createdGameCode);
+
+  const navigate = useNavigate();
+  const [inputGameCode, setInputGameCode] = useState("");
   const [users, setUsers] = useState([]);
 
-  const handleCreateGame = (event) => {};
+  const handleCreateGame = () => {
+    dispatch(makeGameCode(5));
+    navigate("/canvas");
+  };
 
-  const handleJoinGame = (event) => {};
+  const handleJoinGame = () => {
+    dispatch(updateInputtedGameCode(inputGameCode));
+
+    //clientSocket.emit("joinRoom", inputGameCode); //need to verify if inputGameCode exists
+    navigate("/canvas");
+  };
 
   return (
     <div id="initialScreen">
       <div>
-        <button
-          type="submit"
-          id="newGameButton"
-          onClick={() => handleCreateGame()}
-        >
+        <button id="newGameButton" onClick={() => handleCreateGame()}>
           {" "}
           Create a Room{" "}
         </button>
@@ -31,15 +42,11 @@ const Home = (props) => {
           <input
             type="text"
             placeholder="Enter Game Code"
-            value={gameCode}
-            onChange={(e) => setGameCode(e.target.value)}
+            value={inputGameCode}
+            onChange={(e) => setInputGameCode(e.target.value)}
           />
         </div>
-        <button
-          type="submit"
-          id="joinGameButton"
-          onClick={() => handleJoinGame()}
-        >
+        <button id="joinGameButton" onClick={() => handleJoinGame()}>
           Join Game
         </button>
       </div>

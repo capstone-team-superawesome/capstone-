@@ -7,40 +7,24 @@
 
 let users = [];
 
-module.exports = (io) =>{
-  io.on("connection" ,  (socket) =>{
-    socket.on("joinServer", (username) => {
-      const user = {
-        username,
-        id: socket.id,
-      };
-      users.push(user);
-      console.log("new client has connected :" + socket.id);
-      socket.emit("userList", users);
-
-
-      //take care of player leaving the room
-      socket.on("disconnect", () => {
-        // users = users.filter((user) => user.id !== socket.id);
-        users = users.shift();
-        io.emit("new user", users);
-        console.log("after disconnect", users)
-      });
-    });
-    
-    //joining the room
+module.exports = (io) => {
+  io.on("connection", (socket) => {
     socket.on("joinRoom", (roomName) => {
       socket.join(roomName);
+      console.log(
+        `a user has connected with id of ${socket.id} to room ${roomName}`
+      );
+      socket.on("drawing", ( data) => {
+        console.log(data)
+        const {roomName} = data;
+        // socket.to(roomName).emit("drawing", data);
+        socket.to(roomName).emit("drawing" , data)
+      });
     });
-    
-    //emitting the drawing event to only players inside the room
-    socket.on("drawing", (data, roomName) =>
-    socket.to(roomName).emit("drawing", data)
-    );
-    socket.on;
-    
-    
-  })
-  
-}
+    // socket.on("drawing", (data) => {
+    //   socket.emit("drawing", data);
+    // });
 
+    //emitting the drawing event to only players inside the room
+  });
+};

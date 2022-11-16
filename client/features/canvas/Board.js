@@ -49,8 +49,6 @@ const Board = () => {
       const canvasOffsetX = drawingContainer.offsetLeft;
       const canvasOffsetY = drawingContainer.offsetTop;
 
-      console.log(x0, y0);
-
       context.beginPath();
       context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
       context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
@@ -59,7 +57,6 @@ const Board = () => {
       context.stroke();
       context.closePath();
 
-      //emit is necessary for sending the
       if (!emit) {
         return;
       }
@@ -67,7 +64,8 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
-      const roomName =  gameCode ? gameCode : inputtedGameCode
+
+      const roomName = gameCode ? gameCode : inputtedGameCode;
 
       socketRef.current.emit("drawing", {
         x0: x0 / w,
@@ -75,7 +73,7 @@ const Board = () => {
         x1: x1 / w,
         y1: y1 / h,
         color,
-        roomName
+        roomName,
 
       });
     };

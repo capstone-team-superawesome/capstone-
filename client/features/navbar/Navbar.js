@@ -15,18 +15,32 @@ const Navbar = () => {
 
   return (
     <div>
-      <h1>Pictionary</h1>
+      <Link to="/home">
+        <h1 style={{ color: "black" }}>Pictionary</h1>
+      </Link>
       <div className="navbar">
         <nav>
           {isLoggedIn ? (
-            <div>
+            <span>
               {/* The navbar will show these links after you log in */}
+              <Link to="/profile">
+                <img
+                  style={{
+                    height: "40px",
+                    marginBottom: "-15px",
+                    borderRadius: "100px",
+                    border: "black solid 1px",
+                  }}
+                  src="https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png"
+                ></img>
+              </Link>
+              <Link to="/home">Home</Link>
               Welcome, {username} !<Link to="/home">Home</Link>
               <Link to="/canvas">Draw</Link>
               <button type="button" onClick={logoutAndRedirectHome}>
                 Logout
               </button>
-            </div>
+            </span>
           ) : (
             <div id="about">
               {/* The navbar will show these links before you log in */}

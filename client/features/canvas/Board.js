@@ -64,6 +64,7 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
+
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
       socketRef.current.emit("drawing", {
@@ -73,6 +74,7 @@ const Board = () => {
         y1: y1 / h,
         color,
         roomName,
+
       });
     };
 

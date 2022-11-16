@@ -5,6 +5,7 @@ import { logout } from "../../app/store";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const username = useSelector((state) => state.auth.me.username);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -34,6 +35,7 @@ const Navbar = () => {
                 ></img>
               </Link>
               <Link to="/home">Home</Link>
+              Welcome, {username} !<Link to="/home">Home</Link>
               <Link to="/canvas">Draw</Link>
               <button type="button" onClick={logoutAndRedirectHome}>
                 Logout

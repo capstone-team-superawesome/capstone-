@@ -37,6 +37,9 @@ const User = db.define("user", {
   bio: {
     type: Sequelize.STRING,
     defaultValue: "",
+  isDrawer: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
   },
 });
 

@@ -170,6 +170,7 @@ const Board = () => {
         ref={canvasRef}
         style={{
           border: "2px solid black",
+          borderRadius: "10px",
           paddingLeft: "0",
           paddingRight: "0",
           marginLeft: "auto",

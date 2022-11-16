@@ -14,12 +14,11 @@ const EditProfile = () => {
     "https://mymodernmet.com/wp/wp-content/uploads/2018/05/still-life-painting-4.jpg",
     "https://www.artlicity.com/wp-content/uploads/magictoolbox_cache/feec0ce93ed582c279c1c0e924581ec5/1/1/11086/original/1760357197/0805191401OC-Bodeg%C3%B3n-de-aguacate-.jpg",
     "https://www.shutterstock.com/blog/wp-content/uploads/sites/5/2021/09/Still-Life-Cover.jpg",
-    "https://www.artmajeur.com/medias/hd/s/e/sergey-miqayelya/artwork/13952039_received-383301439657402.jpg?v=1607627782",
+    "https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png",
   ];
 
   const profilePictureDropdown = () => {
     const profilePictures = document.getElementById("profilePicturePresets");
-    console.log(profilePictures.style.display);
     profilePictures.style.display == "none"
       ? (profilePictures.style.display = "block")
       : (profilePictures.style.display = "none");
@@ -38,35 +37,51 @@ const EditProfile = () => {
           }}
         >
           <section style={{ display: "inline", position: "relative" }}>
-            <img
+            <div
               style={{
-                height: "150px",
                 width: "150px",
+                height: "150px",
+                overflow: "hidden",
                 borderRadius: "100px",
                 border: "black solid 2px",
               }}
-              src={profileImage}
-            ></img>
-
-            <img
-              id="profilePictureEditIcon"
-              className="collapsible"
-              style={{
-                height: "25px",
-                position: "absolute",
-                bottom: "0",
-                right: "1",
-              }}
-              src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-              onClick={profilePictureDropdown}
-            ></img>
-            <div id="profilePicturePresets" className="content">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
+            >
+              <img
+                style={{
+                  display: "inline",
+                  margin: "0 auto",
+                  height: "100%",
+                  width: " auto",
+                }}
+                src={profileImage}
+              ></img>
+              <img
+                id="profilePictureEditIcon"
+                className="collapsible"
+                style={{
+                  height: "25px",
+                  position: "absolute",
+                  bottom: "0",
+                  right: "0",
+                }}
+                src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                onClick={profilePictureDropdown}
+              ></img>
+            </div>
+            <div
+              id="profilePicturePresets"
+              className="content"
+              style={{ display: "none" }}
+            >
+              {presetProfilePics.map((picture, index) => (
+                <img
+                  key={index}
+                  src={picture}
+                  style={{ height: "100px" }}
+                  onClick={(event) => setProfileImage(picture)}
+                  // ¡HEY! when the backend is done, change the user.profilePicture on the backend.
+                ></img>
+              ))}
             </div>
           </section>
           <div>

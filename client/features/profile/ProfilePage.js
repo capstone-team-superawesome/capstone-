@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Profile = () => {
-  const { username, profilePicture } = useSelector((state) => state.auth.me);
+  const { username, profilePicture, bio } = useSelector(
+    (state) => state.auth.me
+  );
 
   return (
     <div>
@@ -17,34 +20,54 @@ const Profile = () => {
           <section style={{ display: "inline", position: "relative" }}>
             <img
               style={{
-                height: "150px",
                 width: "150px",
                 borderRadius: "100px",
                 border: "black solid 2px",
               }}
               src={profilePicture}
             ></img>
-            <img
-              style={{
-                height: "25px",
-                position: "absolute",
-                bottom: "0",
-                right: "1",
-              }}
-              src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-            ></img>
+            <Link to="/editprofile">
+              <img
+                style={{
+                  height: "25px",
+                  position: "absolute",
+                  bottom: "0",
+                  right: "0",
+                }}
+                src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+              ></img>
+            </Link>
           </section>
           <div>
             <section>
               <h1 style={{ marginLeft: "100px" }}>{username}</h1>
             </section>
-            <section
+            <div
               style={{
-                marginLeft: "100px",
+                display: "inline",
+                position: "relative",
               }}
             >
-              bio
-            </section>
+              <textarea
+                style={{
+                  marginLeft: "100px",
+                  width: "500px",
+                }}
+                rows="7"
+                defaultValue="example bio"
+              ></textarea>
+              <Link to="/editprofile">
+                <img
+                  style={{
+                    height: "25px",
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                  }}
+                  src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+                ></img>
+              </Link>
+            </div>
           </div>
         </div>
         <section

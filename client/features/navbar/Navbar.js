@@ -18,7 +18,7 @@ const Navbar = () => {
         <h1 style={{ color: "black" }}>Pictionary</h1>
       </Link>
       <div className="navbar">
-        <nav style={{}}>
+        <nav>
           {isLoggedIn ? (
             <span>
               {/* The navbar will show these links after you log in */}

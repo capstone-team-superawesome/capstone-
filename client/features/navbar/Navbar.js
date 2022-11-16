@@ -34,9 +34,7 @@ const Navbar = () => {
                   src="https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png"
                 ></img>
               </Link>
-              <Link to="/home">Home</Link>
-              Welcome, {username} !<Link to="/home">Home</Link>
-              <Link to="/canvas">Draw</Link>
+              Welcome, {username}!<Link to="/home">Home</Link>
               <button type="button" onClick={logoutAndRedirectHome}>
                 Logout
               </button>

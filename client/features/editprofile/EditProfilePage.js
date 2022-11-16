@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { editUser } from "./EditProfilePageSlice";
 
 const EditProfile = () => {
-  const { username, email, profilePicture } = useSelector(
+  const { username, email, profilePicture, password, id, bio } = useSelector(
     (state) => state.auth.me
   );
-  const [bio, setBio] = useState("example bio!");
+  const dispatch = useDispatch();
+
+  const [updateBio, setUpdateBio] = useState(bio);
   const [updateEmail, setUpdateEmail] = useState(email);
+  const [updatePassword, setUpdatePassword] = useState(password);
   const [profileImage, setProfileImage] = useState(profilePicture);
 
   const presetProfilePics = [
@@ -24,7 +28,17 @@ const EditProfile = () => {
       : (profilePictures.style.display = "none");
   };
 
-  const updateInfo = (event) => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const userObj = {
+      id,
+      updateEmail,
+      updatePassword,
+      profileImage,
+      updateBio,
+    };
+    dispatch(editUser(userObj));
+  };
 
   return (
     <div>
@@ -96,10 +110,9 @@ const EditProfile = () => {
               rows="7"
               value={bio}
               onChange={(event) => setBio(event.target.value)}
-              onClick={updateInfo}
             ></textarea>
             <div>
-              <input
+              {/* <input
                 style={{
                   marginLeft: "100px",
                   marginTop: "10px",
@@ -107,18 +120,25 @@ const EditProfile = () => {
                 }}
                 value={updateEmail}
                 onChange={(event) => setUpdateEmail(event.target.value)}
-              ></input>
+              ></input> */}
+              <label htmlFor="email">Email: </label>
+              <input
+                name="email"
+                value={updateEmail}
+                onChange={(e) => setUpdateEmail(e.target.value)}
+                placeholder={updateEmail}
+              />
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                name="password"
+                onChange={(e) => setUpdatePassword(e.target.value)}
+                placeholder="Enter new password"
+              />
             </div>
+            <button onClick={handleSubmit}>Save</button>
           </div>
         </div>
-
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "2%",
-          }}
-        ></section>
       </div>
     </div>
   );

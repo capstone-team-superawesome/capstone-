@@ -6,6 +6,7 @@ const User = require("./models/User");
 const GameSession = require("./models/GameSession");
 const Score = require("./models/Score");
 const User_Gamesession = require("./models/User_Gamesession");
+const DrawingPrompt = require("./models/DrawingPrompt")
 
 //associations could go here!
 
@@ -23,5 +24,6 @@ module.exports = {
     User,
     GameSession,
     Score,
+    DrawingPrompt
   },
 };

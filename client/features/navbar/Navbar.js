@@ -6,6 +6,7 @@ import { logout } from "../../app/store";
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const username = useSelector((state) => state.auth.me.username);
+  const profilePic = useSelector((state) => state.auth.me.profilePicture);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -31,7 +32,7 @@ const Navbar = () => {
                     borderRadius: "100px",
                     border: "black solid 1px",
                   }}
-                  src="https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png"
+                  src={profilePic}
                 ></img>
               </Link>
               Welcome, {username}!<Link to="/home">Home</Link>

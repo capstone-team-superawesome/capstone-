@@ -13,7 +13,23 @@ const Board = () => {
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
 
-  //const [drawing, setDrawing] = useState(false);
+  //Timer
+  const [seconds, setSeconds] = useState(60);
+  const [startButton, setStartButton] = useState(false);
+
+  const startTimer = () => {
+    setInterval(() => {
+      setSeconds((seconds) => seconds - 1);
+    }, 1000);
+  };
+
+  const resetTimer = () => {
+    setSeconds(60);
+  };
+
+  // seconds >= 0 ?
+
+  useEffect(() => {});
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -61,16 +77,19 @@ const Board = () => {
         return;
       }
 
+
       const w = canvas.width;
       const h = canvas.height;
 
+
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
+      const { width, height } = canvas;
       socketRef.current.emit("drawing", {
-        x0: x0 / w,
-        y0: y0 / h,
-        x1: x1 / w,
-        y1: y1 / h,
+        x0: x0 / width,
+        y0: y0 / height,
+        x1: x1 / width,
+        y1: y1 / height,
         color,
         roomName,
       });
@@ -188,19 +207,38 @@ const Board = () => {
   // ------------- The Canvas and color elements --------------------------
   return (
     <div>
-      <div ref={colorsRef} className="colors">
-        <div className="color black" />
-        <div className="color red" />
-        <div className="color green" />
-        <div className="color blue" />
-        <div className="color yellow" />
+      <div style={{ display: "inline-block" }}>
+        <span ref={colorsRef} className="colors">
+          <div className="color black" />
+          <div className="color red" />
+          <div className="color green" />
+          <div className="color blue" />
+          <div className="color yellow" />
+        </span>
+        <span
+          style={{
+            backgroundColor: "lightgrey",
+            borderRadius: "50px",
+            height: "25px",
+          }}
+        >
+          {" "}
+          {seconds}{" "}
+        </span>
+        <span>
+          <button onClick={startTimer}>Start</button>
+        </span>
       </div>
-      <span>
+      <div>
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
+
+      </div>
+
         <div> {}</div>
       </span>
+
       <canvas
         id="container"
         ref={canvasRef}

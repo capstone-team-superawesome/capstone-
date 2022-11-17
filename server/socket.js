@@ -6,6 +6,7 @@
 // const io = socket(server);
 
 let users = [];
+let rooms = {};
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
@@ -14,11 +15,22 @@ module.exports = (io) => {
       console.log(
         `a user has connected with id of ${socket.id} to room ${roomName}`
       );
-      socket.on("drawing", ( data) => {
-        console.log(data)
-        const {roomName} = data;
+      let newUser = {
+        id: socket.id,
+      };
+      users.push(newUser);
+      socket.emit("new user", users);
+
+      //emit drawing to the room
+      socket.on("drawing", (data) => {
+        const { roomName } = data;
         // socket.to(roomName).emit("drawing", data);
-        socket.to(roomName).emit("drawing" , data)
+        socket.to(roomName).emit("drawing", data);
+      });
+
+      //listen for user disconnecting
+      socket.on("disconnect", () => {
+        socket.emit(`user with id : ${socket.id} has disconnected from server`);
       });
     });
     // socket.on("drawing", (data) => {

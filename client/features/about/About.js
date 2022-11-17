@@ -3,14 +3,14 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 function About() {
   return (
-    <div className="bg-black">
+    <div className="bg-red-800">
       <h1 id="about-us-title">About Us</h1>
       <div className="about-us-container">
         <div className="left-margin">
           <div>Emmanuel Cruz</div>
           <img src="" />
           <span> [Profile pic goes here]</span>
-          <p className="bg-blue-300 text-xl m-10">
+          <p className="bg-cyan-400 text-xl m-10">
             About you. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             Pellentesque luctus id ligula non pellentesque.
           </p>

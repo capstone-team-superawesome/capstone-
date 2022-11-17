@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editUser } from "./EditProfilePageSlice";
+import { editUser, fetchUser } from "../auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const EditProfile = () => {
   const { username, email, profilePicture, password, id, bio } = useSelector(
     (state) => state.auth.me
   );
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [updateBio, setUpdateBio] = useState(bio);
   const [updateEmail, setUpdateEmail] = useState(email);
@@ -38,6 +41,8 @@ const EditProfile = () => {
       updateBio,
     };
     dispatch(editUser(userObj));
+    //dispatch(fetchUser(id));
+    navigate("/profile");
   };
 
   return (
@@ -108,8 +113,8 @@ const EditProfile = () => {
                 width: "500px",
               }}
               rows="7"
-              value={bio}
-              onChange={(event) => setBio(event.target.value)}
+              value={updateBio}
+              onChange={(event) => setUpdateBio(event.target.value)}
             ></textarea>
             <div>
               {/* <input
@@ -136,7 +141,9 @@ const EditProfile = () => {
                 placeholder="Enter new password"
               />
             </div>
+            {/* <Link to="/profile"> */}{" "}
             <button onClick={handleSubmit}>Save</button>
+            {/* </Link> */}
           </div>
         </div>
       </div>

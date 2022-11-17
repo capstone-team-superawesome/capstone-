@@ -64,7 +64,6 @@ const Board = () => {
       const w = canvas.width;
       const h = canvas.height;
 
-
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
       socketRef.current.emit("drawing", {
@@ -74,7 +73,6 @@ const Board = () => {
         y1: y1 / h,
         color,
         roomName,
-
       });
     };
 
@@ -171,6 +169,13 @@ const Board = () => {
       socketRef.current.on("drawing", onDrawingEvent);
     }
 
+    //listen for new user event which sends room information
+    socketRef.current.on("new user", (users) => {
+      console.log(users);
+    });
+    socketRef.current.on("disconnect", (msg) => {
+      console.log(msg);
+    });
     //! ONLY ONE CAN DRAW ATM, LOOK INTO WHY
 
     // socketRef.current.on("drawing", (onDrawingEvent, gameCode));
@@ -194,6 +199,7 @@ const Board = () => {
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
+        <div> {}</div>
       </span>
       <canvas
         id="container"

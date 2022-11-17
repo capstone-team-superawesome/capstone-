@@ -15,11 +15,19 @@ const Navbar = () => {
 
   return (
     <div>
-      <Link to="/home">
+      {/* TODO: Incorporate link with logo */}
+      {/* <Link to="/home">
         <h1 style={{ color: "black" }}>Pictionary</h1>
-      </Link>
+      </Link> */}
       <div className="navbar">
-        <nav>
+        <nav class="relative container mx-auto p-6 bg-blue-500">
+          <div class="flex items-center justify-between">
+            <div class="pt-2">
+              <img src="img/logo.svg" alt="" />
+            </div>
+            {/* <!-- Menu Items --> */}
+            <div class="flex space-x-6"></div>
+          </div>
           {isLoggedIn ? (
             <span>
               {/* The navbar will show these links after you log in */}
@@ -34,7 +42,7 @@ const Navbar = () => {
                   src="https://www.booksie.com/files/profiles/22/mr-anonymous_230x230.png"
                 ></img>
               </Link>
-              Welcome, {username}!<Link to="/home">Home</Link>
+              Welcome, {username}!<Link to="/home"></Link>
               <button type="button" onClick={logoutAndRedirectHome}>
                 Logout
               </button>
@@ -42,8 +50,10 @@ const Navbar = () => {
           ) : (
             <div id="about">
               {/* The navbar will show these links before you log in */}
-              <Link to="/home">Home</Link>
-              <Link to="/about">About</Link>
+              <div class="grid justify-items-end hover:text-darkGrayishBlue">
+                <Link to="/home">Home</Link>
+                <Link to="/about">About Us</Link>
+              </div>
             </div>
           )}
         </nav>

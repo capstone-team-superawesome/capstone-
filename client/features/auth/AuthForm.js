@@ -36,7 +36,6 @@ const AuthForm = ({ name, displayName }) => {
         </p>
       </div>
       <div className="container-right" style={{ float: "right", width: "40%" }}>
-        <h1 id="signup-form">{name}</h1>
         <div>
           <form onSubmit={handleSubmit} name={name}>
             <label class="block">

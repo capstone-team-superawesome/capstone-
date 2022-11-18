@@ -22,7 +22,8 @@ module.exports = (io) => {
           id: socket.id,
         };
         users.push(newUser);
-        socket.emit("new user", users);
+        const host = users[0].id;
+        socket.emit("new user", { users, host });
 
         //emit drawing to the room
         socket.on("drawing", (data) => {

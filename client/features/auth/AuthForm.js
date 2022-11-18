@@ -35,7 +35,7 @@ const AuthForm = ({ name, displayName }) => {
           identify specific words from their teammates.
         </p>
       </div>
-      <div className="container-right" style={{ float: "right" }}>
+      <div className="container-right" style={{ float: "right", width: "40%" }}>
         <h1 id="signup-form">{name}</h1>
         <div>
           <form onSubmit={handleSubmit} name={name}>
@@ -43,17 +43,30 @@ const AuthForm = ({ name, displayName }) => {
               <label htmlFor="username">
                 <small className="input-name">Username</small>
               </label>
-              <input name="username" type="text" />
+              <input
+                class=" text-black py-2 px-4 rounded"
+                name="username"
+                type="text"
+              />
             </div>
             <div>
               <label htmlFor="password">
                 <small className="input-name">Password</small>
               </label>
-              <input name="password" type="password" />
+              <input
+                class=" text-black font-bold py-2 px-4 rounded"
+                name="password"
+                type="password"
+              />
             </div>
 
             <div>
-              <button type="submit">{displayName}</button>
+              <button
+                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+              >
+                {displayName}
+              </button>
             </div>
             {error && <div> {error} </div>}
           </form>

@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div >
+    <div>
       {/* TODO: Incorporate link with logo */}
       {/* <Link to="/home">
         <h1 style={{ color: "black" }}>Pictionary</h1>
@@ -51,7 +51,7 @@ const Navbar = () => {
           ) : (
             <div id="about">
               {/* The navbar will show these links before you log in */}
-              <div class="grid justify-items-end hover:text-darkGrayishBlue">
+              <div class="grid justify-items-end hover:text-veryLightGray">
                 <Link to="/home">Home</Link>
                 <Link to="/about">About Us</Link>
               </div>

@@ -16,11 +16,16 @@ const Board = () => {
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
 
+
+  //brush
+  const brushSizes = [5, 10, 32, 64];
+  let brushSize = 5;
   const navigate = useNavigate();
+
 
   //Timer
   const [seconds, setSeconds] = useState(60);
-  const [startButton, setStartButton] = useState(false);
+  //  const [startButton, setStartButton] = useState(false);
 
   const startTimer = () => {
     setInterval(() => {
@@ -28,13 +33,15 @@ const Board = () => {
     }, 1000);
   };
 
+  const brushHandler = (size) => {
+    console.log("size:", size);
+    brushSize = size;
+    console.log("brushSize:", brushSize);
+  };
+
   const resetTimer = () => {
     setSeconds(60);
   };
-
-  // seconds >= 0 ?
-
-  // useEffect(() => {});
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -67,23 +74,35 @@ const Board = () => {
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
       const drawingContainer = document.getElementById("container");
-      const canvasOffsetX = drawingContainer.offsetLeft;
-      const canvasOffsetY = drawingContainer.offsetTop;
+      const canvasOffsetX = drawingContainer.offsetLeft - scrollX;
+      const canvasOffsetY = drawingContainer.offsetTop - scrollY;
 
       context.beginPath();
-      context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
-      context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
-      context.strokeStyle = color;
-      context.lineWidth = 5;
+      if (brushSize <= 10) {
+        context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
+        context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
+        context.strokeStyle = color;
+        console.log("stroke-width", brushSize);
+        context.lineWidth = brushSize;
+      } else {
+        context.arc(
+          x0 - canvasOffsetX,
+          y0 - canvasOffsetY,
+          brushSize,
+          0,
+          2 * Math.PI,
+          false
+        );
+        context.fillStyle = color;
+        context.strokeStyle = color;
+      }
+      context.fill();
       context.stroke();
       context.closePath();
 
       if (!emit) {
         return;
       }
-
-      const w = canvas.width;
-      const h = canvas.height;
 
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
@@ -156,13 +175,13 @@ const Board = () => {
     canvas.addEventListener("mousedown", onMouseDown, false);
     canvas.addEventListener("mouseup", onMouseUp, false);
     canvas.addEventListener("mouseout", onMouseUp, false);
-    canvas.addEventListener("mousemove", throttle(onMouseMove, 10), false);
+    canvas.addEventListener("mousemove", throttle(onMouseMove, 0.001), false);
 
     // Touch support for mobile devices
     canvas.addEventListener("touchstart", onMouseDown, false);
     canvas.addEventListener("touchend", onMouseUp, false);
     canvas.addEventListener("touchcancel", onMouseUp, false);
-    canvas.addEventListener("touchmove", throttle(onMouseMove, 10), false);
+    canvas.addEventListener("touchmove", throttle(onMouseMove, 1), false);
 
     // -------------- make the canvas fill its parent component -----------------
 
@@ -227,12 +246,30 @@ const Board = () => {
           <div className="color green" />
           <div className="color blue" />
           <div className="color yellow" />
+          <div className="color white" />
+        </span>
+        <span style={{ marginLeft: "40px" }}>
+          {brushSizes.map((size) => (
+            <span
+              key={size}
+              onClick={() => brushHandler(size)}
+              style={{
+                height: `${size}px`,
+                width: `${size}px`,
+                backgroundColor: "#949494",
+                borderRadius: "50%",
+                display: "inline-block",
+                marginRight: "15px",
+              }}
+            ></span>
+          ))}
         </span>
         <span
           style={{
             backgroundColor: "lightgrey",
             borderRadius: "50px",
             height: "25px",
+            marginLeft: "200px",
           }}
         >
           {" "}

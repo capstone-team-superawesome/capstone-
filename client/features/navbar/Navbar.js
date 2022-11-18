@@ -15,13 +15,13 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div >
       {/* TODO: Incorporate link with logo */}
       {/* <Link to="/home">
         <h1 style={{ color: "black" }}>Pictionary</h1>
       </Link> */}
       <div className="navbar">
-        <nav class="relative container mx-auto p-6 bg-blue-500">
+        <nav class="relative p-6 bg-blue-400">
           <div class="flex items-center justify-between">
             <div class="pt-2">
               <img src="img/logo.svg" alt="" />

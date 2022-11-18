@@ -545,10 +545,6 @@ video {
 .m-10 {
   margin: 2.5rem;
 }
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
 .block {
   display: block;
 }
@@ -607,9 +603,12 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(34 211 238 / var(--tw-bg-opacity));
 }
-.bg-blue-500 {
+.bg-blue-400 {
   --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+  background-color: rgb(96 165 250 / var(--tw-bg-opacity));
+}
+.bg-pictbg {
+  background-image: url('/img/pictbg.svg');
 }
 .p-6 {
   padding: 1.5rem;

@@ -10,29 +10,35 @@ let rooms = {};
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
-    socket.on("joinRoom", (roomName) => {
-      socket.join(roomName);
-      console.log(
-        `a user has connected with id of ${socket.id} to room ${roomName}`
-      );
-      let newUser = {
-        id: socket.id,
-      };
-      users.push(newUser);
-      socket.emit("new user", users);
+    if (users.length > 1) {
+      socket.emit("refuse_connection");
+    } else {
+      socket.on("joinRoom", (roomName) => {
+        socket.join(roomName);
+        console.log(
+          `a user has connected with id of ${socket.id} to room ${roomName}`
+        );
+        let newUser = {
+          id: socket.id,
+        };
+        users.push(newUser);
+        socket.emit("new user", users);
 
-      //emit drawing to the room
-      socket.on("drawing", (data) => {
-        const { roomName } = data;
-        // socket.to(roomName).emit("drawing", data);
-        socket.to(roomName).emit("drawing", data);
-      });
+        //emit drawing to the room
+        socket.on("drawing", (data) => {
+          const { roomName } = data;
+          // socket.to(roomName).emit("drawing", data);
+          socket.to(roomName).emit("drawing", data);
+        });
 
-      //listen for user disconnecting
-      socket.on("disconnect", () => {
-        socket.emit(`user with id : ${socket.id} has disconnected from server`);
+        //listen for user disconnecting
+        socket.on("disconnect", () => {
+          // socket.emit(`user with id : ${socket.id} has disconnected from server`);
+          users = users.filter((user) => user.id !== socket.id);
+          io.emit("new user", users);
+        });
       });
-    });
+    }
     // socket.on("drawing", (data) => {
     //   socket.emit("drawing", data);
     // });

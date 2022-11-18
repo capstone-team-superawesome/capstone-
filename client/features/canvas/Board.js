@@ -2,7 +2,10 @@ import { useSelector } from "react-redux";
 
 import React, { useRef, useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import io from "socket.io-client";
+import socket from "../../../server/socket";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -13,9 +16,12 @@ const Board = () => {
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
 
+
   //brush
   const brushSizes = [5, 10, 32, 64];
   let brushSize = 5;
+  const navigate = useNavigate();
+
 
   //Timer
   const [seconds, setSeconds] = useState(60);
@@ -208,6 +214,16 @@ const Board = () => {
     socketRef.current.on("new user", (users) => {
       console.log(users);
     });
+
+    socketRef.current.on("refuse_connection", () => {
+      console.log("HELLOOOOOOOOOO");
+      
+      navigate("/home");
+      alert("Gameroom is full, try a different code");
+    });
+
+    // socket.current = io.disconnect("/")
+
     socketRef.current.on("disconnect", (msg) => {
       console.log(msg);
     });

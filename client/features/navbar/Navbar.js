@@ -48,10 +48,20 @@ const Navbar = () => {
             <div class="flex space-x-6 w-3/5 justify-items-end" id="about">
               {/* The navbar will show these links before you log in */}
               <Link to="/home" class="hover:text-veryLightGray">
-                Home
+                <a
+                  href="#responsive-header"
+                  class="font-serif block mt-4 lg:inline-block lg:mt-0 text-zinc-900 hover:text-white mr-4"
+                >
+                  Home
+                </a>
               </Link>
               <Link to="/about" class="hover:text-veryLightGray mr-1">
-                About Us
+                <a
+                  href="#responsive-header"
+                  class="font-serif block mt-4 lg:inline-block lg:mt-0 text-zinc-900 hover:text-white mr-4"
+                >
+                  About Us
+                </a>
               </Link>
             </div>
           )}

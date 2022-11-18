@@ -24,8 +24,12 @@ const AuthForm = ({ name, displayName }) => {
   return (
     <div style={{ width: "100%" }}>
       <div className="container-left" style={{ float: "left", width: "40%" }}>
-        <h1 id="game-title">What is Pictionary?</h1>
         <p class="font-serif">
+          {" "}
+          <h1 id="game-title">What is Pictionary?</h1>
+        </p>
+
+        <p class="font-serif text-teal-500">
           Pictionary is a charades-inspired word-guessing game invented by
           Robert Angel with graphic design by Gary Everson and first published
           in 1985 by Angel Games Inc. Angel Games licensed Pictionary to Western
@@ -39,7 +43,7 @@ const AuthForm = ({ name, displayName }) => {
         <div>
           <form onSubmit={handleSubmit} name={name}>
             <label class="block">
-              <span class="block text-sm font-medium text-slate-700">
+              <span class="block text-sm font-serif text-slate-700">
                 Username
               </span>
               <div>
@@ -55,7 +59,7 @@ const AuthForm = ({ name, displayName }) => {
                 />
               </div>
               <div>
-                <span class="block text-sm font-medium text-slate-700">
+                <span class="block text-sm font-serif text-slate-700">
                   Password
                 </span>
                 <input
@@ -71,7 +75,7 @@ const AuthForm = ({ name, displayName }) => {
 
             <div>
               <button
-                class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded"
+                class="bg-blue-400 hover:bg-blue-500 text-white font-serif py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded"
                 type="submit"
               >
                 {displayName}
@@ -81,11 +85,16 @@ const AuthForm = ({ name, displayName }) => {
           </form>
           {name === "login" ? (
             <p id="form-option">
-              Not a member? <Link to="/signup">Sign up</Link>
+              <span class="block text-sm font-serif text-slate-700">
+                Not a member? <Link to="/signup">Sign up</Link>
+              </span>
             </p>
           ) : (
             <p id="form-option">
-              Already a member? <Link to="/login">Log in</Link>
+              <span class="block text-sm font-serif text-slate-700">
+                {" "}
+                Already a member? <Link to="/login">Log in</Link>
+              </span>
             </p>
           )}
         </div>

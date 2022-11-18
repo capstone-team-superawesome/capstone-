@@ -25,7 +25,7 @@ const AuthForm = ({ name, displayName }) => {
     <div style={{ width: "100%" }}>
       <div className="container-left" style={{ float: "left", width: "40%" }}>
         <h1 id="game-title">What is Pictionary?</h1>
-        <p>
+        <p class="font-serif">
           Pictionary is a charades-inspired word-guessing game invented by
           Robert Angel with graphic design by Gary Everson and first published
           in 1985 by Angel Games Inc. Angel Games licensed Pictionary to Western
@@ -45,9 +45,9 @@ const AuthForm = ({ name, displayName }) => {
               <div>
                 <input
                   name="username"
-                  // type="text"
+                  type="text"
                   // if username is not valid email invalied will trigger color change
-                  type="email"
+                  // type="email"
                   class="mt-1 block w-full px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
       invalid:border-pink-500 invalid:text-pink-600

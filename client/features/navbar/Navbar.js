@@ -15,22 +15,18 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      {/* TODO: Incorporate link with logo */}
-      {/* <Link to="/home">
-        <h1 style={{ color: "black" }}>Pictionary</h1>
-      </Link> */}
-      <div className="navbar">
-        <nav class="relative p-6 bg-blue-400">
-          <div class="flex items-center justify-between">
-            <div class="pt-2">
-              <img src="img/logo.svg" alt="" />
-            </div>
-            {/* <!-- Menu Items --> */}
-            <div class="flex space-x-6"></div>
+    <div className="navbar">
+      <nav class="relative p-2 bg-blue-400">
+        <div class="flex items-center justify-between">
+          <div class="w-2/5">
+            <Link to="/home">
+              <img src="img/logo.svg " class="w-full" />
+            </Link>
           </div>
+
+          {/* <!-- Menu Items --> */}
           {isLoggedIn ? (
-            <span>
+            <div class="flex space-x-6 w-3/5 justify-items-end">
               {/* The navbar will show these links after you log in */}
               <Link to="/profile">
                 <img
@@ -41,25 +37,26 @@ const Navbar = () => {
                     border: "black solid 1px",
                   }}
                   src={profilePic}
-                ></img>
+                />
               </Link>
-              Welcome, {username}!<Link to="/home"></Link>
+              <span>Welcome, {username}!</span>
               <button type="button" onClick={logoutAndRedirectHome}>
                 Logout
               </button>
-            </span>
+            </div>
           ) : (
-            <div id="about">
+            <div class="flex space-x-6 w-3/5 justify-items-end" id="about">
               {/* The navbar will show these links before you log in */}
-              <div class="grid justify-items-end hover:text-veryLightGray">
-                <Link to="/home">Home</Link>
-                <Link to="/about">About Us</Link>
-              </div>
+              <Link to="/home" class="hover:text-veryLightGray">
+                Home
+              </Link>
+              <Link to="/about" class="hover:text-veryLightGray mr-1">
+                About Us
+              </Link>
             </div>
           )}
-        </nav>
-        <hr />
-      </div>
+        </div>
+      </nav>
     </div>
   );
 };

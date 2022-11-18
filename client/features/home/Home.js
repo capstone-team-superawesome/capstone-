@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { makeGameCode, updateInputtedGameCode } from "../../app/store";
+import socket from "../../../server/socket";
 const clientSocket = io(window.location.origin);
 /**
  * COMPONENT
@@ -29,6 +30,11 @@ const Home = (props) => {
     //clientSocket.emit("joinRoom", inputGameCode); //need to verify if inputGameCode exists
     navigate("/canvas");
   };
+
+  // clientSocket.on("refuse_connection", () => {
+  //   console.log("HELLOOOOOOOOOO")
+  //   navigate("/home");
+  // });
 
   return (
     <div id="initialScreen">

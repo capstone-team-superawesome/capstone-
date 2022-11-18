@@ -15,13 +15,12 @@ const Board = () => {
   const username = useSelector((state) => state.auth.me.username);
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
-
+  const isDrawer = useSelector((state) => state.auth.me.isDrawer);
 
   //brush
   const brushSizes = [5, 10, 32, 64];
   let brushSize = 5;
   const navigate = useNavigate();
-
 
   //Timer
   const [seconds, setSeconds] = useState(60);
@@ -211,13 +210,15 @@ const Board = () => {
     }
 
     //listen for new user event which sends room information
-    socketRef.current.on("new user", (users) => {
-      console.log(users);
+    socketRef.current.on("new user", ({ users, host }) => {
+      console.log("users : ", users, "host : ", host);
+      //check if the user is a host (he can draw)
+      //emit('draw' )
     });
 
     socketRef.current.on("refuse_connection", () => {
       console.log("HELLOOOOOOOOOO");
-      
+
       navigate("/home");
       alert("Gameroom is full, try a different code");
     });
@@ -285,18 +286,40 @@ const Board = () => {
         </div>
       </div>
 
-      <canvas
-        id="container"
-        ref={canvasRef}
-        style={{
-          border: "2px solid black",
-          paddingLeft: "0",
-          paddingRight: "0",
-          marginLeft: "auto",
-          marginRight: "auto",
-          display: "block",
-        }}
-      />
+      {isDrawer ? (
+        <div className="canvas-wrapper">
+          <canvas
+            id="container"
+            ref={canvasRef}
+            style={{
+              border: "2px solid black",
+              paddingLeft: "0",
+              paddingRight: "0",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+            }}
+          />
+        </div>
+      ) : (
+        <div
+          className="canvas-wrapper"
+          style={{ cursor: "not-allowed", pointerEvents: "none" }}
+        >
+          <canvas
+            id="container"
+            ref={canvasRef}
+            style={{
+              border: "2px solid black",
+              paddingLeft: "0",
+              paddingRight: "0",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 };

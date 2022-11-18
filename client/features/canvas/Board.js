@@ -77,10 +77,8 @@ const Board = () => {
         return;
       }
 
-
       const w = canvas.width;
       const h = canvas.height;
-
 
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
@@ -233,11 +231,7 @@ const Board = () => {
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
-
       </div>
-
-        <div> {}</div>
-      </span>
 
       <canvas
         id="container"

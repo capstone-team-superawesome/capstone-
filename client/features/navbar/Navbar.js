@@ -16,9 +16,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <nav class="relative p-2 bg-blue-400">
+      <nav class="relative p-6 md:container md:mx-auto px-4 bg-gradient-to-r from-cyan-400 to-blue-500">
         <div class="flex items-center justify-between">
-          <div class="w-2/5">
+          <div class="w-2/5  ">
             <Link to="/home">
               <img src="img/logo.svg " class="w-full" />
             </Link>

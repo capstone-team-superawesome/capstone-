@@ -91,7 +91,7 @@ const AuthForm = ({ name, displayName }) => {
             </p>
           ) : (
             <p id="form-option">
-              <span class="block text-sm font-serif text-slate-700">
+              <span class="block text-sm font-seriftext-slate-700">
                 {" "}
                 Already a member? <Link to="/login">Log in</Link>
               </span>

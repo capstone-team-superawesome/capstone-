@@ -21,11 +21,9 @@ const HomeSlice = createSlice({
       }
       window.localStorage.setItem("gameCode", result);
       state.createdGameCode = result;
-      // return state.createdGameCode;
     },
     updateInputtedGameCode: (state, action) => {
       state.inputtedGameCode = action.payload;
-      // return state.inputtedGameCode;
     },
   },
 });

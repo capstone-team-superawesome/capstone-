@@ -59,6 +59,10 @@ form div {
   background-color: yellow;
 }
 
+.color.white {
+  background-color: rgb(255, 255, 255);
+}
+
 .navbar {
   text-align: right;
 }

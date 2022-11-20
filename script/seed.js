@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User },
+  models: { User, DrawingPrompt },
 } = require("../server/db");
 
 /**
@@ -27,6 +27,196 @@ async function seed() {
       email: "murphy@gmail.com",
       isAdmin: false,
     }),
+  ]);
+
+  const prompts = await Promise.all([
+    DrawingPrompt.create({
+      word: "cat",
+    }),
+    DrawingPrompt.create({
+      word: "dog",
+    }),
+    DrawingPrompt.create({
+      word: "house",
+    }),
+    DrawingPrompt.create({
+      word: "shoes",
+    }),
+    DrawingPrompt.create({
+      word: "pants",
+    }),
+    DrawingPrompt.create({
+      word: "fish",
+    }),
+    DrawingPrompt.create({
+      word: "laptop",
+    }),
+    DrawingPrompt.create({
+      word: "basketball",
+    }),
+    DrawingPrompt.create({
+      word: "boat",
+    }),
+    DrawingPrompt.create({
+      word: "sun",
+    }),
+    DrawingPrompt.create({
+      word: "sofa",
+    }),
+    DrawingPrompt.create({
+      word: "pizza",
+    }),
+    DrawingPrompt.create({
+      word: "javascript",
+    }),
+    DrawingPrompt.create({
+      word: "earth",
+    }),
+    DrawingPrompt.create({
+      word: "apple",
+    }),
+    DrawingPrompt.create({
+      word: "pumpkin",
+    }),
+    DrawingPrompt.create({
+      word: "turkey",
+    }),
+    DrawingPrompt.create({
+      word: "tree",
+    }),
+    DrawingPrompt.create({
+      word: "horse",
+    }),
+    DrawingPrompt.create({
+      word: "mountain",
+    }),
+    DrawingPrompt.create({
+      word: "moon",
+    }),
+    DrawingPrompt.create({
+      word: "star",
+    }),
+    DrawingPrompt.create({
+      word: "shark",
+    }),
+    DrawingPrompt.create({
+      word: "dinosaur",
+    }),
+    DrawingPrompt.create({
+      word: "chicken",
+    }),
+    DrawingPrompt.create({
+      word: "slide",
+    }),
+    DrawingPrompt.create({
+      word: "car",
+    }),
+    DrawingPrompt.create({
+      word: "plane",
+    }),
+    DrawingPrompt.create({
+      word: "helicopter",
+    }),
+    DrawingPrompt.create({
+      word: "cheese",
+    }),
+    DrawingPrompt.create({
+      word: "book",
+    }),
+    DrawingPrompt.create({
+      word: "train",
+    }),
+    DrawingPrompt.create({
+      word: "school",
+    }),
+    DrawingPrompt.create({
+      word: "baseball",
+    }),
+    DrawingPrompt.create({
+      word: "cloud",
+    }),
+    DrawingPrompt.create({
+      word: "balloon",
+    }),
+    DrawingPrompt.create({
+      word: "sunflower",
+    }),
+    DrawingPrompt.create({
+      word: "rose",
+    }),
+    DrawingPrompt.create({
+      word: "guitar",
+    }),
+    DrawingPrompt.create({
+      word: "flashlight",
+    }),
+    DrawingPrompt.create({
+      word: "ruler",
+    }),
+    DrawingPrompt.create({
+      word: "piano",
+    }),
+    DrawingPrompt.create({
+      word: "keyboard",
+    }),
+    DrawingPrompt.create({
+      word: "hourglass",
+    }),
+    DrawingPrompt.create({
+      word: "mask",
+    }),
+    DrawingPrompt.create({
+      word: "earrings",
+    }),
+    DrawingPrompt.create({
+      word: "rake",
+    }),
+    DrawingPrompt.create({
+      word: "mirror",
+    }),
+    DrawingPrompt.create({
+      word: "volcano",
+    }),
+    DrawingPrompt.create({
+      word: "music",
+    }),
+    // DrawingPrompt.create({
+    //   word: "fencing",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "swimming",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "dancing",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "running",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "laughing",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "hiking",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "crying",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "hiding",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "fishing",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "cooking",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "throwing",
+    // }),
+    // DrawingPrompt.create({
+    //   word: "sleeping",
+    // }),
+   
   ]);
 
   console.log(`seeded ${users.length} users`);

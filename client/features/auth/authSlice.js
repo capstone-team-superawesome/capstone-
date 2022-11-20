@@ -79,6 +79,34 @@ export const fetchUser = createAsyncThunk("fetchUser", async (id) => {
   }
 });
 
+export const updateDrawerTrue = createAsyncThunk(
+  "updateDrawerTrue",
+  async (id) => {
+    try {
+      const { data } = await axios.put(`api/users/${id}/updateDrawer`, {
+        isDrawer: true,
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const updateDrawerFalse = createAsyncThunk(
+  "updateDrawerFalse",
+  async (id) => {
+    try {
+      const { data } = await axios.put(`api/users/${id}/updateDrawer`, {
+        isDrawer: false,
+      });
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 /*
   SLICE
 */
@@ -109,6 +137,12 @@ export const authSlice = createSlice({
       state.me = action.payload;
     });
     builder.addCase(fetchUser.fulfilled, (state, action) => {
+      state.me = action.payload;
+    });
+    builder.addCase(updateDrawerTrue.fulfilled, (state, action) => {
+      state.me = action.payload;
+    });
+    builder.addCase(updateDrawerFalse.fulfilled, (state, action) => {
       state.me = action.payload;
     });
   },

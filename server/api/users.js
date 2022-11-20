@@ -30,7 +30,16 @@ router.get("/:id", async (req, res, next) => {
 // api/users/edit - edit user
 router.put("/:id", async (req, res, next) => {
   try {
-    console.log("body", req.body);
+    const user = await User.findByPk(req.params.id);
+    await user.update(req.body);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/:id/updateDrawer", async (req, res, next) => {
+  try {
     const user = await User.findByPk(req.params.id);
     await user.update(req.body);
     res.json(user);

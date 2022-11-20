@@ -2,7 +2,7 @@ import React from "react";
 
 const Info = () => {
   return (
-    <div className="container-left" style={{ float: "left", width: "40%" }}>
+    <div class="bg-gray-300 mx-auto my-10 p-10 rounded-2xl w-1/2">
       <p class="font-serif">
         <h1 id="game-title">What is Pictionary?</h1>
       </p>

@@ -239,7 +239,7 @@ const Board = () => {
 
   // ------------- The Canvas and color elements --------------------------
   return (
-    <div>
+    <div class="bg-gray-300 m-10 p-10 rounded-2xl">
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />

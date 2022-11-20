@@ -8,7 +8,7 @@ const App = () => {
     <div>
       <img
         src="/img/pictbg.png"
-        class="absolute w-full custom-bg-z-index bg-repeat-y"
+        class="absolute w-full h-screen custom-bg-z-index bg-repeat-y"
       />
       <Navbar />
       <AppRoutes />

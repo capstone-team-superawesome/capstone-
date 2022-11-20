@@ -15,41 +15,80 @@ const Navbar = () => {
   };
 
   return (
-    <div>
-      <Link to="/home">
-        <h1 style={{ color: "black" }}>Pictionary</h1>
-      </Link>
-      <div className="navbar">
-        <nav>
-          {isLoggedIn ? (
-            <span>
-              {/* The navbar will show these links after you log in */}
-              <Link to="/profile">
-                <img
-                  style={{
-                    height: "40px",
-                    marginBottom: "-15px",
-                    borderRadius: "100px",
-                    border: "black solid 1px",
-                  }}
-                  src={profilePic}
-                ></img>
-              </Link>
-              Welcome, {username}!<Link to="/home">Home</Link>
-              <button type="button" onClick={logoutAndRedirectHome}>
-                Logout
-              </button>
-            </span>
-          ) : (
-            <div id="about">
-              {/* The navbar will show these links before you log in */}
-              <Link to="/home">Home</Link>
-              <Link to="/about">About</Link>
-            </div>
-          )}
-        </nav>
-        <hr />
-      </div>
+    <div className="navbar">
+      <nav class="bg-gradient-to-r from-cyan-400 to-blue-500">
+        <div class="flex items-center justify-between px-4">
+          <div class="w-1/4">
+            <Link to="/home">
+              <img src="img/Pictionary-Logo.png " class="w-full" />
+            </Link>
+          </div>
+          {/* <!-- Menu Items --> */}
+          <div class="flex space-x-2 w-3/4 justify-end">
+            <Link
+              to="/home"
+              class="hover:text-veryLightGray font-serif text-zinc-900"
+            >
+              Home
+            </Link>
+            <Link
+              to="/info"
+              class="hover:text-veryLightGray font-serif text-zinc-900"
+            >
+              Info
+            </Link>
+            <Link
+              to="/about"
+              class="hover:text-veryLightGray font-serif text-zinc-900"
+            >
+              About Us
+            </Link>
+
+            {isLoggedIn ? (
+              <>
+                {/* The navbar will show these links after you log in */}
+                <Link
+                  to="/profile"
+                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                >
+                  Profile
+                  {/* <img
+                    style={{
+                      height: "40px",
+                      marginBottom: "-15px",
+                      borderRadius: "100px",
+                      border: "black solid 1px",
+                    }}
+                    src={profilePic}
+                  /> */}
+                </Link>
+                <button
+                  type="button"
+                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                  onClick={logoutAndRedirectHome}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  class="hover:text-veryLightGray font-serif  text-zinc-900 "
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
     </div>
   );
 };

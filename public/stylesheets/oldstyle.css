@@ -56,18 +56,6 @@ nav a {
   background-color: yellow;
 }
 
-.custom-auth-container {
-  width: 300px;
-  align-items: center;
-  margin: 50px auto;
-  padding: 20px 10px;
-  letter-spacing: 1px;
-  background-color: #989898;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-}
-
 #signup-form {
   text-align: center;
 }
@@ -95,18 +83,21 @@ input {
 }
 
 .about-us-container {
-  display: grid;
+  /* display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 1fr;
   text-align: center;
-  padding: 20px;
-}
-
-#about-us-title {
+  padding: 10px; */
+  display: flex;
+  flex-direction: row;
   text-align: center;
+  padding: 10px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 20px;
 }
 
-.paragraph {
+/* .paragraph {
   flex-wrap: wrap;
 }
 
@@ -116,15 +107,31 @@ input {
 
 .right-margin {
   margin-right: 100px;
-}
+} */
 
-.middle-margin {
+/* .middle-margin {
   margin-left: 50px;
   margin-right: 50px;
-}
+} */
 
 /* All new non tailwind classes will start with custom */
 .custom-bg-z-index {
   z-index: -5;
   object-fit: cover;
+}
+
+.custom-single-about {
+  width: 250px;
+}
+
+.custom-auth-container {
+  width: 300px;
+  align-items: center;
+  margin: 50px auto;
+  padding: 20px 10px;
+  letter-spacing: 1px;
+  background-color: rgb(209 213 219);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
 }

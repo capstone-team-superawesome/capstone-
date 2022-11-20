@@ -548,15 +548,6 @@ video {
 .mt-1 {
   margin-top: 0.25rem;
 }
-.mt-4 {
-  margin-top: 1rem;
-}
-.mr-4 {
-  margin-right: 1rem;
-}
-.mr-1 {
-  margin-right: 0.25rem;
-}
 .block {
   display: block;
 }
@@ -584,11 +575,11 @@ video {
 .w-full {
   width: 100%;
 }
-.w-2\/5 {
-  width: 40%;
+.w-1\/4 {
+  width: 25%;
 }
-.w-3\/5 {
-  width: 60%;
+.w-3\/4 {
+  width: 75%;
 }
 .shrink {
   flex-shrink: 1;
@@ -611,13 +602,13 @@ video {
 .justify-between {
   justify-content: space-between;
 }
-.justify-items-end {
-  justify-items: end;
+.gap-5 {
+  gap: 1.25rem;
 }
-.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+.space-x-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
-  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
-  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .rounded-md {
   border-radius: 0.375rem;
@@ -655,14 +646,6 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(96 165 250 / var(--tw-bg-opacity));
 }
-.bg-slate-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
-}
-.bg-red-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
-}
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -686,8 +669,15 @@ video {
 .bg-no-repeat {
   background-repeat: no-repeat;
 }
+.bg-repeat-y {
+  background-repeat: repeat-y;
+}
 .p-96 {
   padding: 24rem;
+}
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 .px-3 {
   padding-left: 0.75rem;
@@ -800,10 +790,6 @@ video {
   --tw-text-opacity: 1;
   color: hsl(0 0% 98% / var(--tw-text-opacity));
 }
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
 .focus\:border-sky-500:focus {
   --tw-border-opacity: 1;
   border-color: rgb(14 165 233 / var(--tw-border-opacity));
@@ -828,14 +814,4 @@ video {
 .focus\:invalid\:ring-pink-500:invalid:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(236 72 153 / var(--tw-ring-opacity));
-}
-@media (min-width: 1024px) {
-
-  .lg\:mt-0 {
-    margin-top: 0px;
-  }
-
-  .lg\:inline-block {
-    display: inline-block;
-  }
 }

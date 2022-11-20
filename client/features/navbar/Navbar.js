@@ -18,13 +18,13 @@ const Navbar = () => {
     <div className="navbar">
       <nav class="bg-gradient-to-r from-cyan-400 to-blue-500">
         <div class="flex items-center justify-between px-4">
-          <div class="w-2/5">
+          <div class="w-1/4">
             <Link to="/home">
-              <img src="img/logo.svg " class="w-full" />
+              <img src="img/Pictionary-Logo.png " class="w-full" />
             </Link>
           </div>
           {/* <!-- Menu Items --> */}
-          <div class="flex space-x-2 w-3/5 justify-end">
+          <div class="flex space-x-2 w-3/4 justify-end">
             <Link
               to="/home"
               class="hover:text-veryLightGray font-serif text-zinc-900"

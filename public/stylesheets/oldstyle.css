@@ -15,11 +15,6 @@ nav a {
   margin: 1em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -61,25 +56,18 @@ form div {
   background-color: yellow;
 }
 
-/* .navbar {
-  text-align: right;
-} */
-
-.container-right {
-  height: 500px;
-  width: 500px;
+.custom-auth-container {
+  width: 300px;
   align-items: center;
-  margin: 100px;
-  border: 0;
-  color: white;
-  padding: 10px;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 0.7em;
+  margin: 50px auto;
+  padding: 20px 10px;
   letter-spacing: 1px;
   background-color: #989898;
-  outline: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
 }
+
 #signup-form {
   text-align: center;
 }
@@ -133,4 +121,10 @@ input {
 .middle-margin {
   margin-left: 50px;
   margin-right: 50px;
+}
+
+/* All new non tailwind classes will start with custom */
+.custom-bg-z-index {
+  z-index: -5;
+  object-fit: cover;
 }

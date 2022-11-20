@@ -1,4 +1,4 @@
-/* body {
+body {
   font-family: sans-serif;
 }
 
@@ -61,9 +61,9 @@ form div {
   background-color: yellow;
 }
 
-.navbar {
+/* .navbar {
   text-align: right;
-}
+} */
 
 .container-right {
   height: 500px;
@@ -133,4 +133,4 @@ input {
 .middle-margin {
   margin-left: 50px;
   margin-right: 50px;
-} */
+}

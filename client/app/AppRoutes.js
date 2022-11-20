@@ -8,6 +8,7 @@ import Board from "../features/canvas/Board";
 import About from "../features/about/About";
 import Profile from "../features/profile/ProfilePage";
 import EditProfile from "../features/editprofile/EditProfilePage";
+import Info from "../features/About/Info";
 
 /**
  * COMPONENT
@@ -23,31 +24,35 @@ const AppRoutes = () => {
 
   return (
     <div>
-      {isLoggedIn ? (
-        <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-          <Route path="/canvas" element={<Board />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/editprofile" element={<EditProfile />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route
-            path="/*"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/login"
-            element={<AuthForm name="login" displayName="Login" />}
-          />
-          <Route
-            path="/signup"
-            element={<AuthForm name="signup" displayName="Sign Up" />}
-          />
-          <Route path="/about" element={<About />} />
-        </Routes>
-      )}
+      <Routes>
+        <Route to="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/info" element={<Info />} />
+        {isLoggedIn ? (
+          <>
+            <Route path="/*" element={<Home />} />
+
+            <Route path="/canvas" element={<Board />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/editprofile" element={<EditProfile />} />
+          </>
+        ) : (
+          <>
+            <Route
+              path="/*"
+              element={<AuthForm name="login" displayName="Login" />}
+            />
+            <Route
+              path="/login"
+              element={<AuthForm name="login" displayName="Login" />}
+            />
+            <Route
+              path="/signup"
+              element={<AuthForm name="signup" displayName="Sign Up" />}
+            />
+          </>
+        )}
+      </Routes>
     </div>
   );
 };

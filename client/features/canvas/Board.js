@@ -1,18 +1,13 @@
 import { useSelector } from "react-redux";
-
 import React, { useRef, useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import io from "socket.io-client";
-import socket from "../../../server/socket";
 
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
-  const username = useSelector((state) => state.auth.me.username);
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
@@ -24,7 +19,6 @@ const Board = () => {
 
   //Timer
   const [seconds, setSeconds] = useState(60);
-  //  const [startButton, setStartButton] = useState(false);
 
   const startTimer = () => {
     setInterval(() => {
@@ -33,9 +27,7 @@ const Board = () => {
   };
 
   const brushHandler = (size) => {
-    console.log("size:", size);
     brushSize = size;
-    console.log("brushSize:", brushSize);
   };
 
   const resetTimer = () => {
@@ -46,7 +38,6 @@ const Board = () => {
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
-    const test = colorsRef.current;
     const context = canvas.getContext("2d");
 
     // ----------------------- Colors --------------------------------------------------
@@ -59,34 +50,36 @@ const Board = () => {
     };
 
     // helper that will update the current color
-    const onColorUpdate = (e) => {
-      current.color = e.target.className.split(" ")[1];
+    const onColorUpdate = (event) => {
+      current.color = event.target.className.split(" ")[1];
     };
 
     // loop through the color elements and add the click event listeners
     for (let i = 0; i < colors.length; i++) {
       colors[i].addEventListener("click", onColorUpdate, false);
     }
+
+    //we started using useState, but app started breaking, so we kept as is
     let drawing = false;
 
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
       const drawingContainer = document.getElementById("container");
-      const canvasOffsetX = drawingContainer.offsetLeft - scrollX;
-      const canvasOffsetY = drawingContainer.offsetTop - scrollY;
-
+      const canvasOffset = {
+        x: drawingContainer.offsetLeft - scrollX,
+        y: drawingContainer.offsetTop - scrollY,
+      };
       context.beginPath();
       if (brushSize <= 10) {
-        context.moveTo(x0 - canvasOffsetX, y0 - canvasOffsetY);
-        context.lineTo(x1 - canvasOffsetX, y1 - canvasOffsetY);
+        context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+        context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
         context.strokeStyle = color;
-        console.log("stroke-width", brushSize);
         context.lineWidth = brushSize;
       } else {
         context.arc(
-          x0 - canvasOffsetX,
-          y0 - canvasOffsetY,
+          x0 - canvasOffset.x,
+          y0 - canvasOffset.y,
           brushSize,
           0,
           2 * Math.PI,
@@ -99,6 +92,7 @@ const Board = () => {
       context.stroke();
       context.closePath();
 
+      //when we took this line out, drawing started flickering in canvas
       if (!emit) {
         return;
       }
@@ -118,29 +112,29 @@ const Board = () => {
 
     // ---------------- mouse movement --------------------------------------
 
-    const onMouseDown = (e) => {
+    const onMouseDown = (event) => {
       drawing = true;
-      current.x = e.clientX || e.touches[0].clientX;
-      current.y = e.clientY || e.touches[0].clientY;
+      current.x = event.clientX || event.touches[0].clientX;
+      current.y = event.clientY || event.touches[0].clientY;
     };
 
-    const onMouseMove = (e) => {
+    const onMouseMove = (event) => {
       if (!drawing) {
         return;
       }
       drawLine(
-        current.x, //- canvasOffsetX,
-        current.y, // - canvasOffsetY,
-        e.clientX || e.touches[0].clientX,
-        e.clientY || e.touches[0].clientY,
+        current.x,
+        current.y,
+        event.clientX || event.touches[0].clientX,
+        event.clientY || event.touches[0].clientY,
         current.color,
         true
       );
-      current.x = e.clientX || e.touches[0].clientX; //- canvasOffsetX;
-      current.y = e.clientY || e.touches[0].clientY; //- canvasOffsetY;
+      current.x = event.clientX || event.touches[0].clientX;
+      current.y = event.clientY || event.touches[0].clientY;
     };
 
-    const onMouseUp = (e) => {
+    const onMouseUp = (event) => {
       if (!drawing) {
         return;
       }
@@ -148,8 +142,8 @@ const Board = () => {
       drawLine(
         current.x,
         current.y,
-        e.clientX || e.touches[0].clientX, //- canvasOffsetX,
-        e.clientY || e.touches[0].clientY, // - canvasOffsetY,
+        event.clientX || event.touches[0].clientX,
+        event.clientY || event.touches[0].clientY,
         current.color,
         true
       );
@@ -159,12 +153,12 @@ const Board = () => {
 
     const throttle = (callback, delay) => {
       let previousCall = new Date().getTime();
-      return function () {
+      return function (...args) {
         const time = new Date().getTime();
 
         if (time - previousCall >= delay) {
           previousCall = time;
-          callback.apply(null, arguments);
+          callback.apply(null, args);
         }
       };
     };
@@ -212,29 +206,16 @@ const Board = () => {
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
       console.log("users : ", users, "host : ", host);
-      //check if the user is a host (he can draw)
-      //emit('draw' )
     });
 
     socketRef.current.on("refuse_connection", () => {
-      console.log("HELLOOOOOOOOOO");
-
       navigate("/home");
       alert("Gameroom is full, try a different code");
     });
 
-    // socket.current = io.disconnect("/")
-
     socketRef.current.on("disconnect", (msg) => {
       console.log(msg);
     });
-    //! ONLY ONE CAN DRAW ATM, LOOK INTO WHY
-
-    // socketRef.current.on("drawing", (onDrawingEvent, gameCode));
-
-    //socketRef.current.on("userList", (userList) => console.log(userList));
-
-    //Disconnecting not fully working, maybe completed rooms may help
   }, []);
 
   // ------------- The Canvas and color elements --------------------------

@@ -6,9 +6,7 @@ const User = require("./models/User");
 const GameSession = require("./models/GameSession");
 const Score = require("./models/Score");
 const User_Gamesession = require("./models/User_Gamesession");
-const DrawingPrompt = require("./models/DrawingPrompt")
-
-//associations could go here!
+const DrawingPrompt = require("./models/DrawingPrompt");
 
 //User and GameSession is Many-to-Many
 User.belongsToMany(GameSession, { through: User_Gamesession });
@@ -24,6 +22,6 @@ module.exports = {
     User,
     GameSession,
     Score,
-    DrawingPrompt
+    DrawingPrompt,
   },
 };

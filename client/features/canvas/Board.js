@@ -10,6 +10,8 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
+  const [gameState, setGameState] = useState(false);
+
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
@@ -20,21 +22,40 @@ const Board = () => {
   const navigate = useNavigate();
 
   //Timer
-  const [seconds, setSeconds] = useState(60);
+  const [startGameSeconds, setGameSeconds] = useState(60);
+  const [preparationSeconds, setPreparationSeconds] = useState(5);
 
-  const startTimer = () => {
+  const gameTimer = () => {
     setInterval(() => {
-      setSeconds((seconds) => seconds - 1);
+      let interval = null
+     interval = setPreparationSeconds((preparationSeconds) => {
+        console.log(preparationSeconds);
+        if(preparationSeconds ===0){
+          return clearInterval(interval)
+        }
+       return  preparationSeconds - 1;
+      }
+      );
     }, 1000);
   };
+
+  const preparationTimer = () => {
+    setInterval(() => {
+      setGameSeconds((startGameSeconds) => startGameSeconds - 1);
+    }, 1000);
+  };
+
+  if (preparationSeconds == 0) {
+    preparationTimer();
+  }
 
   const brushHandler = (size) => {
     brushSize = size;
   };
 
-  const resetTimer = () => {
-    setSeconds(60);
-  };
+  // const resetTimer = () => {
+  //   setSeconds(60);
+  // };
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -207,8 +228,19 @@ const Board = () => {
 
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
-      console.log("users : ", users, "host : ", host);
+      if (users.length == 2) {
+        setGameState(true);
+        gameTimer();
+      }
+
+      //accessing users array inside socket
+      //if arr == 2 then start game after 5 secs
+      //
     });
+
+    //while numRounds <= 3
+    //run 5 second timer followed by 60 second timer (switch guessing and drawing roles)
+    //when 60 second timer === 0 , numRounds + 1
 
     socketRef.current.on("refuse_connection", () => {
       navigate("/home");
@@ -218,6 +250,8 @@ const Board = () => {
     socketRef.current.on("disconnect", (msg) => {
       console.log(msg);
     });
+
+    return () => clearInterval();
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
@@ -232,10 +266,7 @@ const Board = () => {
         }}
       >
         {" "}
-        {seconds}{" "}
-      </span>
-      <span>
-        <button onClick={startTimer}>Start</button>
+        {preparationSeconds} {startGameSeconds}
       </span>
 
       <div>

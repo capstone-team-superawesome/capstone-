@@ -8,7 +8,7 @@ import Board from "../features/canvas/Board";
 import About from "../features/about/About";
 import Profile from "../features/profile/ProfilePage";
 import EditProfile from "../features/editprofile/EditProfilePage";
-import Info from "../features/About/Info";
+import Info from "../features/about/Info";
 
 /**
  * COMPONENT

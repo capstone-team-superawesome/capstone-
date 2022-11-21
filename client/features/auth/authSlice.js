@@ -50,6 +50,7 @@ export const editUser = createAsyncThunk(
   "editUser",
   async ({ id, updateEmail, updatePassword, profileImage, updateBio }) => {
     try {
+      // o: why not name these variables according to your keys (e.g. email, password...)
       const { data } = await axios.put(`/api/users/${id}`, {
         email: updateEmail,
         password: updatePassword,
@@ -72,6 +73,8 @@ export const fetchUser = createAsyncThunk("fetchUser", async (id) => {
   }
 });
 
+// o: it would make more sense to use the same thunk and pass in a different value
+//  for isDrawer
 export const updateDrawerTrue = createAsyncThunk(
   "updateDrawerTrue",
   async (id) => {

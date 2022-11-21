@@ -20,6 +20,7 @@ const Board = () => {
   //Timer
   const [seconds, setSeconds] = useState(60);
 
+  // o: is there a place where you stop the timer?
   const startTimer = () => {
     setInterval(() => {
       setSeconds((seconds) => seconds - 1);

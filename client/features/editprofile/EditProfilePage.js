@@ -15,6 +15,7 @@ const EditProfile = () => {
   const [updatePassword, setUpdatePassword] = useState(password);
   const [profileImage, setProfileImage] = useState(profilePicture);
 
+  // o: wouldn't it make more sense to store these in the db?
   const presetProfilePics = [
     "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/270f.png",
     "https://mymodernmet.com/wp/wp-content/uploads/2018/05/still-life-painting-4.jpg",

@@ -6,6 +6,7 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
+    // o: you should protect this or remove
     const users = await User.findAll({
       attributes: ["id", "username"],
     });
@@ -17,6 +18,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
+    // o: you should not be able to access the information of another user
     const user = await User.findByPk(req.params.id);
     res.json(user);
   } catch (error) {

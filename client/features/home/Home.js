@@ -13,6 +13,7 @@ const Home = (props) => {
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
+    // o: why is this value hardcoded?
     dispatch(makeGameCode(5));
     dispatch(updateDrawerTrue(id));
     navigate("/canvas");

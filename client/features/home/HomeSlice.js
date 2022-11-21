@@ -13,7 +13,10 @@ const HomeSlice = createSlice({
       let result = "";
       let characters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        // o: no need to store this in a variable, length is a property
       let charactersLength = characters.length;
+
       for (let i = 0; i < action.payload; i++) {
         result += characters.charAt(
           Math.floor(Math.random() * charactersLength)

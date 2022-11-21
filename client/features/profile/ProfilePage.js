@@ -14,6 +14,7 @@ const Profile = () => {
     (state) => state.auth.me
   );
 
+  // o: remove if not being used
   // const { } = useSelector((state) => {
   //   state.editProfilePage;
   // });

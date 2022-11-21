@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
+import DrawerCanvas from "./DrawerCanvas";
+import GuesserCanvas from "./GuesserCanvas";
 
 const Board = () => {
   const canvasRef = useRef(null);
@@ -221,46 +223,21 @@ const Board = () => {
   // ------------- The Canvas and color elements --------------------------
   return (
     <div class="bg-gray-300 m-10 p-10 rounded-2xl">
-      <div style={{ display: "inline-block" }}>
-        <span ref={colorsRef} className="colors">
-          <div className="color black" />
-          <div className="color red" />
-          <div className="color green" />
-          <div className="color blue" />
-          <div className="color yellow" />
-          <div className="color white" />
-        </span>
-        <span style={{ marginLeft: "40px" }}>
-          {brushSizes.map((size) => (
-            <span
-              key={size}
-              onClick={() => brushHandler(size)}
-              style={{
-                height: `${size}px`,
-                width: `${size}px`,
-                backgroundColor: "#949494",
-                borderRadius: "50%",
-                display: "inline-block",
-                marginRight: "15px",
-              }}
-            ></span>
-          ))}
-        </span>
-        <span
-          style={{
-            backgroundColor: "lightgrey",
-            borderRadius: "50px",
-            height: "25px",
-            marginLeft: "200px",
-          }}
-        >
-          {" "}
-          {seconds}{" "}
-        </span>
-        <span>
-          <button onClick={startTimer}>Start</button>
-        </span>
-      </div>
+      <span
+        style={{
+          backgroundColor: "lightgrey",
+          borderRadius: "50px",
+          height: "25px",
+          marginLeft: "200px",
+        }}
+      >
+        {" "}
+        {seconds}{" "}
+      </span>
+      <span>
+        <button onClick={startTimer}>Start</button>
+      </span>
+
       <div>
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
@@ -268,38 +245,13 @@ const Board = () => {
       </div>
 
       {isDrawer ? (
-        <div className="canvas-wrapper">
-          <canvas
-            id="container"
-            ref={canvasRef}
-            style={{
-              border: "2px solid black",
-              paddingLeft: "0",
-              paddingRight: "0",
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "block",
-            }}
-          />
-        </div>
+        <DrawerCanvas
+          colorsRef={colorsRef}
+          brushSizes={brushSizes}
+          canvasRef={canvasRef}
+        />
       ) : (
-        <div
-          className="canvas-wrapper"
-          style={{ cursor: "not-allowed", pointerEvents: "none" }}
-        >
-          <canvas
-            id="container"
-            ref={canvasRef}
-            style={{
-              border: "2px solid black",
-              paddingLeft: "0",
-              paddingRight: "0",
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "block",
-            }}
-          />
-        </div>
+        <GuesserCanvas canvasRef={canvasRef} />
       )}
     </div>
   );

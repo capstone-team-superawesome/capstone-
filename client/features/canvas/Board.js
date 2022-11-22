@@ -258,7 +258,7 @@ const Board = () => {
 
   // ------------- The Canvas and color elements --------------------------
   return (
-    <div class="bg-gray-300 m-10 p-10 rounded-2xl">
+    <div class="bg-white m-10 p-10 rounded-2xl">
       <span
         style={{
           backgroundColor: "lightgrey",

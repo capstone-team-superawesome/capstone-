@@ -5,6 +5,8 @@ import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
 
+//Hello
+
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);

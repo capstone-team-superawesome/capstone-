@@ -22,32 +22,8 @@ const Board = () => {
   const navigate = useNavigate();
 
   //Timer
-  const [startGameSeconds, setGameSeconds] = useState(60);
+  const [startGameSeconds, setGameSeconds] = useState(5);
   const [preparationSeconds, setPreparationSeconds] = useState(5);
-
-  const gameTimer = () => {
-    setInterval(() => {
-      let interval = null
-     interval = setPreparationSeconds((preparationSeconds) => {
-        console.log(preparationSeconds);
-        if(preparationSeconds ===0){
-          return clearInterval(interval)
-        }
-       return  preparationSeconds - 1;
-      }
-      );
-    }, 1000);
-  };
-
-  const preparationTimer = () => {
-    setInterval(() => {
-      setGameSeconds((startGameSeconds) => startGameSeconds - 1);
-    }, 1000);
-  };
-
-  if (preparationSeconds == 0) {
-    preparationTimer();
-  }
 
   const brushHandler = (size) => {
     brushSize = size;
@@ -251,7 +227,33 @@ const Board = () => {
       console.log(msg);
     });
 
-    return () => clearInterval();
+    const gameTimer = () => {
+      const timer = setInterval(() => {
+        setPreparationSeconds((preparationSeconds) => {
+          console.log(preparationSeconds);
+          if (preparationSeconds === 1) {
+            clearInterval(timer);
+            actualGameTimer();
+          }
+          return preparationSeconds - 1;
+        });
+      }, 1000);
+      console.log("first timer: ", timer);
+    };
+
+    const actualGameTimer = () => {
+      const secondTimer = setInterval(() => {
+        setGameSeconds((startGameSeconds) => {
+          if (startGameSeconds === 1) {
+            clearInterval(secondTimer);
+          }
+          return startGameSeconds - 1;
+        });
+      }, 1000);
+      console.log("second timer: ", secondTimer);
+    };
+
+    // return () => clearInterval();
   }, []);
 
   // ------------- The Canvas and color elements --------------------------

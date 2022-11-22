@@ -40,7 +40,7 @@ const DrawerCanvas = ({colorsRef, brushSizes, canvasRef}) => {
           </div>
 
           <canvas
-            id="container"
+            id="container-canvas"
             ref={canvasRef}
             style={{
               border: "2px solid black",

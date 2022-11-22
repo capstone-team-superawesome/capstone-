@@ -69,7 +69,7 @@ const Board = () => {
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
-      const drawingContainer = document.getElementById("container");
+      const drawingContainer = document.getElementById("container-canvas");
       const canvasOffset = {
         x: drawingContainer.offsetLeft - scrollX,
         y: drawingContainer.offsetTop - scrollY,
@@ -224,7 +224,7 @@ const Board = () => {
 
   // ------------- The Canvas and color elements --------------------------
   return (
-    <div class="bg-gray-300 m-10 p-10 rounded-2xl">
+    <div className="bg-gray-300 m-10 p-10 rounded-2xl">
       <span
         style={{
           backgroundColor: "lightgrey",

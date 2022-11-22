@@ -32,7 +32,7 @@ const Home = (props) => {
       <div class="flex-col items-center justify-center gap-5">
         <button
           id="newGameButton"
-          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
           onClick={() => handleCreateGame()}
         >
           Create a Room
@@ -50,7 +50,7 @@ const Home = (props) => {
         </div>
         <button
           id="joinGameButton"
-          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded"
+          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
           onClick={() => handleJoinGame()}
         >
           Join Game

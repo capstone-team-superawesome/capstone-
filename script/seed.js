@@ -180,43 +180,6 @@ async function seed() {
     DrawingPrompt.create({
       word: "music",
     }),
-    // DrawingPrompt.create({
-    //   word: "fencing",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "swimming",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "dancing",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "running",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "laughing",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "hiking",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "crying",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "hiding",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "fishing",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "cooking",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "throwing",
-    // }),
-    // DrawingPrompt.create({
-    //   word: "sleeping",
-    // }),
-   
   ]);
 
   console.log(`seeded ${users.length} users`);

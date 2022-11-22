@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { editUser, fetchUser } from "../auth/authSlice";
+import { editUser } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const EditProfile = () => {
   const { username, email, profilePicture, password, id, bio } = useSelector(
@@ -41,7 +40,6 @@ const EditProfile = () => {
       updateBio,
     };
     dispatch(editUser(userObj));
-    //dispatch(fetchUser(id));
     navigate("/profile");
   };
 
@@ -98,7 +96,6 @@ const EditProfile = () => {
                   src={picture}
                   style={{ height: "100px" }}
                   onClick={(event) => setProfileImage(picture)}
-                  // ¡HEY! when the backend is done, change the user.profilePicture on the backend.
                 ></img>
               ))}
             </div>
@@ -117,15 +114,6 @@ const EditProfile = () => {
               onChange={(event) => setUpdateBio(event.target.value)}
             ></textarea>
             <div>
-              {/* <input
-                style={{
-                  marginLeft: "100px",
-                  marginTop: "10px",
-                  fontSize: "20px",
-                }}
-                value={updateEmail}
-                onChange={(event) => setUpdateEmail(event.target.value)}
-              ></input> */}
               <label htmlFor="email">Email: </label>
               <input
                 name="email"
@@ -141,9 +129,7 @@ const EditProfile = () => {
                 placeholder="Enter new password"
               />
             </div>
-            {/* <Link to="/profile"> */}{" "}
             <button onClick={handleSubmit}>Save</button>
-            {/* </Link> */}
           </div>
         </div>
       </div>

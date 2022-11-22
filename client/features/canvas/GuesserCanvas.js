@@ -17,7 +17,7 @@ const GuesserCanvas = ({canvasRef}) => {
       style={{ cursor: "not-allowed", pointerEvents: "none" }}
     >
       <canvas
-        id="container"
+        id="container-canvas"
         ref={canvasRef}
         style={{
           border: "2px solid black",

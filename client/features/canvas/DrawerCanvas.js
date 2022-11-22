@@ -8,6 +8,10 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
 
   useEffect(() => {
     dispatch(fetchPrompts());
+    const canvas = canvasRef.current;
+    canvas.width = "1000"
+    canvas.height = "500";
+
   }, []);
 
   function shuffle(array) {

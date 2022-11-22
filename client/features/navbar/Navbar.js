@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <nav class="bg-gradient-to-r from-cyan-400 to-blue-500">
-        <div class="flex items-center justify-between px-4">
+        <div class="flex items-center justify-between px-4 py-0">
           <div class="w-1/4">
             <Link to="/home">
               <img src="img/Pictionary-Logo.png " class="w-full" />

@@ -709,6 +709,10 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 .text-center {
   text-align: center;
 }

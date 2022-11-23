@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const GuesserCanvas = ({ canvasRef }) => {
+const GuesserCanvas = ({ canvasRef, colorsRef }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = "1000";
@@ -9,6 +9,16 @@ const GuesserCanvas = ({ canvasRef }) => {
 
   return (
     <div>
+      <div style={{ display: "inline-block" }}>
+        <span ref={colorsRef} className="colors">
+          <div className="color black" />
+          <div className="color crimson" />
+          <div className="color green" />
+          <div className="color blue" />
+          <div className="color yellow" />
+          <div className="color white" />
+        </span>
+      </div>
       <div
         style={{
           fontWeight: "bold",
@@ -32,6 +42,7 @@ const GuesserCanvas = ({ canvasRef }) => {
             marginLeft: "auto",
             marginRight: "auto",
             display: "block",
+            backgroundColor: "white",
           }}
         />
       </div>

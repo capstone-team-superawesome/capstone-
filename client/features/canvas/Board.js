@@ -236,9 +236,9 @@ const Board = () => {
         {" "}
         {seconds}{" "}
       </span>
-      <span>
+      {/* <span>
         <button onClick={startTimer}>Start</button>
-      </span>
+      </span> */}
 
       <div>
         <div>
@@ -253,7 +253,7 @@ const Board = () => {
           canvasRef={canvasRef}
         />
       ) : (
-        <GuesserCanvas canvasRef={canvasRef} />
+        <GuesserCanvas canvasRef={canvasRef} colorsRef={colorsRef} />
       )}
     </div>
   );

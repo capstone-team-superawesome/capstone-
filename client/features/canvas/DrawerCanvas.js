@@ -1,3 +1,4 @@
+import { use } from "chai";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllPrompts } from "../game/gameSlice";
@@ -37,13 +38,13 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />
-          <div className="color red" />
+          <div className="color crimson" />
           <div className="color green" />
           <div className="color blue" />
           <div className="color yellow" />
           <div className="color white" />
         </span>
-        <span style={{ marginLeft: "40px" }}>
+        {/* <span style={{ marginLeft: "40px" }}>
           {brushSizes.map((size) => (
             <span
               key={size}
@@ -58,7 +59,7 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
               }}
             ></span>
           ))}
-        </span>
+        </span> */}
       </div>
       <div
         style={{
@@ -80,6 +81,7 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
           marginLeft: "auto",
           marginRight: "auto",
           display: "block",
+          backgroundColor: "white",
         }}
       />
     </div>

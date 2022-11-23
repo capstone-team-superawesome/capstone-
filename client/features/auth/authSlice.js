@@ -49,13 +49,22 @@ export const authenticate = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "editUser",
   async ({ id, updateEmail, updatePassword, profileImage, updateBio }) => {
+    const token = window.localStorage.getItem(TOKEN);
     try {
-      const { data } = await axios.put(`/api/users/${id}`, {
-        email: updateEmail,
-        password: updatePassword,
-        profilePicture: profileImage,
-        bio: updateBio,
-      });
+      const { data } = await axios.put(
+        `/api/users/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        },
+        {
+          email: updateEmail,
+          password: updatePassword,
+          profilePicture: profileImage,
+          bio: updateBio,
+        }
+      );
       return data;
     } catch (error) {
       console.log(error);

@@ -7,7 +7,6 @@ module.exports = router;
 
 router.get("/:id", requireToken, async (req, res, next) => {
   try {
-    console.log("REQ USER", req.user);
     if (req.user.id === req.params.id) {
       const user = await User.findByPk(req.params.id);
       res.json(user);
@@ -20,11 +19,15 @@ router.get("/:id", requireToken, async (req, res, next) => {
 });
 
 // api/users/edit - edit user
-router.put("/:id", async (req, res, next) => {
+router.put("/:id", requireToken, async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
-    await user.update(req.body);
-    res.json(user);
+    if (req.user.id === req.params.id) {
+      const user = await User.findByPk(req.params.id);
+      await user.update(req.body);
+      res.json(user);
+    } else {
+      res.sendStatus(401);
+    }
   } catch (error) {
     next(error);
   }

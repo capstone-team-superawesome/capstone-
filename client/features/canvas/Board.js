@@ -5,12 +5,12 @@ import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
 
+//Hello
+
 const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
-
-  const [gameState, setGameState] = useState(false);
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
@@ -22,16 +22,21 @@ const Board = () => {
   const navigate = useNavigate();
 
   //Timer
-  const [startGameSeconds, setGameSeconds] = useState(5);
-  const [preparationSeconds, setPreparationSeconds] = useState(5);
+  const [seconds, setSeconds] = useState(60);
+
+  const startTimer = () => {
+    setInterval(() => {
+      setSeconds((seconds) => seconds - 1);
+    }, 1000);
+  };
 
   const brushHandler = (size) => {
     brushSize = size;
   };
 
-  // const resetTimer = () => {
-  //   setSeconds(60);
-  // };
+  const resetTimer = () => {
+    setSeconds(60);
+  };
 
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
@@ -59,12 +64,12 @@ const Board = () => {
     }
 
     //we started using useState, but app started breaking, so we kept as is
-    let drawing = false;
+    let drawing = true;
 
     // ------------------------------- create the drawing ----------------------------
 
     const drawLine = (x0, y0, x1, y1, color, emit) => {
-      const drawingContainer = document.getElementById("container");
+      const drawingContainer = document.getElementById("container-canvas");
       const canvasOffset = {
         x: drawingContainer.offsetLeft - scrollX,
         y: drawingContainer.offsetTop - scrollY,
@@ -177,8 +182,8 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    canvas.width = 1000;
-    canvas.height = 500;
+    canvas.width = "1000";
+    canvas.height = "500";
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
@@ -204,19 +209,8 @@ const Board = () => {
 
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
-      if (users.length == 2) {
-        setGameState(true);
-        gameTimer();
-      }
-
-      //accessing users array inside socket
-      //if arr == 2 then start game after 5 secs
-      //
+      console.log("users : ", users, "host : ", host);
     });
-
-    //while numRounds <= 3
-    //run 5 second timer followed by 60 second timer (switch guessing and drawing roles)
-    //when 60 second timer === 0 , numRounds + 1
 
     socketRef.current.on("refuse_connection", () => {
       navigate("/home");
@@ -226,39 +220,11 @@ const Board = () => {
     socketRef.current.on("disconnect", (msg) => {
       console.log(msg);
     });
-
-    const gameTimer = () => {
-      const timer = setInterval(() => {
-        setPreparationSeconds((preparationSeconds) => {
-          console.log(preparationSeconds);
-          if (preparationSeconds === 1) {
-            clearInterval(timer);
-            actualGameTimer();
-          }
-          return preparationSeconds - 1;
-        });
-      }, 1000);
-      console.log("first timer: ", timer);
-    };
-
-    const actualGameTimer = () => {
-      const secondTimer = setInterval(() => {
-        setGameSeconds((startGameSeconds) => {
-          if (startGameSeconds === 1) {
-            clearInterval(secondTimer);
-          }
-          return startGameSeconds - 1;
-        });
-      }, 1000);
-      console.log("second timer: ", secondTimer);
-    };
-
-    // return () => clearInterval();
   }, []);
 
   // ------------- The Canvas and color elements --------------------------
   return (
-    <div class="bg-white m-10 p-10 rounded-2xl">
+    <div className="bg-gray-300 m-10 p-10 rounded-2xl">
       <span
         style={{
           backgroundColor: "lightgrey",
@@ -268,7 +234,10 @@ const Board = () => {
         }}
       >
         {" "}
-        {preparationSeconds} {startGameSeconds}
+        {seconds}{" "}
+      </span>
+      <span>
+        <button onClick={startTimer}>Start</button>
       </span>
 
       <div>

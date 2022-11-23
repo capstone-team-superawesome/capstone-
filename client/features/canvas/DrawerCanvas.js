@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchPrompts } from "../game/gameSlice";
 
 const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
+  const dispatch = useDispatch();
+  const { prompts } = useSelector((state) => state.game);
+
+  useEffect(() => {
+    dispatch(fetchPrompts());
+    const canvas = canvasRef.current;
+    canvas.width = "1000";
+    canvas.height = "500";
+  }, []);
+
+  function shuffle(array) {
+    let prompts = array.slice();
+    let shuffledPrompts = [];
+
+    while (prompts.length) {
+      const index = Math.floor(Math.random() * prompts.length);
+      shuffledPrompts.push(prompts[index].word);
+      prompts.splice(index, 1);
+    }
+    return shuffledPrompts;
+  }
+
+  console.log("original prompts", prompts);
+  const randomPrompts = shuffle(prompts);
+  console.log("randomPrompts", randomPrompts);
+  const prompt =
+    randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+  console.log("singular prompt", prompt);
+
   return (
     <div className="canvas-wrapper">
       <div style={{ display: "inline-block" }}>
@@ -36,11 +67,11 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
           fontSize: "32px",
         }}
       >
-        You are Drawing: prompt
+        You are Drawing: {prompt}
       </div>
 
       <canvas
-        id="container"
+        id="container-canvas"
         ref={canvasRef}
         style={{
           border: "2px solid black",

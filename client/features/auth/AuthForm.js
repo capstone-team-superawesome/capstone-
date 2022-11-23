@@ -22,7 +22,7 @@ const AuthForm = ({ name, displayName }) => {
   };
 
   return (
-    <div class="custom-auth-container">
+    <div className="custom-auth-container">
       <form onSubmit={handleSubmit} name={name} class="gap-5">
         <div>
           <span class="block text-sm font-serif text-slate-700">Username</span>
@@ -36,7 +36,7 @@ const AuthForm = ({ name, displayName }) => {
           />
         </div>
         <div>
-          <span class="block text-sm font-serif text-slate-700">Password</span>
+          <span className="block text-sm font-serif text-slate-700">Password</span>
           <input
             name="password"
             type="password"
@@ -64,7 +64,7 @@ const AuthForm = ({ name, displayName }) => {
         </div>
       ) : (
         <div id="form-option">
-          <span class="block text-sm font-serif text-slate-700">
+          <span className="block text-sm font-serif text-slate-700">
             Already a member? <Link to="/login">Log in</Link>
           </span>
         </div>

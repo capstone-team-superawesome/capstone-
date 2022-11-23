@@ -37,14 +37,15 @@ nav a {
   display: inline-block;
   height: 48px;
   width: 48px;
-  border-radius: 20px;
+  border-radius: 50px;
+  margin-right: 10px;
 }
 
 .color.black {
   background-color: black;
 }
-.color.red {
-  background-color: red;
+.color.crimson {
+  background-color: crimson;
 }
 .color.green {
   background-color: green;
@@ -54,6 +55,9 @@ nav a {
 }
 .color.yellow {
   background-color: yellow;
+}
+.color.white {
+  background-color: white;
 }
 
 #signup-form {

@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
+import socket from "../../../server/socket";
+import { fetchPrompts } from "../game/gameSlice";
 
 //Hello
 
@@ -11,6 +13,31 @@ const Board = () => {
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+
+  const dispatch = useDispatch();
+  const promptsRef = useRef(null);
+
+  promptsRef.current = useSelector((state) => state.game.prompts);
+
+  console.log(promptsRef);
+
+  function shuffle(array) {
+    let prompts = array.slice();
+    let shuffledPrompts = [];
+
+    while (prompts.length) {
+      const index = Math.floor(Math.random() * prompts.length);
+      shuffledPrompts.push(prompts[index].word);
+      prompts.splice(index, 1);
+    }
+    return shuffledPrompts;
+  }
+
+  const randomPrompts = shuffle(promptsRef.current);
+  console.log("randomPrompts", randomPrompts);
+  const prompt =
+    randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
+  console.log("singular prompt", prompt);
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
@@ -22,13 +49,7 @@ const Board = () => {
   const navigate = useNavigate();
 
   //Timer
-  const [seconds, setSeconds] = useState(60);
-
-  const startTimer = () => {
-    setInterval(() => {
-      setSeconds((seconds) => seconds - 1);
-    }, 1000);
-  };
+  const [seconds, setSeconds] = useState("");
 
   const brushHandler = (size) => {
     brushSize = size;
@@ -38,8 +59,13 @@ const Board = () => {
     setSeconds(60);
   };
 
+  const beginGame = () => {
+    socketRef.current.emit("beginTimer", { gameCode });
+  };
+
   useEffect(() => {
     // --------------- getContext() method returns a drawing context on the canvas-----
+    dispatch(fetchPrompts());
 
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -182,8 +208,8 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    canvas.width = 1000;
-    canvas.height = 500;
+    // canvas.width = 1000;
+    // canvas.height = 500;
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
@@ -205,11 +231,17 @@ const Board = () => {
     } else {
       socketRef.current.emit("joinRoom", gameCode);
       socketRef.current.on("drawing", onDrawingEvent);
+      // prompt.current =
+      //   randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
     }
 
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
       console.log("users : ", users, "host : ", host);
+    });
+
+    socketRef.current.on("timer", (count) => {
+      setSeconds(count);
     });
 
     socketRef.current.on("refuse_connection", () => {
@@ -236,21 +268,25 @@ const Board = () => {
         {" "}
         {seconds}{" "}
       </span>
-      <span>
+      {/* <span>
         <button onClick={startTimer}>Start</button>
-      </span>
+      </span> */}
 
       <div>
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
       </div>
+      <span>
+        <button onClick={beginGame}>Begin</button>
+      </span>
 
       {isDrawer ? (
         <DrawerCanvas
           colorsRef={colorsRef}
           brushSizes={brushSizes}
           canvasRef={canvasRef}
+          prompt={prompt}
         />
       ) : (
         <GuesserCanvas canvasRef={canvasRef} />

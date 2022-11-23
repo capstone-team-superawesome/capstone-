@@ -29,6 +29,23 @@ module.exports = (io) => {
           io.emit("new user", users);
         });
       });
+
+      socket.on("beginTimer", (roomName) => {
+        console.log("backend", roomName);
+        const { gameCode } = roomName;
+        console.log("gameCode", gameCode);
+        if (users.length === 2) {
+          let timer = 60;
+          let timerCoutDown = setInterval(() => {
+            io.to(gameCode).emit("timer", timer);
+            timer--;
+            if (timer === 0) {
+              io.to(gameCode).emit("timer", "Time's up !");
+              clearInterval(timerCoutDown);
+            }
+          }, 1000);
+        }
+      });
     }
   });
 };

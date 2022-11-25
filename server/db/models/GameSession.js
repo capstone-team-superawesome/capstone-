@@ -14,6 +14,10 @@ const GameSession = db.define("gamesession", {
     type: Sequelize.STRING,
     defaultValue: "sculpture",
   },
+  round: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
 });
 
 module.exports = GameSession;

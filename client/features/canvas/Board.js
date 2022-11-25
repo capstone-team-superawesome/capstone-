@@ -4,9 +4,7 @@ import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
-import { fetchAllPrompts } from "../game/gameSlice";
-
-//Hello
+import { fetchAllPrompts, makeSession } from "../game/gameSlice";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -17,7 +15,7 @@ const Board = () => {
   const { prompts } = useSelector((state) => state.game);
   const promptList = useRef([]);
   const currentPrompt = useRef(null);
-  const round = useRef(0);
+  const round = useRef(1);
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
@@ -28,14 +26,8 @@ const Board = () => {
   //Timer
   const [seconds, setSeconds] = useState(60);
 
-  const startTimer = () => {
-    setInterval(() => {
-      setSeconds((seconds) => seconds - 1);
-    }, 1000);
-  };
-
-  const brushHandler = (size) => {
-    brushSize = size;
+  const beginGame = () => {
+    socketRef.current.emit("beginTimer", { gameCode });
   };
 
   const resetTimer = () => {
@@ -67,7 +59,18 @@ const Board = () => {
       "promptList.current",
       promptList.current
     );
+
     console.log("currentPrompt.current:", currentPrompt.current);
+    currentPrompt.current
+      ? dispatch(
+          makeSession({
+            gameCode,
+            isInSession: true,
+            currentPrompt: currentPrompt.current,
+            round: round.current,
+          })
+        )
+      : null;
   }
 
   useEffect(() => {
@@ -242,6 +245,11 @@ const Board = () => {
       socketRef.current.on("drawing", onDrawingEvent);
     }
 
+    //timer
+    socketRef.current.on("timer", (count) => {
+      setSeconds(count);
+    });
+
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
       console.log("users : ", users, "host : ", host);
@@ -271,22 +279,21 @@ const Board = () => {
         {" "}
         {seconds}{" "}
       </span>
-      <span>
+      {/* <span>
         <button onClick={startTimer}>Start</button>
-      </span>
+      </span> */}
 
       <div>
         <div>
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
       </div>
+      <span>
+        <button onClick={beginGame}>Begin</button>
+      </span>
 
       {isDrawer ? (
-        <DrawerCanvas
-          colorsRef={colorsRef}
-          currentPrompt={currentPrompt.current}
-          canvasRef={canvasRef}
-        />
+        <DrawerCanvas colorsRef={colorsRef} canvasRef={canvasRef} />
       ) : (
         <GuesserCanvas canvasRef={canvasRef} colorsRef={colorsRef} />
       )}

@@ -1,18 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllPrompts } from "../game/gameSlice";
+import { fetchCurrentPrompt } from "../game/gameSlice";
 
-const DrawerCanvas = ({ colorsRef, currentPrompt, canvasRef }) => {
+const DrawerCanvas = ({ colorsRef, canvasRef }) => {
   const dispatch = useDispatch();
-  const { prompts } = useSelector((state) => state.game);
-
-  // const promptList = useRef([]);
-  // const currentPrompt = useRef(null);
-  // const round = useRef(0);
+  const { currentPrompt } = useSelector((state) => state.game);
+  const { createdGameCode } = useSelector((state) => state.home);
 
   useEffect(() => {
-    // !currentPrompt.current ? dispatch(fetchAllPrompts()) : null;
-
+    dispatch(fetchCurrentPrompt({ createdGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";

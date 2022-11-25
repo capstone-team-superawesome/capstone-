@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-const GuesserCanvas = ({ canvasRef, colorsRef }) => {
+const GuesserCanvas = ({ canvasRef, currentPrompt, colorsRef }) => {
+  const [guess, setGuess] = useState("");
+  console.log(currentPrompt, guess);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
+
+  const handleSubmit = () => {
+    if (guess.toLowerCase() === currentPrompt.toLowerCase()) {
+      console.log("you got it!");
+    }
+  };
 
   return (
     <div>
@@ -46,8 +55,14 @@ const GuesserCanvas = ({ canvasRef, colorsRef }) => {
           }}
         />
       </div>
-      <input type="text" placeholder="make a guess"></input>
-      <button type="submit">Submit</button>
+      <input
+        type="text"
+        placeholder="make a guess"
+        onChange={(event) => setGuess(event.target.value)}
+      ></input>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };

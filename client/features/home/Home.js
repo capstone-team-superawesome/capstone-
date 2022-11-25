@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { makeGameCode, updateInputtedGameCode } from "../../app/store";
 import { updateDrawerTrue, updateDrawerFalse } from "../../app/store";
+import { makeSession } from "../../app/store";
 
 const Home = (props) => {
   const dispatch = useDispatch();

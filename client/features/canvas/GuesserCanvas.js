@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { fetchCurrentPrompt } from "../game/gameSlice";
 
-const GuesserCanvas = ({ canvasRef, currentPrompt, colorsRef }) => {
+const GuesserCanvas = ({ canvasRef, colorsRef }) => {
   const [guess, setGuess] = useState("");
-  console.log(currentPrompt, guess);
+  const dispatch = useDispatch();
+
+  const { currentPrompt } = useSelector((state) => state.game.currentPrompt);
+  const { inputtedGameCode } = useSelector((state) => state.home);
+  console.log(inputtedGameCode);
 
   useEffect(() => {
+    dispatch(fetchCurrentPrompt({ createdGameCode: inputtedGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
@@ -18,6 +26,11 @@ const GuesserCanvas = ({ canvasRef, currentPrompt, colorsRef }) => {
 
   return (
     <div>
+      <div>
+        <div>
+          Your game session code is {inputtedGameCode ? inputtedGameCode : null}
+        </div>
+      </div>
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />

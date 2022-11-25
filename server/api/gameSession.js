@@ -24,6 +24,7 @@ router.get("/:gameCode", async (req, res, next) => {
       where: { gameCode, isInSession: true },
     });
     console.log("gameSessions", gameSessions);
+
     res.json(gameSessions);
   } catch (err) {
     next(err);

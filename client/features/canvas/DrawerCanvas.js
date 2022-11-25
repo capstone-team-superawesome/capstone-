@@ -4,7 +4,7 @@ import { fetchCurrentPrompt } from "../game/gameSlice";
 
 const DrawerCanvas = ({ colorsRef, canvasRef }) => {
   const dispatch = useDispatch();
-  const { currentPrompt } = useSelector((state) => state.game);
+  const { currentPrompt } = useSelector((state) => state.game.currentPrompt);
   const { createdGameCode } = useSelector((state) => state.home);
 
   useEffect(() => {
@@ -37,6 +37,12 @@ const DrawerCanvas = ({ colorsRef, canvasRef }) => {
 
   return (
     <div className="canvas-wrapper">
+      <div>
+        <div>
+          Your game session code is {createdGameCode ? createdGameCode : null}
+        </div>
+      </div>
+
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />

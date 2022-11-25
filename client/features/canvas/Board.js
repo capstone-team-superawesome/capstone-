@@ -12,11 +12,6 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
-  const { prompts } = useSelector((state) => state.game);
-  const promptList = useRef([]);
-  const currentPrompt = useRef(null);
-  const round = useRef(1);
-
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
@@ -34,48 +29,8 @@ const Board = () => {
     setSeconds(60);
   };
 
-  function shuffle(array) {
-    let prompts = array.slice();
-    let shuffledPrompts = [];
-
-    while (prompts.length) {
-      const index = Math.floor(Math.random() * prompts.length);
-      shuffledPrompts.push(prompts[index].word);
-      prompts.splice(index, 1);
-    }
-    return shuffledPrompts;
-  }
-  console.log("currentPrompt.current:", currentPrompt.current);
-  if (!currentPrompt.current) {
-    const randomPrompts = shuffle(prompts);
-    promptList.current[0] = randomPrompts[0];
-    promptList.current[1] = randomPrompts[1];
-    promptList.current[2] = randomPrompts[2];
-    promptList.current[3] = randomPrompts[3];
-    currentPrompt.current = promptList.current[round.current];
-    console.log(
-      "randomPrompts",
-      randomPrompts,
-      "promptList.current",
-      promptList.current
-    );
-
-    console.log("currentPrompt.current:", currentPrompt.current);
-    currentPrompt.current
-      ? dispatch(
-          makeSession({
-            gameCode,
-            isInSession: true,
-            currentPrompt: currentPrompt.current,
-            round: round.current,
-          })
-        )
-      : null;
-  }
-
   useEffect(() => {
     //prompts
-    !currentPrompt.current ? dispatch(fetchAllPrompts()) : null;
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
@@ -113,23 +68,15 @@ const Board = () => {
         y: drawingContainer.offsetTop - scrollY,
       };
       context.beginPath();
-      if (brushSize <= 10) {
-        context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
-        context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
-        context.strokeStyle = color;
-        context.lineWidth = brushSize;
-      } else {
-        context.arc(
-          x0 - canvasOffset.x,
-          y0 - canvasOffset.y,
-          brushSize,
-          0,
-          2 * Math.PI,
-          false
-        );
-        context.fillStyle = color;
-        context.strokeStyle = color;
-      }
+
+      context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+      context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+      context.strokeStyle = color;
+      context.lineWidth = 5;
+
+      context.fillStyle = color;
+      context.strokeStyle = color;
+
       context.fill();
       context.stroke();
       context.closePath();
@@ -283,11 +230,6 @@ const Board = () => {
         <button onClick={startTimer}>Start</button>
       </span> */}
 
-      <div>
-        <div>
-          Your game session code is {gameCode ? gameCode : inputtedGameCode}
-        </div>
-      </div>
       <span>
         <button onClick={beginGame}>Begin</button>
       </span>

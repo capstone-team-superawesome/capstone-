@@ -1,20 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { makeGameCode, updateInputtedGameCode } from "../../app/store";
 import { updateDrawerTrue, updateDrawerFalse } from "../../app/store";
-import { makeSession } from "../../app/store";
+import { makeSession, fetchAllPrompts } from "../../app/store";
 
 const Home = (props) => {
   const dispatch = useDispatch();
 
   const id = useSelector((state) => state.auth.me.id);
 
+  const gameCode = useSelector((state) => state.home.createdGameCode);
+
+  const { prompts } = useSelector((state) => state.game);
+  const promptList = useRef([]);
+  const currentPrompt = useRef(null);
+  const round = useRef(1);
+
+  function shuffle(array) {
+    let prompts = array.slice();
+    let shuffledPrompts = [];
+
+    while (prompts.length) {
+      const index = Math.floor(Math.random() * prompts.length);
+      shuffledPrompts.push(prompts[index].word);
+      prompts.splice(index, 1);
+    }
+    return shuffledPrompts;
+  }
+  console.log("currentPrompt.current:", currentPrompt.current);
+  if (!currentPrompt.current) {
+    const randomPrompts = shuffle(prompts);
+    promptList.current[0] = randomPrompts[0];
+    promptList.current[1] = randomPrompts[1];
+    promptList.current[2] = randomPrompts[2];
+    promptList.current[3] = randomPrompts[3];
+    currentPrompt.current = promptList.current[round.current];
+    console.log(
+      "randomPrompts",
+      randomPrompts,
+      "promptList.current",
+      promptList.current
+    );
+
+    console.log("currentPrompt.current:", currentPrompt.current);
+  }
+
   const navigate = useNavigate();
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
-    dispatch(makeGameCode(5));
+    console.log("GAMECODE", gameCode);
+
+    dispatch(
+      makeSession({
+        gameCode,
+        isInSession: true,
+        currentPrompt: currentPrompt.current,
+        round: round.current,
+      })
+    );
+
     dispatch(updateDrawerTrue(id));
     navigate("/canvas");
   };
@@ -24,6 +70,11 @@ const Home = (props) => {
     dispatch(updateDrawerFalse(id));
     navigate("/canvas");
   };
+
+  useEffect(() => {
+    !gameCode ? dispatch(makeGameCode(5)) : null;
+    !currentPrompt.current ? dispatch(fetchAllPrompts()) : null;
+  });
 
   return (
     <div
@@ -46,7 +97,7 @@ const Home = (props) => {
             class="w-full px-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             value={inputGameCode}
-            onChange={(e) => setInputGameCode(e.target.value)}
+            onChange={(event) => setInputGameCode(event.target.value)}
           />
         </div>
         <button

@@ -1,24 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
+import { fetchAllPrompts } from "../game/gameSlice";
 
 //Hello
 
 const Board = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+
+  const { prompts } = useSelector((state) => state.game);
+  const promptList = useRef([]);
+  const currentPrompt = useRef(null);
+  const round = useRef(0);
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
 
-  //brush
-  const brushSizes = [5, 10, 32, 64];
-  let brushSize = 5;
   const navigate = useNavigate();
 
   //Timer
@@ -38,7 +42,38 @@ const Board = () => {
     setSeconds(60);
   };
 
+  function shuffle(array) {
+    let prompts = array.slice();
+    let shuffledPrompts = [];
+
+    while (prompts.length) {
+      const index = Math.floor(Math.random() * prompts.length);
+      shuffledPrompts.push(prompts[index].word);
+      prompts.splice(index, 1);
+    }
+    return shuffledPrompts;
+  }
+  console.log("currentPrompt.current:", currentPrompt.current);
+  if (!currentPrompt.current) {
+    const randomPrompts = shuffle(prompts);
+    promptList.current[0] = randomPrompts[0];
+    promptList.current[1] = randomPrompts[1];
+    promptList.current[2] = randomPrompts[2];
+    promptList.current[3] = randomPrompts[3];
+    currentPrompt.current = promptList.current[round.current];
+    console.log(
+      "randomPrompts",
+      randomPrompts,
+      "promptList.current",
+      promptList.current
+    );
+    console.log("currentPrompt.current:", currentPrompt.current);
+  }
+
   useEffect(() => {
+    //prompts
+    !currentPrompt.current ? dispatch(fetchAllPrompts()) : null;
+
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
@@ -236,9 +271,9 @@ const Board = () => {
         {" "}
         {seconds}{" "}
       </span>
-      {/* <span>
+      <span>
         <button onClick={startTimer}>Start</button>
-      </span> */}
+      </span>
 
       <div>
         <div>
@@ -249,7 +284,7 @@ const Board = () => {
       {isDrawer ? (
         <DrawerCanvas
           colorsRef={colorsRef}
-          brushSizes={brushSizes}
+          currentPrompt={currentPrompt.current}
           canvasRef={canvasRef}
         />
       ) : (

@@ -66,6 +66,8 @@ const Profile = () => {
                 }}
                 rows="7"
                 value={bio}
+                // Added line below in response to value prop error
+                onChange={(e) => setBio(e.target.value)}
               ></textarea>
               <Link to="/editprofile">
                 <img

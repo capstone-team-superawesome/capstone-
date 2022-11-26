@@ -74,7 +74,7 @@ export const editUser = createAsyncThunk(
 
 export const fetchUser = createAsyncThunk("fetchUser", async (id) => {
   try {
-    const token = window.localStorage.getItem("token");
+    const token = window.localStorage.getItem(TOKEN);
     const { data } = await axios.get(`api/users/${id}`, {
       headers: {
         authorization: token,

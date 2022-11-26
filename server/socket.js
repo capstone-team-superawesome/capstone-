@@ -30,6 +30,12 @@ module.exports = (io) => {
         });
       });
 
+      socket.on("guessMade", (data) => {
+        if (data) {
+          io.emit("guessReceived", data);
+        }
+      });
+
       socket.on("beginTimer", (roomName) => {
         console.log("backend", roomName);
         const { gameCode } = roomName;

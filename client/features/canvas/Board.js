@@ -16,6 +16,8 @@ const Board = () => {
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   //const { promptList } = useSelector((state) => state.game.promptList);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
+  const { id } = useSelector((state) => state.auth.me);
+  console.log(id);
 
   const navigate = useNavigate();
 
@@ -193,6 +195,7 @@ const Board = () => {
     };
 
     socketRef.current = io.connect("/");
+    console.log("socketRef inside Board: ", socketRef.current);
 
     if (inputtedGameCode) {
       socketRef.current.emit("joinRoom", inputtedGameCode);
@@ -245,9 +248,17 @@ const Board = () => {
       </span>
 
       {isDrawer ? (
-        <DrawerCanvas colorsRef={colorsRef} canvasRef={canvasRef} />
+        <DrawerCanvas
+          colorsRef={colorsRef}
+          canvasRef={canvasRef}
+          socketRef={socketRef}
+        />
       ) : (
-        <GuesserCanvas canvasRef={canvasRef} colorsRef={colorsRef} />
+        <GuesserCanvas
+          canvasRef={canvasRef}
+          colorsRef={colorsRef}
+          socketRef={socketRef}
+        />
       )}
     </div>
   );

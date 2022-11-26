@@ -18,12 +18,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:gameCode", async (req, res, next) => {
   try {
     const { gameCode } = req.params;
-    console.log("req.params", req.params);
-    console.log("gameCode", gameCode);
     const gameSessions = await GameSession.findOne({
       where: { gameCode: gameCode },
     });
-    console.log("gameSessions", gameSessions);
 
     res.json(gameSessions);
   } catch (err) {
@@ -35,7 +32,6 @@ router.post("/", async (req, res, next) => {
   try {
     const { gameCode, isInSession, promptList, round } = req.body;
 
-    console.log();
     const gameSessions = await GameSession.findOrCreate({
       where: {
         gameCode,

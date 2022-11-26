@@ -16,16 +16,13 @@ const Home = (props) => {
 
   useEffect(() => {
     !gameCode ? dispatch(makeGameCode(5)) : null;
-    console.log("promptList.current[0]", promptList.current[0]);
     if (!promptList.current[0]) {
       dispatch(fetchAllPrompts());
       const randomPrompts = shuffle(prompts);
-      console.log("RANDOM PROMPTS", randomPrompts);
       promptList.current[0] = randomPrompts[0];
       promptList.current[1] = randomPrompts[1];
       promptList.current[2] = randomPrompts[2];
       promptList.current[3] = randomPrompts[3];
-      console.log("promptList.current AFTER", promptList.current);
     }
   });
 
@@ -64,8 +61,6 @@ const Home = (props) => {
     dispatch(updateDrawerFalse(id));
     navigate("/canvas");
   };
-
-  console.log("prompts", prompts);
 
   return (
     <div

@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { addScore } from "../auth/authSlice";
 import { fetchPromptList } from "../game/gameSlice";
+import { useNavigate } from "react-router-dom";
 
-const GuesserCanvas = ({ canvasRef, colorsRef }) => {
+const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   const [guess, setGuess] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { gameSession } = useSelector((state) => state.game);
   const { inputtedGameCode } = useSelector((state) => state.home);
-  console.log(inputtedGameCode);
+  const { id, totalScore } = useSelector((state) => state.auth.me);
 
   useEffect(() => {
     dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
@@ -23,10 +26,12 @@ const GuesserCanvas = ({ canvasRef, colorsRef }) => {
     const round = gameSession.round;
     if (guess.toLowerCase() === promptList[round].toLowerCase()) {
       console.log("you got it!");
+      const score = totalScore + 1000;
+      dispatch(addScore({ id: id, score: score }));
+      socketRef.current.emit("guessMade", true);
+      navigate("/scorePage");
     }
   };
-
-  gameSession ? console.log(gameSession) : null;
 
   return (
     <div>

@@ -1,30 +1,42 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPromptList } from "../game/gameSlice";
+import { addScore } from "../auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const DrawerCanvas = ({ colorsRef, canvasRef }) => {
-  console.log("hello");
+const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
+  console.log("socketRef in DrawerCanvas", socketRef.current);
+
+  const { id } = useSelector((state) => state.auth.me);
+
+  console.log("socketRef in DrawerCanvas", socketRef.current);
+  socketRef.current
+    ? socketRef.current.on("guessReceived", (data) => {
+        if (data) {
+          dispatch(addScore({ id: id, score: 1000 }));
+          navigate("/scorePage");
+        }
+      })
+    : null;
 
   const promptList = useRef([]);
   const currentRound = useRef(1);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { createdGameCode } = useSelector((state) => state.home);
   const { gameSession } = useSelector((state) => state.game);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
 
-  const currentPrompt = useRef(null);
-
-  gameSession[0] ? console.log(gameSession[0].promptList) : null;
   if (gameSession[0]) {
     promptList.current = gameSession[0].promptList;
     currentRound.current = gameSession[0].round;
   }
-  console.log("promptList", promptList, "round", currentRound);
 
   return (
     <div className="canvas-wrapper">
@@ -43,22 +55,6 @@ const DrawerCanvas = ({ colorsRef, canvasRef }) => {
           <div className="color yellow" />
           <div className="color white" />
         </span>
-        {/* <span style={{ marginLeft: "40px" }}>
-          {brushSizes.map((size) => (
-            <span
-              key={size}
-              onClick={() => brushHandler(size)}
-              style={{
-                height: `${size}px`,
-                width: `${size}px`,
-                backgroundColor: "#949494",
-                borderRadius: "50%",
-                display: "inline-block",
-                marginRight: "15px",
-              }}
-            ></span>
-          ))}
-        </span> */}
       </div>
       <div
         style={{

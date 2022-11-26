@@ -43,7 +43,7 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
           <div className="color yellow" />
           <div className="color white" />
         </span>
-        <span style={{ marginLeft: "40px" }}>
+        <span className="brushes" style={{ marginLeft: "40px" }}>
           {brushSizes.map((size) => (
             <span
               key={size}

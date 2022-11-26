@@ -39,6 +39,7 @@ nav a {
   height: 48px;
   width: 48px;
   border-radius: 20px;
+  cursor: url("../img/paintbrushcursor.png"), pointer;
 }
 
 .color.black {
@@ -55,6 +56,10 @@ nav a {
 }
 .color.yellow {
   background-color: yellow;
+}
+
+.brushes {
+   cursor: url("../img/paintbrushcursor.png"), pointer;
 }
 
 #signup-form {

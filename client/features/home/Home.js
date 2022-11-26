@@ -7,15 +7,27 @@ import { makeSession, fetchAllPrompts } from "../../app/store";
 
 const Home = (props) => {
   const dispatch = useDispatch();
-
   const id = useSelector((state) => state.auth.me.id);
-
   const gameCode = useSelector((state) => state.home.createdGameCode);
-
   const { prompts } = useSelector((state) => state.game);
+
   const promptList = useRef([]);
-  const currentPrompt = useRef(null);
   const round = useRef(1);
+
+  useEffect(() => {
+    !gameCode ? dispatch(makeGameCode(5)) : null;
+    console.log("promptList.current[0]", promptList.current[0]);
+    if (!promptList.current[0]) {
+      dispatch(fetchAllPrompts());
+      const randomPrompts = shuffle(prompts);
+      console.log("RANDOM PROMPTS", randomPrompts);
+      promptList.current[0] = randomPrompts[0];
+      promptList.current[1] = randomPrompts[1];
+      promptList.current[2] = randomPrompts[2];
+      promptList.current[3] = randomPrompts[3];
+      console.log("promptList.current AFTER", promptList.current);
+    }
+  });
 
   function shuffle(array) {
     let prompts = array.slice();
@@ -28,35 +40,17 @@ const Home = (props) => {
     }
     return shuffledPrompts;
   }
-  console.log("currentPrompt.current:", currentPrompt.current);
-  if (!currentPrompt.current) {
-    const randomPrompts = shuffle(prompts);
-    promptList.current[0] = randomPrompts[0];
-    promptList.current[1] = randomPrompts[1];
-    promptList.current[2] = randomPrompts[2];
-    promptList.current[3] = randomPrompts[3];
-    currentPrompt.current = promptList.current[round.current];
-    console.log(
-      "randomPrompts",
-      randomPrompts,
-      "promptList.current",
-      promptList.current
-    );
-
-    console.log("currentPrompt.current:", currentPrompt.current);
-  }
 
   const navigate = useNavigate();
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
     console.log("GAMECODE", gameCode);
-
     dispatch(
       makeSession({
         gameCode,
         isInSession: true,
-        currentPrompt: currentPrompt.current,
+        promptList: promptList.current,
         round: round.current,
       })
     );
@@ -71,10 +65,7 @@ const Home = (props) => {
     navigate("/canvas");
   };
 
-  useEffect(() => {
-    !gameCode ? dispatch(makeGameCode(5)) : null;
-    !currentPrompt.current ? dispatch(fetchAllPrompts()) : null;
-  });
+  console.log("prompts", prompts);
 
   return (
     <div

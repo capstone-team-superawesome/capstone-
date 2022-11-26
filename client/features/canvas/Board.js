@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
-import { fetchAllPrompts, makeSession } from "../game/gameSlice";
+import { updateGameSession } from "../game/gameSlice";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const Board = () => {
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
+  //const { promptList } = useSelector((state) => state.game.promptList);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
 
   const navigate = useNavigate();
@@ -25,9 +26,18 @@ const Board = () => {
     socketRef.current.emit("beginTimer", { gameCode });
   };
 
+  //when time is 0
   const resetTimer = () => {
     setSeconds(60);
   };
+
+  //called when time reaches 0 OR guess is correct
+  const endOfRound = () => {
+    dispatch(updateGameSession(true));
+  };
+
+  //called when (round is 3 AND time is 0), OR (round is 3 AND guess is correct) //set InSession to false
+  const endOfGame = () => {};
 
   useEffect(() => {
     //prompts

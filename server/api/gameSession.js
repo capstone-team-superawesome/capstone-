@@ -7,7 +7,7 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const gameSessions = await GameSession.findAll({
-      attributes: ["id", "isInSession", "currentPrompt"],
+      attributes: ["id", "isInSession", "promptList"],
     });
     res.json(gameSessions);
   } catch (err) {
@@ -21,7 +21,7 @@ router.get("/:gameCode", async (req, res, next) => {
     console.log("req.params", req.params);
     console.log("gameCode", gameCode);
     const gameSessions = await GameSession.findOne({
-      where: { gameCode, isInSession: true },
+      where: { gameCode: gameCode },
     });
     console.log("gameSessions", gameSessions);
 
@@ -33,14 +33,14 @@ router.get("/:gameCode", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const { gameCode, isInSession, currentPrompt, round } = req.body;
+    const { gameCode, isInSession, promptList, round } = req.body;
 
     console.log();
     const gameSessions = await GameSession.findOrCreate({
       where: {
         gameCode,
         isInSession,
-        currentPrompt,
+        promptList,
         round,
       },
     });
@@ -52,9 +52,10 @@ router.post("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
+    const { isInSession, promptList, round } = req.body;
     const gameSessions = await GameSession.update({
       isInSession,
-      currentPrompt,
+      promptList,
       round,
     });
     res.json(gameSessions);

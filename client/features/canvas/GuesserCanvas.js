@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchCurrentPrompt } from "../game/gameSlice";
+import { fetchPromptList } from "../game/gameSlice";
 
 const GuesserCanvas = ({ canvasRef, colorsRef }) => {
   const [guess, setGuess] = useState("");
   const dispatch = useDispatch();
 
-  const { currentPrompt } = useSelector((state) => state.game.currentPrompt);
+  const { promptList } = useSelector((state) => state.game.promptList);
   const { inputtedGameCode } = useSelector((state) => state.home);
   console.log(inputtedGameCode);
 
   useEffect(() => {
-    dispatch(fetchCurrentPrompt({ createdGameCode: inputtedGameCode }));
+    dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
 
   const handleSubmit = () => {
-    if (guess.toLowerCase() === currentPrompt.toLowerCase()) {
+    if (guess.toLowerCase() === promptList.toLowerCase()) {
       console.log("you got it!");
     }
   };

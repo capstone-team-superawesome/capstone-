@@ -1,18 +1,30 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCurrentPrompt } from "../game/gameSlice";
+import { fetchPromptList } from "../game/gameSlice";
 
 const DrawerCanvas = ({ colorsRef, canvasRef }) => {
-  const dispatch = useDispatch();
-  const { currentPrompt } = useSelector((state) => state.game.currentPrompt);
-  const { createdGameCode } = useSelector((state) => state.home);
+  console.log("hello");
 
+  const promptList = useRef([]);
+  const currentRound = useRef(1);
+
+  const dispatch = useDispatch();
+  const { createdGameCode } = useSelector((state) => state.home);
+  const { gameSession } = useSelector((state) => state.game);
   useEffect(() => {
-    dispatch(fetchCurrentPrompt({ createdGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
+
+  const currentPrompt = useRef(null);
+
+  gameSession[0] ? console.log(gameSession[0].promptList) : null;
+  if (gameSession[0]) {
+    promptList.current = gameSession[0].promptList;
+    currentRound.current = gameSession[0].round;
+  }
+  console.log("promptList", promptList, "round", currentRound);
 
   // function shuffle(array) {
   //   let prompts = array.slice();
@@ -26,13 +38,13 @@ const DrawerCanvas = ({ colorsRef, canvasRef }) => {
   //   return shuffledPrompts;
   // }
 
-  // if (!currentPrompt.current) {
+  // if (!promptList.current) {
   //   const randomPrompts = shuffle(prompts);
   //   promptList.current[0] = randomPrompts[0];
   //   promptList.current[1] = randomPrompts[1];
   //   promptList.current[2] = randomPrompts[2];
   //   promptList.current[3] = randomPrompts[3];
-  //   currentPrompt.current = promptList.current[round.current];
+  //   promptList.current = promptList.current[round.current];
   // }
 
   return (
@@ -76,7 +88,8 @@ const DrawerCanvas = ({ colorsRef, canvasRef }) => {
           fontSize: "32px",
         }}
       >
-        You are Drawing: {currentPrompt}
+        You are Drawing:{" "}
+        {gameSession[0] ? promptList.current[currentRound.current] : null}
       </div>
 
       <canvas

@@ -36,12 +36,12 @@ module.exports = (io) => {
         console.log("gameCode", gameCode);
         if (users.length === 2) {
           let timer = 60;
-          let timerCoutDown = setInterval(() => {
+          let timerCountDown = setInterval(() => {
             io.to(gameCode).emit("timer", timer);
             timer--;
             if (timer === 0) {
               io.to(gameCode).emit("timer", "Time's up !");
-              clearInterval(timerCoutDown);
+              clearInterval(timerCountDown);
             }
           }, 1000);
         }

@@ -93,7 +93,7 @@ export const gameSlice = createSlice({
     });
     builder.addCase(fetchPromptList.fulfilled, (state, action) => {
       console.log("action.payload", action.payload);
-      state.gameSession.promptList = action.payload;
+      state.gameSession = action.payload;
     });
     builder.addCase(setInSessionFalse.fulfilled, (state, action) => {
       state.gameSession = action.payload;

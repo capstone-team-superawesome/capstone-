@@ -7,7 +7,7 @@ const GuesserCanvas = ({ canvasRef, colorsRef }) => {
   const [guess, setGuess] = useState("");
   const dispatch = useDispatch();
 
-  const { promptList } = useSelector((state) => state.game.promptList);
+  const { gameSession } = useSelector((state) => state.game);
   const { inputtedGameCode } = useSelector((state) => state.home);
   console.log(inputtedGameCode);
 
@@ -19,10 +19,14 @@ const GuesserCanvas = ({ canvasRef, colorsRef }) => {
   }, []);
 
   const handleSubmit = () => {
-    if (guess.toLowerCase() === promptList.toLowerCase()) {
+    const promptList = gameSession.promptList;
+    const round = gameSession.round;
+    if (guess.toLowerCase() === promptList[round].toLowerCase()) {
       console.log("you got it!");
     }
   };
+
+  gameSession ? console.log(gameSession) : null;
 
   return (
     <div>

@@ -26,27 +26,6 @@ const DrawerCanvas = ({ colorsRef, canvasRef }) => {
   }
   console.log("promptList", promptList, "round", currentRound);
 
-  // function shuffle(array) {
-  //   let prompts = array.slice();
-  //   let shuffledPrompts = [];
-
-  //   while (prompts.length) {
-  //     const index = Math.floor(Math.random() * prompts.length);
-  //     shuffledPrompts.push(prompts[index].word);
-  //     prompts.splice(index, 1);
-  //   }
-  //   return shuffledPrompts;
-  // }
-
-  // if (!promptList.current) {
-  //   const randomPrompts = shuffle(prompts);
-  //   promptList.current[0] = randomPrompts[0];
-  //   promptList.current[1] = randomPrompts[1];
-  //   promptList.current[2] = randomPrompts[2];
-  //   promptList.current[3] = randomPrompts[3];
-  //   promptList.current = promptList.current[round.current];
-  // }
-
   return (
     <div className="canvas-wrapper">
       <div>

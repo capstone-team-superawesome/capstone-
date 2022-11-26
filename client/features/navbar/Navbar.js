@@ -26,12 +26,6 @@ const Navbar = () => {
           {/* <!-- Menu Items --> */}
           <div class="flex space-x-2 w-3/4 justify-end">
             <Link
-              to="/home"
-              class="hover:text-veryLightGray font-serif text-zinc-900"
-            >
-              Home
-            </Link>
-            <Link
               to="/info"
               class="hover:text-veryLightGray font-serif text-zinc-900"
             >

@@ -553,11 +553,12 @@ video {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 }
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
 .mt-1 {
   margin-top: 0.25rem;
-}
-.mt-5 {
-  margin-top: 1.25rem;
 }
 .block {
   display: block;
@@ -583,14 +584,11 @@ video {
 .hidden {
   display: none;
 }
-.h-screen {
-  height: 100vh;
+.w-1\/2 {
+  width: 50%;
 }
 .w-full {
   width: 100%;
-}
-.w-1\/2 {
-  width: 50%;
 }
 .w-3\/4 {
   width: 75%;
@@ -690,9 +688,6 @@ video {
 }
 .bg-no-repeat {
   background-repeat: no-repeat;
-}
-.bg-repeat-y {
-  background-repeat: repeat-y;
 }
 .p-10 {
   padding: 2.5rem;

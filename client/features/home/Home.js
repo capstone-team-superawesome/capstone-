@@ -29,7 +29,7 @@ const Home = (props) => {
     <div>
       <Landing />
       {id ? (
-        <div id="initialScreen" class="mt-5 mx-auto w-3/4">
+        <div id="initialScreen" class="my-5 mx-auto w-3/4">
           <div class="flex items-center justify-center gap-5">
             <button
               id="newGameButton"
@@ -59,7 +59,7 @@ const Home = (props) => {
           </div>
         </div>
       ) : (
-        <div class="flex justify-center mt-5">
+        <div class="flex justify-center my-5">
           <button
             class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
             onClick={() => navigate("/login")}

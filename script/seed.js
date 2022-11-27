@@ -19,6 +19,7 @@ async function seed() {
       username: "cody",
       password: "123",
       email: "cody@gmail.com",
+      totalScore: 10000,
       isAdmin: true,
     }),
     User.create({

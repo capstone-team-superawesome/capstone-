@@ -7,6 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   const [guess, setGuess] = useState("");
+  const [pastGuesses, setPastGuesses] = useState([
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+  ]);
+  const [counter, setCounter] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,11 +32,22 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
-  }, []);
+  }, [guess]);
 
   const handleSubmit = () => {
     const promptList = gameSession.promptList;
     const round = gameSession.round;
+
+    if (pastGuesses.length < 10) {
+      pastGuesses.push(guess);
+    } else {
+      pastGuesses.shift();
+      pastGuesses.push(guess);
+    }
+    setCounter(counter + 1);
+    setCounter(counter - 1);
+    console.log(pastGuesses);
+
     if (guess.toLowerCase() === promptList[round].toLowerCase()) {
       console.log("you got it!");
       const score = totalScore + 1000;
@@ -77,6 +101,7 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           }}
         />
       </div>
+
       <input
         type="text"
         placeholder="make a guess"
@@ -85,6 +110,11 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
+      <div>
+        {pastGuesses.length
+          ? pastGuesses.map((guess, index) => <div key={index}>{guess}</div>)
+          : null}
+      </div>
     </div>
   );
 };

@@ -118,14 +118,14 @@ const EditProfile = () => {
               <input
                 name="email"
                 value={updateEmail}
-                onChange={(e) => setUpdateEmail(e.target.value)}
+                onChange={(event) => setUpdateEmail(event.target.value)}
                 placeholder={updateEmail}
               />
               <label htmlFor="password">Password: </label>
               <input
                 type="password"
                 name="password"
-                onChange={(e) => setUpdatePassword(e.target.value)}
+                onChange={(event) => setUpdatePassword(event.target.value)}
                 placeholder="Enter new password"
               />
             </div>

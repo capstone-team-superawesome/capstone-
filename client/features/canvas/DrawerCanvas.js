@@ -5,11 +5,8 @@ import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
-  console.log("socketRef in DrawerCanvas", socketRef.current);
-
   const { id } = useSelector((state) => state.auth.me);
 
-  console.log("socketRef in DrawerCanvas", socketRef.current);
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
         if (data) {

@@ -10,7 +10,7 @@ const Profile = () => {
     dispatch(fetchUser(id));
   }, [dispatch]);
 
-  const { id, username, profilePicture, bio } = useSelector(
+  const { id, username, profilePicture, bio, totalScore } = useSelector(
     (state) => state.auth.me
   );
 
@@ -88,7 +88,10 @@ const Profile = () => {
             marginTop: "2%",
           }}
         >
-          <h1 style={{ fontSize: "250%" }}>Top Scores</h1>
+          <div>
+            <h1 style={{ fontSize: "250%" }}>HighScore</h1>
+            <h1>{totalScore}</h1>
+          </div>
         </section>
       </div>
     </div>

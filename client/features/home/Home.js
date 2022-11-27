@@ -42,7 +42,7 @@ const Home = (props) => {
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
-    console.log("GAMECODE", gameCode);
+    //console.log("GAMECODE", gameCode);
     dispatch(
       makeSession({
         gameCode,

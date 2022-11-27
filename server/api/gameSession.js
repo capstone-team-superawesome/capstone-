@@ -6,10 +6,10 @@ module.exports = router;
 
 router.get("/", async (req, res, next) => {
   try {
-    const gameSessions = await GameSession.findAll({
-      attributes: ["id", "isInSession", "promptList"],
+    const gameSession = await GameSession.findOne({
+      attributes: ["id", "isInSession", "promptList", "round", "gameCode"],
     });
-    res.json(gameSessions);
+    res.json(gameSession);
   } catch (err) {
     next(err);
   }

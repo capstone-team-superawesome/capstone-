@@ -31,7 +31,7 @@ export const fetchAllPrompts = createAsyncThunk("fetchAllPrompts", async () => {
 
 export const updateGameSession = createAsyncThunk(
   "updateGameSession",
-  async ({ isInSession, promptList, round }) => {
+  async ({ gameCode, isInSession, promptList, round }) => {
     try {
       const { data } = await axios.put(`api/gameSession`, {
         isInSession,
@@ -63,7 +63,7 @@ export const setInSessionFalse = createAsyncThunk(
   async () => {
     try {
       //to make InSessionFalse
-      const { data } = await axios.put(`api/gameSession`);
+      const { data } = await axios.put(`api/gameSession`, {});
       return data;
     } catch (error) {
       console.log(error);
@@ -78,21 +78,22 @@ export const gameSlice = createSlice({
   name: "game",
   initialState: {
     prompts: [],
-    gameSession: [],
+    gameSession: {},
   },
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(makeSession.fulfilled, (state, action) => {
+      console.log("action.payload MAKE SESSION HERE:", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(updateGameSession.fulfilled, (state, action) => {
+      console.log("UPDATEGAMESESSION ACTION.PAYLOAD", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(fetchAllPrompts.fulfilled, (state, action) => {
       state.prompts = action.payload;
     });
     builder.addCase(fetchPromptList.fulfilled, (state, action) => {
-      console.log("action.payload", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(setInSessionFalse.fulfilled, (state, action) => {

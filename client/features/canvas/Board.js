@@ -14,7 +14,6 @@ const Board = () => {
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
-  //const { promptList } = useSelector((state) => state.game.promptList);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
   const { id } = useSelector((state) => state.auth.me);
 
@@ -68,7 +67,7 @@ const Board = () => {
     }
 
     //we started using useState, but app started breaking, so we kept as is
-    let drawing = true;
+    let drawing = false;
 
     // ------------------------------- create the drawing ----------------------------
 

@@ -1,21 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPromptList } from "../game/gameSlice";
-import { addScore } from "../auth/authSlice";
+import { addScore, updateDrawerFalse } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   const { id } = useSelector((state) => state.auth.me);
-
-  socketRef.current
-    ? socketRef.current.on("guessReceived", (data) => {
-        if (data) {
-          dispatch(addScore({ id: id, score: 1000 }));
-          navigate("/scorePage");
-        }
-      })
-    : null;
-
   const promptList = useRef([]);
   const currentRound = useRef(1);
 
@@ -24,15 +14,31 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   const { createdGameCode } = useSelector((state) => state.home);
   const { gameSession } = useSelector((state) => state.game);
 
+  //console.log("gameSession IN GUESSER", gameSession);
+
   useEffect(() => {
+    //dispatch(fetchPromptList({ createdGameCode: createdGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
 
-  if (gameSession[0]) {
-    promptList.current = gameSession[0].promptList;
-    currentRound.current = gameSession[0].round;
+  socketRef.current
+    ? socketRef.current.on("guessReceived", (data) => {
+        if (data) {
+          dispatch(addScore({ id: id, score: 1000 }));
+          if (gameSession.round >= 4) {
+            navigate("/scorePage");
+          } else {
+            dispatch(updateDrawerFalse(id));
+          }
+        }
+      })
+    : null;
+
+  if (gameSession) {
+    promptList.current = gameSession.promptList;
+    currentRound.current = gameSession.round;
   }
 
   return (
@@ -61,7 +67,7 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         }}
       >
         You are Drawing:{" "}
-        {gameSession[0] ? promptList.current[currentRound.current] : null}
+        {gameSession.id ? promptList.current[currentRound.current] : null}
       </div>
 
       <canvas

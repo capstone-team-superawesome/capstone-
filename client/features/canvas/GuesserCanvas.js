@@ -1,24 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addScore } from "../auth/authSlice";
-import { fetchPromptList } from "../game/gameSlice";
+import { addScore, updateDrawerTrue } from "../auth/authSlice";
+import { fetchPromptList, updateGameSession } from "../game/gameSlice";
 import { useNavigate } from "react-router-dom";
 
 const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   const [guess, setGuess] = useState("");
-  const [pastGuesses, setPastGuesses] = useState([
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-    "",
-  ]);
+  const [pastGuesses, setPastGuesses] = useState([]);
   const [counter, setCounter] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,6 +15,8 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   const { gameSession } = useSelector((state) => state.game);
   const { inputtedGameCode } = useSelector((state) => state.home);
   const { id, totalScore } = useSelector((state) => state.auth.me);
+
+  //console.log("gameSession IN GUESSER", gameSession);
 
   useEffect(() => {
     dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
@@ -35,8 +26,9 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   }, [guess]);
 
   const handleSubmit = () => {
+    const gameCode = gameSession.gameCode;
     const promptList = gameSession.promptList;
-    const round = gameSession.round;
+    let round = gameSession.round;
 
     if (pastGuesses.length < 10) {
       pastGuesses.push(guess);
@@ -46,14 +38,37 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
     }
     setCounter(counter + 1);
     setCounter(counter - 1);
-    console.log(pastGuesses);
 
     if (guess.toLowerCase() === promptList[round].toLowerCase()) {
       console.log("you got it!");
       const score = totalScore + 1000;
       dispatch(addScore({ id: id, score: score }));
+      //increment round
+      console.log("HEY, WE'RE IN THE SUBMIT", "GAMECODE", gameCode);
+      dispatch(
+        updateGameSession({
+          gameCode,
+          isInSession: true,
+          promptList,
+          round: round + 1,
+        })
+      );
       socketRef.current.emit("guessMade", true);
-      navigate("/scorePage");
+      if (round >= 4) {
+        console.log("HEY, WE'RE IN THE END GAME LOGIC");
+        dispatch(
+          updateGameSession({
+            gameCode: gameSession.gameCode,
+            isInSession: false,
+            promptList,
+            round,
+          })
+        );
+        navigate("/scorePage");
+      } else {
+        dispatch(updateDrawerTrue(id));
+        //if false, change isDrawer and rerender
+      }
     }
   };
 

@@ -6,7 +6,6 @@ import { updateDrawerTrue, updateDrawerFalse } from "../../app/store";
 import Landing from "./Landing";
 import { makeSession, fetchAllPrompts } from "../../app/store";
 
-
 const Home = (props) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.me.id);
@@ -44,7 +43,6 @@ const Home = (props) => {
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
-    //console.log("GAMECODE", gameCode);
     dispatch(
       makeSession({
         gameCode,

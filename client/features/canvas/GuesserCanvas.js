@@ -16,8 +16,6 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
   const { inputtedGameCode } = useSelector((state) => state.home);
   const { id, totalScore } = useSelector((state) => state.auth.me);
 
-  //console.log("gameSession IN GUESSER", gameSession);
-
   useEffect(() => {
     dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     const canvas = canvasRef.current;
@@ -44,18 +42,16 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
       const score = totalScore + 1000;
       dispatch(addScore({ id: id, score: score }));
       //increment round
-      console.log("HEY, WE'RE IN THE SUBMIT", "GAMECODE", gameCode);
       dispatch(
         updateGameSession({
-          gameCode,
-          isInSession: true,
+          isInSession: [true, gameCode],
           promptList,
           round: round + 1,
+          GameCode: gameCode,
         })
       );
       socketRef.current.emit("guessMade", true);
       if (round >= 4) {
-        console.log("HEY, WE'RE IN THE END GAME LOGIC");
         dispatch(
           updateGameSession({
             gameCode: gameSession.gameCode,

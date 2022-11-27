@@ -117,7 +117,6 @@ export const updateDrawerFalse = createAsyncThunk(
 
 export const addScore = createAsyncThunk("addScore", async ({ id, score }) => {
   try {
-    console.log("score ", score);
     const { data } = await axios.put(`api/users/${id}/addScore`, {
       totalScore: score,
     });

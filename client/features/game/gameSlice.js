@@ -50,7 +50,7 @@ export const fetchPromptList = createAsyncThunk(
   async ({ createdGameCode }) => {
     try {
       const { data } = await axios.get(`api/gameSession/${createdGameCode}`);
-      console.log(data);
+      console.log("When we fetch promptlist :", data);
       return data;
     } catch (error) {
       console.log(error);
@@ -83,17 +83,16 @@ export const gameSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(makeSession.fulfilled, (state, action) => {
-      console.log("action.payload MAKE SESSION HERE:", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(updateGameSession.fulfilled, (state, action) => {
-      console.log("UPDATEGAMESESSION ACTION.PAYLOAD", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(fetchAllPrompts.fulfilled, (state, action) => {
       state.prompts = action.payload;
     });
     builder.addCase(fetchPromptList.fulfilled, (state, action) => {
+      console.log("Action.payload in slice: ", action.payload);
       state.gameSession = action.payload;
     });
     builder.addCase(setInSessionFalse.fulfilled, (state, action) => {

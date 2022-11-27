@@ -14,10 +14,12 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   const { createdGameCode } = useSelector((state) => state.home);
   const { gameSession } = useSelector((state) => state.game);
 
-  //console.log("gameSession IN GUESSER", gameSession);
-
   useEffect(() => {
-    //dispatch(fetchPromptList({ createdGameCode: createdGameCode }));
+    dispatch(
+      fetchPromptList({
+        createdGameCode: createdGameCode || gameSession.gameCode,
+      })
+    );
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
@@ -45,7 +47,8 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
     <div className="canvas-wrapper">
       <div>
         <div>
-          Your game session code is {createdGameCode ? createdGameCode : null}
+          Your game session code is{" "}
+          {gameSession.gameCode ? gameSession.gameCode : null}
         </div>
       </div>
 

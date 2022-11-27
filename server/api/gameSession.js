@@ -18,10 +18,12 @@ router.get("/", async (req, res, next) => {
 router.get("/:gameCode", async (req, res, next) => {
   try {
     const { gameCode } = req.params;
+
     const gameSession = await GameSession.findOne({
       where: { gameCode: gameCode },
     });
-
+    console.log("gameCode", gameCode);
+    console.log("gameSession", gameSession);
     res.json(gameSession);
   } catch (err) {
     next(err);
@@ -40,7 +42,6 @@ router.post("/", async (req, res, next) => {
         round,
       },
     });
-    console.log("gameSession CREATION ROUTE", gameSession);
     res.json(gameSession[0]);
   } catch (err) {
     next(err);
@@ -49,28 +50,16 @@ router.post("/", async (req, res, next) => {
 
 router.put("/", async (req, res, next) => {
   try {
-    const { gameCode, isInSession, promptList, round } = req.body;
+    const { isInSession, promptList, round, GameCode } = req.body;
 
-    console.log(
-      "ALL PARAMATERS IN UPDATE ROUTE",
-      "gameCode",
-      "isInSession",
-      "promptList",
-      "round",
-      gameCode,
-      isInSession,
-      promptList,
-      round
-    );
-    const gameSessionUpdate = await GameSession.update(
+    const [, gameSessionUpdate] = await GameSession.update(
       {
-        isInSession,
+        isInSession: isInSession[0],
         promptList,
         round,
       },
-      { where: { gameCode: gameCode } }
+      { where: { gameCode: isInSession[1] }, returning: true, plain: true }
     );
-    console.log("ROUTER UPDATE GAMESESSION", gameSessionUpdate);
     res.json(gameSessionUpdate);
   } catch (err) {
     next(err);

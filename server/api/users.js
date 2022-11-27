@@ -21,6 +21,7 @@ router.get("/:id", requireToken, async (req, res, next) => {
 // api/users/edit - edit user
 router.put("/:id", requireToken, async (req, res, next) => {
   try {
+    console.log("IN EDIT USER", req.user);
     if (req.user.id === +req.params.id) {
       const user = await User.findByPk(req.params.id);
       await user.update(req.body);

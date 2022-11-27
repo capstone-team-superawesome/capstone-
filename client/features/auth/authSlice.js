@@ -53,16 +53,17 @@ export const editUser = createAsyncThunk(
     try {
       const { data } = await axios.put(
         `/api/users/${id}`,
-        {
-          headers: {
-            authorization: token,
-          },
-        },
+
         {
           email: updateEmail,
           password: updatePassword,
           profilePicture: profileImage,
           bio: updateBio,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
         }
       );
       return data;

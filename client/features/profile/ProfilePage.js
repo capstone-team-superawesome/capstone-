@@ -20,7 +20,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div class="bg-gray-300 m-10 p-10 rounded-2xl">
+      <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl ">
         <div
           style={{
             display: "flex",

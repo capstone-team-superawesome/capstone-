@@ -43,3 +43,13 @@ router.put("/:id/updateDrawer", async (req, res, next) => {
     next(error);
   }
 });
+
+router.put("/:id/addScore", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    await user.update(req.body);
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+});

@@ -1,44 +1,48 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
-
-//Hello
+import { updateGameSession } from "../game/gameSlice";
 
 const Board = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
+  //const { promptList } = useSelector((state) => state.game.promptList);
   const isDrawer = useSelector((state) => state.auth.me.isDrawer);
+  const { id } = useSelector((state) => state.auth.me);
 
-  //brush
-  const brushSizes = [5, 10, 32, 64];
-  let brushSize = 5;
   const navigate = useNavigate();
 
   //Timer
   const [seconds, setSeconds] = useState(60);
 
-  const startTimer = () => {
-    setInterval(() => {
-      setSeconds((seconds) => seconds - 1);
-    }, 1000);
+  const beginGame = () => {
+    socketRef.current.emit("beginTimer", { gameCode });
   };
 
-  const brushHandler = (size) => {
-    brushSize = size;
-  };
-
+  //when time is 0
   const resetTimer = () => {
     setSeconds(60);
   };
 
+  //called when time reaches 0 OR guess is correct
+  const endOfRound = () => {
+    dispatch(updateGameSession(true));
+  };
+
+  //called when (round is 3 AND time is 0), OR (round is 3 AND guess is correct) //set InSession to false
+  const endOfGame = () => {};
+
   useEffect(() => {
+    //prompts
+
     // --------------- getContext() method returns a drawing context on the canvas-----
 
     const canvas = canvasRef.current;
@@ -75,23 +79,15 @@ const Board = () => {
         y: drawingContainer.offsetTop - scrollY,
       };
       context.beginPath();
-      if (brushSize <= 10) {
-        context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
-        context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
-        context.strokeStyle = color;
-        context.lineWidth = brushSize;
-      } else {
-        context.arc(
-          x0 - canvasOffset.x,
-          y0 - canvasOffset.y,
-          brushSize,
-          0,
-          2 * Math.PI,
-          false
-        );
-        context.fillStyle = color;
-        context.strokeStyle = color;
-      }
+
+      context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+      context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+      context.strokeStyle = color;
+      context.lineWidth = 5;
+
+      context.fillStyle = color;
+      context.strokeStyle = color;
+
       context.fill();
       context.stroke();
       context.closePath();
@@ -207,6 +203,11 @@ const Board = () => {
       socketRef.current.on("drawing", onDrawingEvent);
     }
 
+    //timer
+    socketRef.current.on("timer", (count) => {
+      setSeconds(count);
+    });
+
     //listen for new user event which sends room information
     socketRef.current.on("new user", ({ users, host }) => {
       console.log("users : ", users, "host : ", host);
@@ -236,24 +237,26 @@ const Board = () => {
         {" "}
         {seconds}{" "}
       </span>
-      <span>
+      {/* <span>
         <button onClick={startTimer}>Start</button>
-      </span>
+      </span> */}
 
-      <div>
-        <div>
-          Your game session code is {gameCode ? gameCode : inputtedGameCode}
-        </div>
-      </div>
+      <span>
+        <button onClick={beginGame}>Begin</button>
+      </span>
 
       {isDrawer ? (
         <DrawerCanvas
           colorsRef={colorsRef}
-          brushSizes={brushSizes}
           canvasRef={canvasRef}
+          socketRef={socketRef}
         />
       ) : (
-        <GuesserCanvas canvasRef={canvasRef} />
+        <GuesserCanvas
+          canvasRef={canvasRef}
+          colorsRef={colorsRef}
+          socketRef={socketRef}
+        />
       )}
     </div>
   );

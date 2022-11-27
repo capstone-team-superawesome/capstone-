@@ -29,6 +29,29 @@ module.exports = (io) => {
           io.emit("new user", users);
         });
       });
+
+      socket.on("guessMade", (data) => {
+        if (data) {
+          io.emit("guessReceived", data);
+        }
+      });
+
+      socket.on("beginTimer", (roomName) => {
+        console.log("backend", roomName);
+        const { gameCode } = roomName;
+        console.log("gameCode", gameCode);
+        if (users.length === 2) {
+          let timer = 60;
+          let timerCountDown = setInterval(() => {
+            io.to(gameCode).emit("timer", timer);
+            timer--;
+            if (timer === 0) {
+              io.to(gameCode).emit("timer", "Time's up !");
+              clearInterval(timerCountDown);
+            }
+          }, 1000);
+        }
+      });
     }
   });
 };

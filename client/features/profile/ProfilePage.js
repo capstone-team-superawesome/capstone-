@@ -10,76 +10,47 @@ const Profile = () => {
     dispatch(fetchUser(id));
   }, [dispatch]);
 
-  const { id, username, profilePicture, bio, totalScore } = useSelector(
+  const { id, username, profilePicture, bio, email, totalScore } = useSelector(
+
     (state) => state.auth.me
   );
-
+  //Take first letter and make uppercase
+  const upperCaseName = username.charAt(0).toUpperCase() + username.slice(1);
   // const { } = useSelector((state) => {
   //   state.editProfilePage;
   // });
 
   return (
-    <div>
-      <div class="bg-gray-300 m-10 p-10 rounded-2xl">
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: "15%",
-          }}
-        >
-          <section style={{ display: "inline", position: "relative" }}>
+    <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between h-96">
+      <div class="flex-col justify-start w-1/3">
+        <div class="absolute">
+          <img
+            style={{
+              width: "150px",
+              borderRadius: "100px",
+              border: "black solid 2px",
+            }}
+            src={profilePicture}
+          />
+          <Link to="/editprofile">
             <img
               style={{
-                width: "150px",
-                borderRadius: "100px",
-                border: "black solid 2px",
+                height: "25px",
+                position: "absolute",
+                bottom: "0",
+                right: "0",
               }}
-              src={profilePicture}
+              src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
             ></img>
-            <Link to="/editprofile">
-              <img
-                style={{
-                  height: "25px",
-                  position: "absolute",
-                  bottom: "0",
-                  right: "0",
-                }}
-                src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-              ></img>
-            </Link>
-          </section>
-          <div>
-            <section>
-              <h1 style={{ marginLeft: "100px" }}>{username}</h1>
-            </section>
-            <div
-              style={{
-                display: "inline",
-                position: "relative",
-              }}
-            >
-              <textarea
-                style={{
-                  marginLeft: "100px",
-                  width: "500px",
-                }}
-                rows="7"
-                value={bio}
-              ></textarea>
-              <Link to="/editprofile">
-                <img
-                  style={{
-                    height: "25px",
-                    position: "absolute",
-                    bottom: "0",
-                    right: "0",
-                  }}
-                  src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-                ></img>
-              </Link>
-            </div>
-          </div>
+          </Link>
+        </div>
+      </div>
+      <div class="flex-col justify-start w-2/3">
+        <h1 class="text-4xl">Welcome {upperCaseName}!</h1>
+        <div>
+          <div>Email: {email}</div>
+          <div>Bio: {bio}</div>
+          <div>Total Score: {totalScore}</div>
         </div>
         <section
           style={{
@@ -94,6 +65,16 @@ const Profile = () => {
           </div>
         </section>
       </div>
+      {/* Not sure what this is for */}
+      {/* <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "2%",
+        }}
+      >
+        <h1 style={{ fontSize: "250%" }}>Top Scores</h1>
+      </section> */}
     </div>
   );
 };

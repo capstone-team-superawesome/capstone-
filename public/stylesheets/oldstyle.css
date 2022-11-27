@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  background-image: url("../img/pictbg.png");
 }
 
 a {
@@ -37,8 +38,11 @@ nav a {
   display: inline-block;
   height: 48px;
   width: 48px;
+  border-radius: 20px;
+  cursor: url("../img/paintbrushcursor.png"), pointer;
   border-radius: 50px;
   margin-right: 10px;
+
 }
 
 .color.black {
@@ -58,6 +62,10 @@ nav a {
 }
 .color.white {
   background-color: white;
+}
+
+.brushes {
+   cursor: url("../img/paintbrushcursor.png"), pointer;
 }
 
 #signup-form {

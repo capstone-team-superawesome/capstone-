@@ -21,6 +21,8 @@ async function seed() {
       email: "cody@gmail.com",
       totalScore: 10000,
       isAdmin: true,
+      bio: "I love the game of Pictionary! Yay me!",
+      totalScore: 2000000,
     }),
     User.create({
       username: "murphy",

@@ -68,7 +68,7 @@ const Board = () => {
     }
 
     //we started using useState, but app started breaking, so we kept as is
-    let drawing = false;
+    let drawing = true;
 
     // ------------------------------- create the drawing ----------------------------
 
@@ -178,8 +178,8 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    canvas.width = 1000;
-    canvas.height = 500;
+    canvas.width = "1000";
+    canvas.height = "500";
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {

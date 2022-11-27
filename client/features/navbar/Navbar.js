@@ -11,13 +11,13 @@ const Navbar = () => {
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/home");
   };
 
   return (
     <div className="navbar">
       <nav class="bg-gradient-to-r from-cyan-400 to-blue-500">
-        <div class="flex items-center justify-between px-4">
+        <div class="flex items-center justify-between px-4 py-0">
           <div class="w-1/4">
             <Link to="/home">
               <img src="img/Pictionary-Logo.png " class="w-full" />
@@ -25,12 +25,6 @@ const Navbar = () => {
           </div>
           {/* <!-- Menu Items --> */}
           <div class="flex space-x-2 w-3/4 justify-end">
-            <Link
-              to="/home"
-              class="hover:text-veryLightGray font-serif text-zinc-900"
-            >
-              Home
-            </Link>
             <Link
               to="/info"
               class="hover:text-veryLightGray font-serif text-zinc-900"

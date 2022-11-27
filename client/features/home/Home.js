@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { makeGameCode, updateInputtedGameCode } from "../../app/store";
 import { updateDrawerTrue, updateDrawerFalse } from "../../app/store";
+import Landing from "./Landing";
 import { makeSession, fetchAllPrompts } from "../../app/store";
+
 
 const Home = (props) => {
   const dispatch = useDispatch();
@@ -63,37 +65,48 @@ const Home = (props) => {
   };
 
   return (
-    <div
-      id="initialScreen"
-      class="bg-gray-300 my-10 mx-auto p-10 flex-col rounded-2xl w-1/2"
-    >
-      <div class="flex-col items-center justify-center gap-5">
-        <button
-          id="newGameButton"
-          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded"
-          onClick={() => handleCreateGame()}
-        >
-          Create a Room
-        </button>
-        <div class="text-center">OR</div>
-        <div>
-          <input
-            type="text"
-            placeholder="Enter Game Code"
-            class="w-full px-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+    <div>
+      <Landing />
+      {id ? (
+        <div id="initialScreen" class="my-5 mx-auto w-3/4">
+          <div class="flex items-center justify-center gap-5">
+            <button
+              id="newGameButton"
+              class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
+              onClick={() => handleCreateGame()}
+            >
+              Create a Room
+            </button>
+            <div class="text-center text-white font-serif text-xl">OR</div>
+
+            <input
+              type="text"
+              placeholder="Enter Game Code"
+              class="w-1/2 px-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
       focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            value={inputGameCode}
-            onChange={(event) => setInputGameCode(event.target.value)}
-          />
+              value={inputGameCode}
+              onChange={(event) => setInputGameCode(event.target.value)}
+            />
+
+            <button
+              id="joinGameButton"
+              class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
+              onClick={() => handleJoinGame()}
+            >
+              Join Game
+            </button>
+          </div>
         </div>
-        <button
-          id="joinGameButton"
-          class="w-full bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded"
-          onClick={() => handleJoinGame()}
-        >
-          Join Game
-        </button>
-      </div>
+      ) : (
+        <div class="flex justify-center my-5">
+          <button
+            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500"
+            onClick={() => navigate("/login")}
+          >
+            Login to Play!
+          </button>
+        </div>
+      )}
     </div>
   );
 };

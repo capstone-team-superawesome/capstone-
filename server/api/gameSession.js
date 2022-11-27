@@ -7,60 +7,55 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const gameSessions = await GameSession.findAll({
-      attributes: ["id", "isInSession", "currentPrompt"],
+      attributes: ["id", "isInSession", "promptList"],
     });
     res.json(gameSessions);
   } catch (err) {
     next(err);
   }
+});
 
-  // router.post("/", async (req, res, next) => {
-  //   try {
-  //     const gameSessions = await GameSession.findOrCreate({
-  //       where: {
-  //         isInSession: true,
-  //         "prompt1",
-  //         "prompt2",
-  //         "prompt3",
-  //         "prompt4",
-  //       },
-  //     });
-  //     res.json(gameSessions);
-  //   } catch (err) {
-  //     next(err);
-  //   }
+router.get("/:gameCode", async (req, res, next) => {
+  try {
+    const { gameCode } = req.params;
+    const gameSessions = await GameSession.findOne({
+      where: { gameCode: gameCode },
+    });
 
-  //   router.put("/", async (req, res, next) => {
-  //   try {
-  //     const gameSessions = await GameSession.findAll({
-  //       attributes: [
-  //         "id",
-  //         "isInSession",
-  //         "prompt1",
-  //         "prompt2",
-  //         "prompt3",
-  //         "prompt4",
-  //       ],
-  //     });
-  //     res.json(gameSessions);
-  //   } catch (err) {
-  //     next(err);
-  //   }
+    res.json(gameSessions);
+  } catch (err) {
+    next(err);
+  }
+});
 
-  //   router.delete("/", async (req, res, next) => {
-  //   try {
-  //     const gameSessions = await GameSession.findAll({
-  //       attributes: [
-  //         "id",
-  //         "isInSession",
-  //         "prompt1",
-  //         "prompt2",
-  //         "prompt3",
-  //         "prompt4",
-  //       ],
-  //     });
-  //     res.json(gameSessions);
-  //   } catch (err) {
-  //     next(err);
-  //   }
+router.post("/", async (req, res, next) => {
+  try {
+    const { gameCode, isInSession, promptList, round } = req.body;
+
+    const gameSessions = await GameSession.findOrCreate({
+      where: {
+        gameCode,
+        isInSession,
+        promptList,
+        round,
+      },
+    });
+    res.json(gameSessions);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/", async (req, res, next) => {
+  try {
+    const { isInSession, promptList, round } = req.body;
+    const gameSessions = await GameSession.update({
+      isInSession,
+      promptList,
+      round,
+    });
+    res.json(gameSessions);
+  } catch (err) {
+    next(err);
+  }
 });

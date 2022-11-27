@@ -10,9 +10,13 @@ const GameSession = db.define("gamesession", {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  currentPrompt: {
-    type: Sequelize.STRING,
-    defaultValue: "sculpture",
+  promptList: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: ["sculpture", "santa", "peacock", "turkey"],
+  },
+  round: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
   },
 });
 

@@ -1,40 +1,51 @@
-import { use } from "chai";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllPrompts } from "../game/gameSlice";
+import { fetchPromptList } from "../game/gameSlice";
+import { addScore } from "../auth/authSlice";
+import { useNavigate } from "react-router-dom";
 
-const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
+const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
+  console.log("socketRef in DrawerCanvas", socketRef.current);
+
+  const { id } = useSelector((state) => state.auth.me);
+
+  console.log("socketRef in DrawerCanvas", socketRef.current);
+  socketRef.current
+    ? socketRef.current.on("guessReceived", (data) => {
+        if (data) {
+          dispatch(addScore({ id: id, score: 1000 }));
+          navigate("/scorePage");
+        }
+      })
+    : null;
+
+  const promptList = useRef([]);
+  const currentRound = useRef(1);
+
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { prompts } = useSelector((state) => state.game);
+  const { createdGameCode } = useSelector((state) => state.home);
+  const { gameSession } = useSelector((state) => state.game);
 
   useEffect(() => {
-    dispatch(fetchAllPrompts());
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
 
-  function shuffle(array) {
-    let prompts = array.slice();
-    let shuffledPrompts = [];
-
-    while (prompts.length) {
-      const index = Math.floor(Math.random() * prompts.length);
-      shuffledPrompts.push(prompts[index].word);
-      prompts.splice(index, 1);
-    }
-    return shuffledPrompts;
+  if (gameSession[0]) {
+    promptList.current = gameSession[0].promptList;
+    currentRound.current = gameSession[0].round;
   }
-
-  console.log("original prompts", prompts);
-  const randomPrompts = shuffle(prompts);
-  console.log("randomPrompts", randomPrompts);
-  const prompt =
-    randomPrompts[Math.floor(Math.random() * randomPrompts.length)];
-  console.log("singular prompt", prompt);
 
   return (
     <div className="canvas-wrapper">
+      <div>
+        <div>
+          Your game session code is {createdGameCode ? createdGameCode : null}
+        </div>
+      </div>
+
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />
@@ -44,22 +55,6 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
           <div className="color yellow" />
           <div className="color white" />
         </span>
-        {/* <span style={{ marginLeft: "40px" }}>
-          {brushSizes.map((size) => (
-            <span
-              key={size}
-              onClick={() => brushHandler(size)}
-              style={{
-                height: `${size}px`,
-                width: `${size}px`,
-                backgroundColor: "#949494",
-                borderRadius: "50%",
-                display: "inline-block",
-                marginRight: "15px",
-              }}
-            ></span>
-          ))}
-        </span> */}
       </div>
       <div
         style={{
@@ -68,7 +63,8 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
           fontSize: "32px",
         }}
       >
-        You are Drawing: {prompt}
+        You are Drawing:{" "}
+        {gameSession[0] ? promptList.current[currentRound.current] : null}
       </div>
 
       <canvas

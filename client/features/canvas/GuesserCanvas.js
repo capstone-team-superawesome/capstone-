@@ -1,14 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addScore } from "../auth/authSlice";
+import { fetchPromptList } from "../game/gameSlice";
+import { useNavigate } from "react-router-dom";
 
-const GuesserCanvas = ({ canvasRef, colorsRef }) => {
+const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
+  const [guess, setGuess] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { gameSession } = useSelector((state) => state.game);
+  const { inputtedGameCode } = useSelector((state) => state.home);
+  const { id, totalScore } = useSelector((state) => state.auth.me);
+
   useEffect(() => {
+    dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
   }, []);
 
+  const handleSubmit = () => {
+    const promptList = gameSession.promptList;
+    const round = gameSession.round;
+    if (guess.toLowerCase() === promptList[round].toLowerCase()) {
+      console.log("you got it!");
+      const score = totalScore + 1000;
+      dispatch(addScore({ id: id, score: score }));
+      socketRef.current.emit("guessMade", true);
+      navigate("/scorePage");
+    }
+  };
+
   return (
     <div>
+      <div>
+        <div>
+          Your game session code is {inputtedGameCode ? inputtedGameCode : null}
+        </div>
+      </div>
       <div style={{ display: "inline-block" }}>
         <span ref={colorsRef} className="colors">
           <div className="color black" />
@@ -46,8 +77,14 @@ const GuesserCanvas = ({ canvasRef, colorsRef }) => {
           }}
         />
       </div>
-      <input type="text" placeholder="make a guess"></input>
-      <button type="submit">Submit</button>
+      <input
+        type="text"
+        placeholder="make a guess"
+        onChange={(event) => setGuess(event.target.value)}
+      ></input>
+      <button type="submit" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 };

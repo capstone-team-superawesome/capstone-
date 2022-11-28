@@ -140,6 +140,11 @@ input {
   object-fit: cover;
 }
 
+.guesserBarColumn {
+  z-index: -1000;
+  object-fit: cover;
+}
+
 .custom-single-about {
   width: 250px;
   display: flex;

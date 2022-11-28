@@ -42,6 +42,7 @@ const Board = () => {
 
   useEffect(() => {
     //prompts
+    window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
@@ -68,7 +69,7 @@ const Board = () => {
     }
 
     //we started using useState, but app started breaking, so we kept as is
-    let drawing = true;
+    let drawing = false;
 
     // ------------------------------- create the drawing ----------------------------
 

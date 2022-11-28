@@ -11,7 +11,10 @@ const Info = () => {
             </h1>
           </p>
 
-          <p class="font-serif text-black text-xl">
+          <p
+            class="font-serif text-black text-xl"
+            style={{ marginTop: "25px" }}
+          >
             Pictionary is a charades-inspired word-guessing game invented by
             Robert Angel with graphic design by Gary Everson and first published
             in 1985 by Angel Games Inc. Angel Games licensed Pictionary to
@@ -39,7 +42,17 @@ const Info = () => {
             </h1>
           </p>
 
-          <p class="font-serif text-black">-insert actual rules here-</p>
+          <p
+            class="font-serif text-black text-xl"
+            style={{ marginTop: "25px" }}
+          >
+            <ol>
+              <li>1. Player 1 is given a prompt to draw.</li>
+              <li>2. Player 2 tries to guess what Player 1 is drawing.</li>
+              <li>3. If Player 2 gets it right, you both get points.</li>
+              <li>4. Guess fast to earn more points and level up!</li>
+            </ol>
+          </p>
         </div>
       </div>
     </div>

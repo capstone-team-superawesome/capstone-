@@ -5,12 +5,13 @@ import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
-  const { id } = useSelector((state) => state.auth.me);
+  const { id, totalScore } = useSelector((state) => state.auth.me);
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
         if (data) {
-          dispatch(addScore({ id: id, score: 1000 }));
+          const score = totalScore + 1000;
+          dispatch(addScore({ id: id, score: score }));
           navigate("/scorePage");
         }
       })
@@ -25,6 +26,7 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   const { gameSession } = useSelector((state) => state.game);
 
   useEffect(() => {
+    window.scrollTo({ top: 100, left: 0, behavior: "smooth" });
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
@@ -36,36 +38,37 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   }
 
   return (
-    <div className="canvas-wrapper">
-      <div class="my-10">
-        <div class="text-center align-middle text-xl mt-5">
+    <div>
+      <div>
+        <div>
           Your game session code is {createdGameCode ? createdGameCode : null}
         </div>
       </div>
-
-      <div class="flex justify-center w-1/2 mx-auto">
-        <span ref={colorsRef} className="colors">
-          <div className="color black" />
-          <div className="color crimson" />
-          <div className="color green" />
-          <div className="color blue" />
-          <div className="color yellow" />
-          <div className="color white" />
+      <span>
+        <span style={{ display: "inline-block" }}>
+          <span ref={colorsRef} className="colors">
+            <div className="color black" />
+            <div className="color crimson" />
+            <div className="color green" />
+            <div className="color blue" />
+            <div className="color yellow" />
+            <div className="color white" />
+          </span>
         </span>
-      </div>
-      <div
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: "32px",
-        }}
-      >
-        You are Drawing:{" "}
-        {gameSession && gameSession[0]
-          ? promptList.current[currentRound.current]
-          : null}
-      </div>
-
+        <span
+          style={{
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: "32px",
+            marginLeft: "10%",
+          }}
+        >
+          You are Drawing:{" "}
+          {gameSession && gameSession[0]
+            ? promptList.current[currentRound.current]
+            : null}
+        </span>
+      </span>
       <canvas
         id="container-canvas"
         ref={canvasRef}

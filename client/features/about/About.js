@@ -1,6 +1,5 @@
 import React from "react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-
 function About() {
   return (
     <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 m-10 p-10 flex-col items-center rounded-2xl">
@@ -137,5 +136,4 @@ function About() {
     </div>
   );
 }
-
 export default About;

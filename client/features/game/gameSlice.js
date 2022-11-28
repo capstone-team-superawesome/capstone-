@@ -47,9 +47,10 @@ export const updateGameSession = createAsyncThunk(
 
 export const fetchPromptList = createAsyncThunk(
   "fetchPromptList",
-  async ({ createdGameCode }) => {
+  async ({ gameCode }) => {
     try {
-      const { data } = await axios.get(`api/gameSession/${createdGameCode}`);
+      console.log("GAMECODE IN FETCHPROMPTLIST :", gameCode);
+      const { data } = await axios.get(`api/gameSession/${gameCode}`);
       console.log("When we fetch promptlist :", data);
       return data;
     } catch (error) {

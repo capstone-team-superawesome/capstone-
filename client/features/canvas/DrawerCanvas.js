@@ -15,11 +15,17 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   const { gameSession } = useSelector((state) => state.game);
 
   useEffect(() => {
-    dispatch(
-      fetchPromptList({
-        createdGameCode: createdGameCode || gameSession.gameCode,
-      })
-    );
+    gameSession.gameCode
+      ? dispatch(
+          fetchPromptList({
+            gameCode: gameSession.gameCode,
+          })
+        )
+      : dispatch(
+          fetchPromptList({
+            gameCode: createdGameCode,
+          })
+        );
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";

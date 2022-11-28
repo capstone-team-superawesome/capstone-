@@ -9,6 +9,8 @@ router.get("/:id", requireToken, async (req, res, next) => {
   try {
     if (req.user.id === +req.params.id) {
       const user = await User.findByPk(req.params.id);
+
+      console.log("USER CHANGE", user);
       res.json(user);
     } else {
       res.sendStatus(401);

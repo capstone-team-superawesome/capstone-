@@ -14,14 +14,30 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
 
   const { gameSession } = useSelector((state) => state.game);
   const { inputtedGameCode } = useSelector((state) => state.home);
-  const { id, totalScore } = useSelector((state) => state.auth.me);
+  const { id, totalScore, isDrawer } = useSelector((state) => state.auth.me);
 
   useEffect(() => {
-    dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
+    console.log(
+      "GAMECODE IN GUESSERCANVAS",
+      inputtedGameCode,
+      "gamesession ->",
+      gameSession.gameCode
+    );
+    gameSession.gameCode
+      ? dispatch(
+          fetchPromptList({
+            gameCode: gameSession.gameCode,
+          })
+        )
+      : dispatch(
+          fetchPromptList({
+            gameCode: inputtedGameCode,
+          })
+        );
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
-  }, [guess]);
+  }, []);
 
   const handleSubmit = () => {
     const gameCode = gameSession.gameCode;
@@ -52,18 +68,17 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
       );
       socketRef.current.emit("guessMade", true);
       if (round >= 4) {
-        dispatch(
-          updateGameSession({
-            gameCode: gameSession.gameCode,
-            isInSession: false,
-            promptList,
-            round,
-          })
-        );
+        // dispatch(
+        //   updateGameSession({
+        //     gameCode: gameSession.gameCode,
+        //     isInSession: false,
+        //     promptList,
+        //     round,
+        //   })
+        // );
         navigate("/scorePage");
       } else {
         dispatch(updateDrawerTrue(id));
-        //if false, change isDrawer and rerender
       }
     }
   };

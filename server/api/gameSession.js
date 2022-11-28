@@ -18,11 +18,11 @@ router.get("/", async (req, res, next) => {
 router.get("/:gameCode", async (req, res, next) => {
   try {
     const { gameCode } = req.params;
-
+    console.log("gameCode BEFORE", gameCode);
     const gameSession = await GameSession.findOne({
       where: { gameCode: gameCode },
     });
-    console.log("gameCode", gameCode);
+    console.log("gameCode AFTER", gameCode);
     console.log("gameSession", gameSession);
     res.json(gameSession);
   } catch (err) {

@@ -49,18 +49,30 @@ const EditProfile = () => {
     <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 m-10 p-10 rounded-2xl flex justify-between h-96">
       <div class="flex-col justify-start w-1/3">
         <div class="absolute">
-          <img
+          <section
             style={{
               width: "150px",
-              borderRadius: "100px",
+              height: "150px",
+              overflow: "hidden",
+              borderRadius: "50%",
               border: "black solid 2px",
             }}
-            src={profilePicture}
-          />
+          >
+            <img
+              style={{
+                display: "inline",
+                margin: "0 auto",
+                height: "100%",
+                width: " auto",
+              }}
+              src={profileImage}
+            />
+          </section>
           <img
             id="profilePictureEditIcon"
             className="collapsible"
             style={{
+              zIndex: "100",
               height: "25px",
               position: "absolute",
               bottom: "0",
@@ -78,7 +90,7 @@ const EditProfile = () => {
               <img
                 key={index}
                 src={picture}
-                style={{ height: "100px" }}
+                style={{ height: "75px" }}
                 onClick={(event) => setProfileImage(picture)}
               ></img>
             ))}
@@ -104,7 +116,7 @@ const EditProfile = () => {
             <input
               name="email"
               value={updateEmail}
-              onChange={(e) => setUpdateEmail(e.target.value)}
+              onChange={(event) => setUpdateEmail(event.target.value)}
               placeholder={updateEmail}
             />
             <label class="font-serif" htmlFor="password">
@@ -113,10 +125,9 @@ const EditProfile = () => {
             <input
               type="password"
               name="password"
-              onChange={(e) => setUpdatePassword(e.target.value)}
+              onChange={(event) => setUpdatePassword(event.target.value)}
               placeholder="Enter new password"
             />
-
           </div>
           <button
             class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 py-2 px-4 rounded-full hover:shadow-lg hover:shadow-cyan-500"

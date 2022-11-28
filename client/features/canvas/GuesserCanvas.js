@@ -64,8 +64,14 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           Your game session code is {inputtedGameCode ? inputtedGameCode : null}
         </div>
       </div>
-      <span>
-        <span style={{ display: "inline-block" }}>
+      <div className="guesserBar">
+        <span
+          classname="guesserBarColumn"
+          style={{
+            float: "left",
+            width: "33%",
+          }}
+        >
           <span ref={colorsRef} className="colors">
             <div className="color black" />
             <div className="color crimson" />
@@ -76,21 +82,30 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           </span>
         </span>
         <span
+          classname="guesserBarColumn"
           style={{
             fontWeight: "bold",
             textAlign: "center",
             fontSize: "32px",
-            marginLeft: "10%",
+            float: "left",
+            width: "33%",
           }}
         >
           You are guessing
         </span>
-        <span>
+        <span
+          classname="guesserBarColumn"
+          style={{
+            float: "left",
+            width: "33%",
+            //zIndex:"1000"
+          }}
+        >
           <input
             type="text"
             placeholder="make a guess"
             onChange={(event) => setGuess(event.target.value)}
-            style={{ width: "auto", marginLeft: "10%" }}
+            style={{ width: "auto" }}
           ></input>
           <button
             type="submit"
@@ -101,9 +116,13 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           </button>
           <div
             style={{
-              height: "30px",
+              position: "absolute",
+              bottom: "9em",
+              right: "18em",
+              height: "150px",
               overflow: "scroll",
-              zIndex: 1000,
+              zIndex: "1000",
+              opacity: "50%",
             }}
           >
             {pastGuesses.length
@@ -113,7 +132,7 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
               : null}
           </div>
         </span>
-      </span>
+      </div>
       <div
         className="canvas-wrapper"
         style={{ cursor: "not-allowed", pointerEvents: "none" }}

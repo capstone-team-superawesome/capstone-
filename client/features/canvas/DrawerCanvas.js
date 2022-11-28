@@ -61,7 +61,9 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         }}
       >
         You are Drawing:{" "}
-        {gameSession[0] ? promptList.current[currentRound.current] : null}
+        {gameSession && gameSession[0]
+          ? promptList.current[currentRound.current]
+          : null}
       </div>
 
       <canvas

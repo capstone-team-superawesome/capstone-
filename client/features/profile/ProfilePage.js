@@ -11,7 +11,6 @@ const Profile = () => {
   }, [dispatch]);
 
   const { id, username, profilePicture, bio, email, totalScore } = useSelector(
-
     (state) => state.auth.me
   );
   //Take first letter and make uppercase
@@ -24,14 +23,25 @@ const Profile = () => {
     <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between h-96">
       <div class="flex-col justify-start w-1/3 mx-2">
         <div class="absolute">
-          <img
+          <section
             style={{
               width: "150px",
-              borderRadius: "100px",
+              height: "150px",
+              overflow: "hidden",
+              borderRadius: "50%",
               border: "black solid 2px",
             }}
-            src={profilePicture}
-          />
+          >
+            <img
+              style={{
+                display: "inline",
+                margin: "0 auto",
+                height: "100%",
+                width: " auto",
+              }}
+              src={profilePicture}
+            />
+          </section>
           <Link to="/editprofile">
             <img
               style={{
@@ -57,15 +67,10 @@ const Profile = () => {
             justifyContent: "center",
             marginTop: "2%",
           }}
-        >
-          <div>
-            <h1 style={{ fontSize: "250%" }}>HighScore</h1>
-            <h1>{totalScore}</h1>
-          </div>
-        </section>
+        ></section>
       </div>
       <div class="flex-col justify-start w-1/3 mx-2 text-center">
-        <div class="text-4xl">Total Score: </div>
+        <div class="text-4xl">High Score: </div>
         <div> {totalScore}</div>
       </div>
       {/* Not sure what this is for */}

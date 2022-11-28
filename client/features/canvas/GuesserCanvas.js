@@ -26,6 +26,7 @@ const GuesserCanvas = ({ canvasRef }) => {
           id="container-canvas"
           ref={canvasRef}
           style={{
+            backgroundColor: "white",
             border: "2px solid black",
             paddingLeft: "0",
             paddingRight: "0",

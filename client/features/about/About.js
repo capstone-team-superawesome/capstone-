@@ -96,7 +96,7 @@ function About() {
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <a
-                href="https://www.linkedin.com/in/john-david-noguera/"
+                href="https://www.linkedin.com/in/baez-alejandro/"
                 target="_blank"
               >
                 <FaLinkedin class="mr-5" />
@@ -124,8 +124,12 @@ function About() {
               being accepted to Future Code program at Fullstack Academy.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              {" "}
-              <FaLinkedin class="mr-5" /> <FaGithub />{" "}
+              <a href="https://www.linkedin.com/in/ethanlee92/" target="_blank">
+                <FaLinkedin class="mr-5" />
+              </a>
+              <a href="https://github.com/dalpong2014" target="_blank">
+                <FaGithub />
+              </a>
             </div>
           </div>
         </div>

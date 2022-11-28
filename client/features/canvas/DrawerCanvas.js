@@ -5,12 +5,13 @@ import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
-  const { id } = useSelector((state) => state.auth.me);
+  const { id, totalScore } = useSelector((state) => state.auth.me);
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
         if (data) {
-          dispatch(addScore({ id: id, score: 1000 }));
+          const score = totalScore + 1000;
+          dispatch(addScore({ id: id, score: score }));
           navigate("/scorePage");
         }
       })

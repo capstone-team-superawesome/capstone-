@@ -65,22 +65,6 @@ const Navbar = () => {
 
             {isLoggedIn ? (
               <>
-                {/* The navbar will show these links after you log in */}
-                <Link
-                  to="/profile"
-                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
-                >
-                  Profile
-                  {/* <img
-                    style={{
-                      height: "40px",
-                      marginBottom: "-15px",
-                      borderRadius: "100px",
-                      border: "black solid 1px",
-                    }}
-                    src={profilePic}
-                  /> */}
-                </Link>
                 <Link
                   type="button"
                   class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"

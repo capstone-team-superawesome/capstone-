@@ -59,7 +59,7 @@ const Profile = () => {
         ></section>
       </div>
       <div class="flex-col justify-start w-1/3 mx-2 text-center">
-        <div class="text-4xl">Total Score: </div>
+        <div class="text-4xl">High Score: </div>
         <div> {totalScore}</div>
       </div>
       {/* Not sure what this is for */}

@@ -12,6 +12,10 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
+  const [notification, setNotification] = useState(
+    "Waiting for player to join..."
+  );
+
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
   //const { promptList } = useSelector((state) => state.game.promptList);
@@ -209,8 +213,15 @@ const Board = () => {
     });
 
     //listen for new user event which sends room information
-    socketRef.current.on("new user", ({ users, host }) => {
-      console.log("users : ", users, "host : ", host);
+    socketRef.current.on("new user", (rooms) => {
+      console.log("Front end rooms", rooms);
+    });
+
+    socketRef.current.on("room_full", (data) => {
+      if (data) {
+        console.log("INSIDE ROOM_FULL");
+        setNotification("Player has joined, start drawing!");
+      }
     });
 
     socketRef.current.on("refuse_connection", () => {
@@ -250,6 +261,7 @@ const Board = () => {
           colorsRef={colorsRef}
           canvasRef={canvasRef}
           socketRef={socketRef}
+          notification={notification}
         />
       ) : (
         <GuesserCanvas

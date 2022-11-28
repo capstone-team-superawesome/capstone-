@@ -15,9 +15,9 @@ function About() {
         <img src="img/pictstickfiguregreen.png" />
       </div>
       <div className="about-us-container">
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Emmanuel Cruz
             </div>
             <img
@@ -37,9 +37,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               John-David Noguera
             </div>
             <img
@@ -65,9 +65,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class=" text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class=" text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Alejandro Baez
             </div>
             <img
@@ -86,9 +86,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Ethan Lee
             </div>
             <img

@@ -68,7 +68,7 @@ const Board = () => {
     }
 
     //we started using useState, but app started breaking, so we kept as is
-    let drawing = true;
+    let drawing = false;
 
     // ------------------------------- create the drawing ----------------------------
 

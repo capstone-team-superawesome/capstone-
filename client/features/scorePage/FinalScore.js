@@ -7,7 +7,7 @@ const FinalScore = () => {
   return (
     <div class="w-3/4 flex-col justify-center mx-auto my-20">
       <button
-        class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mx-auto  inset-x-0 bottom-0 h-8"
+        class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white"
         onClick={() => navigate("/home")}
       >
         Play again!

@@ -542,13 +542,6 @@ video {
 .relative {
   position: relative;
 }
-.inset-x-0 {
-  left: 0px;
-  right: 0px;
-}
-.bottom-0 {
-  bottom: 0px;
-}
 .m-10 {
   margin: 2.5rem;
 }
@@ -637,9 +630,6 @@ video {
 }
 .h-96 {
   height: 24rem;
-}
-.h-8 {
-  height: 2rem;
 }
 .w-full {
   width: 100%;

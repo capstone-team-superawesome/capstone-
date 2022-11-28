@@ -1,6 +1,5 @@
 import React from "react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-
 function About() {
   return (
     <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 m-10 p-10 flex-col items-center rounded-2xl">
@@ -15,15 +14,14 @@ function About() {
         <img src="img/pictstickfiguregreen.png" />
       </div>
       <div className="about-us-container">
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Emmanuel Cruz
             </div>
-            <img
-              class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/Manny.png"
-            />
+            <div class="mx-auto my-5 w-3/4 h-3/4 ">
+              <img class=" object-cover" src="img/Manny.png" />
+            </div>
             <p className="paragraph" class="font-serif">
               Cruz possesses similar spider-based abilities as Peter Parker; he
               has the proportionate strength, speed, stamina, durability, and
@@ -37,9 +35,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               John-David Noguera
             </div>
             <img
@@ -65,9 +63,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class=" text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class=" text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Alejandro Baez
             </div>
             <img
@@ -86,9 +84,9 @@ function About() {
             </div>
           </div>
         </div>
-        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded">
+        <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Ethan Lee
             </div>
             <img
@@ -112,5 +110,4 @@ function About() {
     </div>
   );
 }
-
 export default About;

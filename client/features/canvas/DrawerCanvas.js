@@ -30,20 +30,20 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
     canvas.height = "500";
   }, []);
 
-  if (gameSession[0]) {
+  if (gameSession && gameSession[0]) {
     promptList.current = gameSession[0].promptList;
     currentRound.current = gameSession[0].round;
   }
 
   return (
     <div className="canvas-wrapper">
-      <div>
-        <div>
+      <div class="my-10">
+        <div class="text-center align-middle text-xl mt-5">
           Your game session code is {createdGameCode ? createdGameCode : null}
         </div>
       </div>
 
-      <div style={{ display: "inline-block" }}>
+      <div class="flex justify-center w-1/2 mx-auto">
         <span ref={colorsRef} className="colors">
           <div className="color black" />
           <div className="color crimson" />
@@ -68,6 +68,7 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         id="container-canvas"
         ref={canvasRef}
         style={{
+          backgroundColor: "white",
           border: "2px solid black",
           paddingLeft: "0",
           paddingRight: "0",

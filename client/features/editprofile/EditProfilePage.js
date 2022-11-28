@@ -16,6 +16,7 @@ const EditProfile = () => {
   const [updateEmail, setUpdateEmail] = useState(email);
   const [updatePassword, setUpdatePassword] = useState(password);
   const [profileImage, setProfileImage] = useState(profilePicture);
+  const [isPresetsOpen, setIsPresetsOpen] = useState(false);
 
   const presetProfilePics = [
     "https://images.emojiterra.com/google/noto-emoji/v2.034/512px/270f.png",
@@ -52,6 +53,8 @@ const EditProfile = () => {
           <img
             style={{
               width: "150px",
+              height: "150px",
+              objectFit: "cover",
               borderRadius: "100px",
               border: "black solid 2px",
             }}
@@ -65,33 +68,33 @@ const EditProfile = () => {
               position: "absolute",
               bottom: "0",
               right: "0",
+              cursor: "pointer",
             }}
             src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-            onClick={profilePictureDropdown}
+            onClick={() => setIsPresetsOpen(!isPresetsOpen)}
           />
-          <div
-            id="profilePicturePresets"
-            className="content"
-            style={{ display: "none" }}
-          >
-            {presetProfilePics.map((picture, index) => (
-              <img
-                key={index}
-                src={picture}
-                style={{ height: "100px" }}
-                onClick={(event) => setProfileImage(picture)}
-              ></img>
-            ))}
-          </div>
+          {isPresetsOpen && (
+            <div id="profilePicturePresets" class="flex w-full">
+              {presetProfilePics.map((picture, index) => (
+                <img
+                  class="custom-profile-pic"
+                  key={index}
+                  src={picture}
+                  onClick={(event) => setProfileImage(picture)}
+                ></img>
+              ))}
+            </div>
+          )}
         </div>
       </div>
       <div class="flex-col justify-start w-2/3">
-        <h1 class="text-4xl">Editing profile for {upperCaseName}:</h1>
+        <h1 class="text-3xl mb-1">Editing profile for {upperCaseName}:</h1>
         <div>
           <textarea
             style={{
               width: "500px",
               borderRadius: "5px",
+              padding: "5px",
             }}
             rows="4"
             value={updateBio}
@@ -119,7 +122,7 @@ const EditProfile = () => {
 
           </div>
           <button
-            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 py-2 px-4 rounded-full hover:shadow-lg hover:shadow-cyan-500"
+            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mt-2"
             onClick={handleSubmit}
           >
             Save

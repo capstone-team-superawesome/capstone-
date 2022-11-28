@@ -31,18 +31,20 @@ nav a {
 }
 
 .colors {
-  position: relative;
+  display: flex;
+  /* width: 50%; */
+  justify-content: space-around;
+  margin-bottom: 15px;
 }
 
 .color {
   display: inline-block;
   height: 48px;
   width: 48px;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: url("../img/paintbrushcursor.png"), pointer;
   border-radius: 50px;
   margin-right: 10px;
-
 }
 
 .color.black {
@@ -65,7 +67,11 @@ nav a {
 }
 
 .brushes {
-   cursor: url("../img/paintbrushcursor.png"), pointer;
+  cursor: url("../img/paintbrushcursor.png"), pointer;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
 #signup-form {
@@ -88,10 +94,12 @@ form {
 }
 
 input {
-  margin: 6px;
+  margin-top: 5px;
   height: 36px;
-  border-radius: 25px;
-  font-size: 25px;
+  width: 500px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
 }
 
 .about-us-container {
@@ -134,6 +142,10 @@ input {
 
 .custom-single-about {
   width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .custom-auth-container {
@@ -146,4 +158,12 @@ input {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+}
+
+.custom-profile-pic {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 5px;
+  cursor: pointer;
 }

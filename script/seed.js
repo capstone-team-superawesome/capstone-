@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, DrawingPrompt },
+  models: { User, DrawingPrompt, GameSession },
 } = require("../server/db");
 
 /**
@@ -19,6 +19,7 @@ async function seed() {
       username: "cody",
       password: "123",
       email: "cody@gmail.com",
+      totalScore: 10000,
       isAdmin: true,
       bio: "I love the game of Pictionary! Yay me!",
       totalScore: 2000000,
@@ -31,6 +32,23 @@ async function seed() {
     }),
   ]);
 
+  //creating GameSession
+  const gameSession = await Promise.all([
+    GameSession.create({
+      username: "cody",
+      password: "123",
+      email: "cody@gmail.com",
+      isAdmin: true,
+    }),
+    GameSession.create({
+      username: "murphy",
+      password: "123",
+      email: "murphy@gmail.com",
+      isAdmin: false,
+    }),
+  ]);
+
+  //creating DrawingPrompts
   const prompts = await Promise.all([
     DrawingPrompt.create({
       word: "cat",

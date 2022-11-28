@@ -11,6 +11,7 @@ const Profile = () => {
   }, [dispatch]);
 
   const { id, username, profilePicture, bio, email, totalScore } = useSelector(
+
     (state) => state.auth.me
   );
   //Take first letter and make uppercase
@@ -50,6 +51,18 @@ const Profile = () => {
           <div>Email: {email}</div>
           <div>Bio: {bio}</div>
         </div>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "2%",
+          }}
+        >
+          <div>
+            <h1 style={{ fontSize: "250%" }}>HighScore</h1>
+            <h1>{totalScore}</h1>
+          </div>
+        </section>
       </div>
       <div class="flex-col justify-start w-1/3 mx-2 text-center">
         <div class="text-4xl">Total Score: </div>

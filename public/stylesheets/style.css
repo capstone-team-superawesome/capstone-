@@ -615,6 +615,9 @@ video {
 .hidden {
   display: none;
 }
+.h-screen {
+  height: 100vh;
+}
 .h-3\/4 {
   height: 75%;
 }
@@ -766,6 +769,9 @@ video {
 }
 .bg-no-repeat {
   background-repeat: no-repeat;
+}
+.bg-repeat-y {
+  background-repeat: repeat-y;
 }
 .object-cover {
   -o-object-fit: cover;

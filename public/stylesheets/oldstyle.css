@@ -32,8 +32,9 @@ nav a {
 
 .colors {
   display: flex;
-  width: 50%;
+  /* width: 50%; */
   justify-content: space-around;
+  margin-bottom: 15px;
 }
 
 .color {
@@ -42,13 +43,15 @@ nav a {
   width: 48px;
   border-radius: 25px;
   cursor: url("../img/paintbrushcursor.png"), pointer;
+  border-radius: 50px;
+  margin-right: 10px;
 }
 
 .color.black {
   background-color: black;
 }
-.color.red {
-  background-color: red;
+.color.crimson {
+  background-color: crimson;
 }
 .color.green {
   background-color: green;
@@ -58,6 +61,9 @@ nav a {
 }
 .color.yellow {
   background-color: yellow;
+}
+.color.white {
+  background-color: white;
 }
 
 .brushes {

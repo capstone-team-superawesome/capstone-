@@ -119,6 +119,7 @@ const EditProfile = () => {
               onChange={(e) => setUpdatePassword(e.target.value)}
               placeholder="Enter new password"
             />
+
           </div>
           <button
             class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mt-2"

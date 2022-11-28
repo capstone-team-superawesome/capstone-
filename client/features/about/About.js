@@ -22,11 +22,14 @@ function About() {
             </div>
             <img
               class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/spiderman.png"
+              src="img/Manny.png"
             />
             <p className="paragraph" class="font-serif">
-              About you. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Pellentesque luctus id ligula non pellentesque.
+              Cruz possesses similar spider-based abilities as Peter Parker; he
+              has the proportionate strength, speed, stamina, durability, and
+              reflexes of a spider. He can lift up to ten tons, leap several
+              stories, move much faster than the average human, and is generally
+              more resistant to injury or fatigue than normal people.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <FaLinkedin class="mr-5" />
@@ -44,8 +47,13 @@ function About() {
               src="img/Johnpic.png"
             />
             <p className="paragraph" class="font-serif">
-              About you. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Pellentesque luctus id ligula non pellentesque.
+              Formerly a customer service specialist at American Family
+              Insurance and prior to said position I have held jobs in various
+              different sectors ranging from healthcare to administrative
+              assistance. Am highly passionate about melding soft skills
+              acquired from past work experiences with my burgeoning knowledge
+              of software engineering to create innovative, efficient, and
+              digestible solutions to complex problems.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <a href="https://www.google.com" target="_blank">
@@ -67,8 +75,11 @@ function About() {
               src="img/AlejandroPic.png"
             />
             <p className="paragraph" class="font-serif">
-              About you. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Pellentesque luctus id ligula non pellentesque.
+              I've always been fascinated by the seemingly never ending and ever
+              growing capabilities of tech. This led me down a path of curiosity
+              and knowledge, one that will probably never be satisfied. I enjoy
+              all umbrellas of programming, and always teaching myself new
+              technologies to further achieve my goals.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <FaLinkedin class="mr-5" /> <FaGithub />
@@ -82,11 +93,14 @@ function About() {
             </div>
             <img
               class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/Ethanpic.png"
+              src="img/Ethan.png"
             />
             <p className="paragraph" class="font-serif">
-              About you. Lorem ipsum dolor sit amet, consectetur adipiscing
-              elit. Pellentesque luctus id ligula non pellentesque.
+              Hello, my name is Ethan. Before attending Fullstack Academy to
+              learn software engineering, I was a part-time server, barista, and
+              part-time soldier in the US Army. I served the Army Reserve for 6
+              years, and I recently finished the contract in April, right before
+              being accepted to Future Code program at Fullstack Academy.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               {" "}

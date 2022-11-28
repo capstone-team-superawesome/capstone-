@@ -23,14 +23,25 @@ const Profile = () => {
     <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between h-96">
       <div class="flex-col justify-start w-1/3 mx-2">
         <div class="absolute">
-          <img
+          <section
             style={{
               width: "150px",
-              borderRadius: "100px",
+              height: "150px",
+              overflow: "hidden",
+              borderRadius: "50%",
               border: "black solid 2px",
             }}
-            src={profilePicture}
-          />
+          >
+            <img
+              style={{
+                display: "inline",
+                margin: "0 auto",
+                height: "100%",
+                width: " auto",
+              }}
+              src={profilePicture}
+            />
+          </section>
           <Link to="/editprofile">
             <img
               style={{

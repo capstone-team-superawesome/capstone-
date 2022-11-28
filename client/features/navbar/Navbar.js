@@ -25,6 +25,31 @@ const Navbar = () => {
           </div>
           {/* <!-- Menu Items --> */}
           <div class="flex w-3/4 justify-end">
+            {isLoggedIn ? (
+              <span>
+                <Link to="/profile">
+                  <section
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      overflow: "hidden",
+                      borderRadius: "50%",
+                      border: "black solid 2px",
+                    }}
+                  >
+                    <img
+                      style={{
+                        display: "inline",
+                        margin: "0 auto",
+                        height: "100%",
+                        width: " auto",
+                      }}
+                      src={profilePic}
+                    />
+                  </section>
+                </Link>
+              </span>
+            ) : null}
             <Link
               to="/info"
               class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"

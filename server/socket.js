@@ -2,7 +2,7 @@ let users = [];
 
 module.exports = (io) => {
   io.on("connection", (socket) => {
-    if (users.length > 1) {
+    if (false) {
       socket.emit("refuse_connection");
     } else {
       socket.on("joinRoom", (roomName) => {

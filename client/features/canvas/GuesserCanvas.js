@@ -64,25 +64,56 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           Your game session code is {inputtedGameCode ? inputtedGameCode : null}
         </div>
       </div>
-      <div style={{ display: "inline-block" }}>
-        <span ref={colorsRef} className="colors">
-          <div className="color black" />
-          <div className="color crimson" />
-          <div className="color green" />
-          <div className="color blue" />
-          <div className="color yellow" />
-          <div className="color white" />
+      <span>
+        <span style={{ display: "inline-block" }}>
+          <span ref={colorsRef} className="colors">
+            <div className="color black" />
+            <div className="color crimson" />
+            <div className="color green" />
+            <div className="color blue" />
+            <div className="color yellow" />
+            <div className="color white" />
+          </span>
         </span>
-      </div>
-      <div
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: "32px",
-        }}
-      >
-        You are guessing
-      </div>
+        <span
+          style={{
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: "32px",
+            marginLeft: "10%",
+          }}
+        >
+          You are guessing
+        </span>
+        <span>
+          <input
+            type="text"
+            placeholder="make a guess"
+            onChange={(event) => setGuess(event.target.value)}
+            style={{ width: "auto", marginLeft: "10%" }}
+          ></input>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            style={{ marginLeft: "25px" }}
+          >
+            Submit
+          </button>
+          <div
+            style={{
+              height: "30px",
+              overflow: "scroll",
+              zIndex: 1000,
+            }}
+          >
+            {pastGuesses.length
+              ? pastGuesses.map((guess, index) => (
+                  <div key={index}>{guess}</div>
+                ))
+              : null}
+          </div>
+        </span>
+      </span>
       <div
         className="canvas-wrapper"
         style={{ cursor: "not-allowed", pointerEvents: "none" }}
@@ -101,19 +132,6 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
             backgroundColor: "white",
           }}
         />
-      </div>
-      <input
-        type="text"
-        placeholder="make a guess"
-        onChange={(event) => setGuess(event.target.value)}
-      ></input>
-      <button type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-      <div>
-        {pastGuesses.length
-          ? pastGuesses.map((guess, index) => <div key={index}>{guess}</div>)
-          : null}
       </div>
     </div>
   );

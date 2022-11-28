@@ -42,6 +42,7 @@ const Board = () => {
 
   useEffect(() => {
     //prompts
+    window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 

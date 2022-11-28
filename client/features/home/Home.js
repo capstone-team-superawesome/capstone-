@@ -27,7 +27,6 @@ const Home = (props) => {
 
   return (
     <div>
-      <Landing />
       {id ? (
         <div id="initialScreen" class="my-5 mx-auto w-3/4">
           <div class="flex items-center justify-center gap-5">
@@ -68,6 +67,7 @@ const Home = (props) => {
           </button>
         </div>
       )}
+      <Landing />
     </div>
   );
 };

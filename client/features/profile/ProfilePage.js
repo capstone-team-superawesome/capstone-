@@ -21,7 +21,7 @@ const Profile = () => {
 
   return (
     <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between h-96">
-      <div class="flex-col justify-start w-1/3">
+      <div class="flex-col justify-start w-1/3 mx-2">
         <div class="absolute">
           <img
             style={{
@@ -44,13 +44,16 @@ const Profile = () => {
           </Link>
         </div>
       </div>
-      <div class="flex-col justify-start w-2/3">
-        <h1 class="text-4xl">Welcome {upperCaseName}!</h1>
+      <div class="flex-col justify-start w-1/3 mx-2">
+        <h1 class="text-3xl mb-1">Welcome {upperCaseName}!</h1>
         <div>
           <div>Email: {email}</div>
           <div>Bio: {bio}</div>
-          <div>Total Score: {totalScore}</div>
         </div>
+      </div>
+      <div class="flex-col justify-start w-1/3 mx-2 text-center">
+        <div class="text-4xl">Total Score: </div>
+        <div> {totalScore}</div>
       </div>
       {/* Not sure what this is for */}
       {/* <section

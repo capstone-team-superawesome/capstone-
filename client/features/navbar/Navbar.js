@@ -24,16 +24,16 @@ const Navbar = () => {
             </Link>
           </div>
           {/* <!-- Menu Items --> */}
-          <div class="flex space-x-2 w-3/4 justify-end">
+          <div class="flex w-3/4 justify-end">
             <Link
               to="/info"
-              class="hover:text-veryLightGray font-serif text-zinc-900"
+              class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
             >
               Info
             </Link>
             <Link
               to="/about"
-              class="hover:text-veryLightGray font-serif text-zinc-900"
+              class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
             >
               About Us
             </Link>
@@ -43,7 +43,7 @@ const Navbar = () => {
                 {/* The navbar will show these links after you log in */}
                 <Link
                   to="/profile"
-                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
                 >
                   Profile
                   {/* <img
@@ -56,25 +56,25 @@ const Navbar = () => {
                     src={profilePic}
                   /> */}
                 </Link>
-                <button
+                <Link
                   type="button"
-                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
                   onClick={logoutAndRedirectHome}
                 >
                   Logout
-                </button>
+                </Link>
               </>
             ) : (
               <>
                 <Link
                   to="/login"
-                  class="hover:text-veryLightGray font-serif text-zinc-900"
+                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  class="hover:text-veryLightGray font-serif  text-zinc-900 "
+                  class="hover:text-veryLightGray font-serif  text-zinc-900 text-xl"
                 >
                   Signup
                 </Link>

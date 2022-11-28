@@ -59,7 +59,7 @@ nav a {
 }
 
 .brushes {
-   cursor: url("../img/paintbrushcursor.png"), pointer;
+  cursor: url("../img/paintbrushcursor.png"), pointer;
 }
 
 #signup-form {
@@ -82,10 +82,12 @@ form {
 }
 
 input {
-  margin: 6px;
+  margin-top: 5px;
   height: 36px;
-  border-radius: 25px;
-  font-size: 25px;
+  width: 500px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
 }
 
 .about-us-container {
@@ -140,4 +142,12 @@ input {
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+}
+
+.custom-profile-pic {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin: 5px;
+  cursor: pointer;
 }

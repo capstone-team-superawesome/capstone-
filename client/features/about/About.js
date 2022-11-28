@@ -35,8 +35,15 @@ function About() {
               more resistant to injury or fatigue than normal people.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <FaLinkedin class="mr-5" />
-              <FaGithub />
+              <a
+                href="https://www.linkedin.com/in/emmanuel-cruz-53297694/"
+                target="_blank"
+              >
+                <FaLinkedin class="mr-5" />
+              </a>
+              <a href="https://github.com/emmanuelcruz5" target="_blank">
+                <FaGithub />
+              </a>
             </div>
           </div>
         </div>
@@ -59,10 +66,13 @@ function About() {
               digestible solutions to complex problems.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <a href="https://www.google.com" target="_blank">
+              <a
+                href="https://www.linkedin.com/in/john-david-noguera/"
+                target="_blank"
+              >
                 <FaLinkedin class="mr-5" />
               </a>
-              <a href="https://www.google.com" target="_blank">
+              <a href="https://github.com/JNOGUE" target="_blank">
                 <FaGithub />
               </a>
             </div>
@@ -85,7 +95,15 @@ function About() {
               technologies to further achieve my goals.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <FaLinkedin class="mr-5" /> <FaGithub />
+              <a
+                href="https://www.linkedin.com/in/john-david-noguera/"
+                target="_blank"
+              >
+                <FaLinkedin class="mr-5" />
+              </a>
+              <a href="https://github.com/alejandro-baez" target="_blank">
+                <FaGithub />
+              </a>
             </div>
           </div>
         </div>

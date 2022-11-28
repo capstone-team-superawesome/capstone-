@@ -869,6 +869,9 @@ video {
 .underline {
   text-decoration-line: underline;
 }
+.decoration-blue-400 {
+  text-decoration-color: #60a5fa;
+}
 .decoration-amber-400 {
   text-decoration-color: #fbbf24;
 }

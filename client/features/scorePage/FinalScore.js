@@ -1,7 +1,12 @@
 import React from "react";
 
-function FinalScore() {
-  return <div>finalScore</div>;
-}
+const FinalScore = () => {
+  return (
+    <div class="flex justify-center">
+      <img class="w-full" src="img/Final-score-background.gif" />
+      finalScore
+    </div>
+  );
+};
 
 export default FinalScore;

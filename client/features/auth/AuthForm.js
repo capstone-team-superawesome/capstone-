@@ -36,7 +36,9 @@ const AuthForm = ({ name, displayName }) => {
           />
         </div>
         <div>
-          <span className="block text-sm font-serif text-slate-700">Password</span>
+          <span className="block text-sm font-serif text-slate-700">
+            Password
+          </span>
           <input
             name="password"
             type="password"

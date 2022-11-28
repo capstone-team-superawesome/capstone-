@@ -8,8 +8,12 @@ function About() {
         <img src="img/pictstickfigureyellow.png" />
         <img src="img/picstickfigureorange.png" />
         <div class="m-10">
-          <h1 class="text-center text-3xl">About Us</h1>
-          <div class="text-center text-2xl">Meet our skilled professionals</div>
+          <h1 class="text-center text-3xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            About Us
+          </h1>
+          <div class="text-center text-2xl font-serif italic text-white">
+            Meet our skilled professionals
+          </div>
         </div>
         <img src="img/pictstickfigureblue.png" />
         <img src="img/pictstickfiguregreen.png" />
@@ -20,10 +24,9 @@ function About() {
             <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
               Emmanuel Cruz
             </div>
-            <img
-              class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/Manny.png"
-            />
+            <div class="mx-auto my-5 w-3/4 h-3/4 ">
+              <img class=" object-cover" src="img/Manny.png" />
+            </div>
             <p className="paragraph" class="font-serif">
               Cruz possesses similar spider-based abilities as Peter Parker; he
               has the proportionate strength, speed, stamina, durability, and

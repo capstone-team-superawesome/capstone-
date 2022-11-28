@@ -23,6 +23,11 @@ const Navbar = () => {
               <img src="img/Pictionary-Logo.png " class="w-full" />
             </Link>
           </div>
+          <div>
+            {" "}
+            <img src="img/pictstickfigures.png" class="w-full" />
+          </div>
+
           {/* <!-- Menu Items --> */}
           <div class="flex w-3/4 justify-end">
             {isLoggedIn ? (

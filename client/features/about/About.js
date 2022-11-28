@@ -48,8 +48,12 @@ function About() {
               elit. Pellentesque luctus id ligula non pellentesque.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <FaLinkedin class="mr-5" />
-              <FaGithub />
+              <a href="https://www.google.com" target="_blank">
+                <FaLinkedin class="mr-5" />
+              </a>
+              <a href="https://www.google.com" target="_blank">
+                <FaGithub />
+              </a>
             </div>
           </div>
         </div>

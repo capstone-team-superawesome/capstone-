@@ -225,12 +225,10 @@ const Board = () => {
   // ------------- The Canvas and color elements --------------------------
   return (
     <div className="bg-gray-300 m-10 p-10 rounded-2xl">
-      <div class="flex flex-col justify-center align-center">
-        <div
-          class="text-center align-middle text-xl mb-15"
-
-        >
-          Time to draw: {seconds} seconds
+      <div class="flex flex-col justify-center align-center my-5">
+        <div class="text-center align-middle text-xl mb-15">
+          <b>TIME TO DRAW: </b>
+          {seconds} seconds
         </div>
         <button
           class="w-1/4 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mx-auto self-center"
@@ -240,8 +238,8 @@ const Board = () => {
         </button>
       </div>
 
-      <div>
-        <div>
+      <div class="my-10">
+        <div class="text-center align-middle text-xl mt-5">
           Your game session code is {gameCode ? gameCode : inputtedGameCode}
         </div>
       </div>

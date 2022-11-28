@@ -34,7 +34,7 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
 
   return (
     <div className="canvas-wrapper">
-      <div style={{ display: "inline-block" }}>
+      <div class="flex justify-center w-1/2 mx-auto">
         <span ref={colorsRef} className="colors">
           <div className="color black" />
           <div className="color red" />
@@ -74,6 +74,7 @@ const DrawerCanvas = ({ colorsRef, brushSizes, canvasRef }) => {
         id="container-canvas"
         ref={canvasRef}
         style={{
+          backgroundColor: "white",
           border: "2px solid black",
           paddingLeft: "0",
           paddingRight: "0",

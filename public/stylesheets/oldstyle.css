@@ -31,14 +31,16 @@ nav a {
 }
 
 .colors {
-  position: relative;
+  display: flex;
+  width: 50%;
+  justify-content: space-around;
 }
 
 .color {
   display: inline-block;
   height: 48px;
   width: 48px;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: url("../img/paintbrushcursor.png"), pointer;
 }
 
@@ -60,6 +62,10 @@ nav a {
 
 .brushes {
   cursor: url("../img/paintbrushcursor.png"), pointer;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
 #signup-form {

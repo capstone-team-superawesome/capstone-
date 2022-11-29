@@ -10,40 +10,40 @@ const Home = (props) => {
   const dispatch = useDispatch();
   const id = useSelector((state) => state.auth.me.id);
   const gameCode = useSelector((state) => state.home.createdGameCode);
-  // const { prompts } = useSelector((state) => state.game);
+  const { prompts } = useSelector((state) => state.game);
 
-  // const promptList = useRef([]);
-  // const round = useRef(1);
+  const promptList = useRef([]);
+  const round = useRef(1);
 
   useEffect(() => {
     //console.log("INSIDE USE HOME EFFECT GC", makeGameCode);
     dispatch(makeGameCode(5));
     dispatch(updateInputtedGameCode(""));
 
-    //console.log("INSIDE HOME USE EFFECT PL ===>", promptList);
-    // if (!promptList.current[0]) {
-    //   dispatch(fetchAllPrompts());
-    //   const randomPrompts = shuffle(prompts);
-    //   console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>", randomPrompts);
+    console.log("INSIDE HOME USE EFFECT PL ===>",promptList)
+    if (!promptList.current[0]) {
+      dispatch(fetchAllPrompts());
+      const randomPrompts = shuffle(prompts);
+    //console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>",randomPromptList)
 
-    //   promptList.current[0] = randomPrompts[0];
-    //   promptList.current[1] = randomPrompts[1];
-    //   promptList.current[2] = randomPrompts[2];
-    //   promptList.current[3] = randomPrompts[3];
-    //}
+      promptList.current[0] = randomPrompts[0];
+      promptList.current[1] = randomPrompts[1];
+      promptList.current[2] = randomPrompts[2];
+      promptList.current[3] = randomPrompts[3];
+    }
   }, []);
 
-  // function shuffle(array) {
-  //   let prompts = array.slice();
-  //   let shuffledPrompts = [];
+  function shuffle(array) {
+    let prompts = array.slice();
+    let shuffledPrompts = [];
 
-  //   while (prompts.length) {
-  //     const index = Math.floor(Math.random() * prompts.length);
-  //     shuffledPrompts.push(prompts[index].word);
-  //     prompts.splice(index, 1);
-  //   }
-  //   return shuffledPrompts;
-  // }
+    while (prompts.length) {
+      const index = Math.floor(Math.random() * prompts.length);
+      shuffledPrompts.push(prompts[index].word);
+      prompts.splice(index, 1);
+    }
+    return shuffledPrompts;
+  }
 
   const navigate = useNavigate();
   const [inputGameCode, setInputGameCode] = useState("");
@@ -54,8 +54,8 @@ const Home = (props) => {
       makeSession({
         gameCode,
         isInSession: true,
-        promptList: [],
-        round: 1,
+        promptList: promptList.current,
+        round: round.current,
       })
     );
 

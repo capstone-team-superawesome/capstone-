@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllPrompts, fetchPromptList } from "../game/gameSlice";
+import { fetchPromptList } from "../game/gameSlice";
 import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import socket from "../../../server/socket";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
   const { id, totalScore } = useSelector((state) => state.auth.me);
-  const { prompts } = useSelector((state) => state.game);
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
@@ -46,36 +45,12 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
       canvas.width = "1000";
       canvas.height = "500";
     }
-
-    dispatch(fetchAllPrompts());
-    const randomPrompts = shuffle(prompts);
-    console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>", randomPrompts);
-
-    promptList.current[0] = randomPrompts[0];
-    promptList.current[1] = randomPrompts[1];
-    promptList.current[2] = randomPrompts[2];
-    promptList.current[3] = randomPrompts[3];
   }, []);
-
-  function shuffle(array) {
-    let prompts = array.slice();
-    let shuffledPrompts = [];
-
-    while (prompts.length) {
-      const index = Math.floor(Math.random() * prompts.length);
-      shuffledPrompts.push(prompts[index].word);
-      prompts.splice(index, 1);
-    }
-    return shuffledPrompts;
-  }
 
   if (gameSession && gameSession[0]) {
     promptList.current = gameSession[0].promptList || gameSession.round;
+    currentRound.current = gameSession[0].round || gameSession.round;
   }
-
-  const randomWord = prompts[Math.floor(Math.random() * prompts.length - 1)];
-
-  console.log("RANDOM WORD", randomWord);
 
   console.log(
     "Prompt list and currentRound.current ==>",
@@ -113,7 +88,8 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
             marginLeft: "10%",
           }}
         >
-          You are Drawing: {randomWord ? randomWord.word : null}
+          You are Drawing:{" "}
+          {gameSession ? promptList.current[currentRound.current] : null}
         </span>
       </span>
       <canvas

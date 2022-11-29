@@ -184,8 +184,8 @@ const Board = () => {
 
     // -------------- make the canvas fill its parent component -----------------
 
-    canvas.width = "1000";
-    canvas.height = "500";
+    // canvas.width = "1000";
+    // canvas.height = "500";
 
     // ----------------------- socket.io connection ----------------------------
     const onDrawingEvent = (data) => {
@@ -248,6 +248,8 @@ const Board = () => {
     });
 
     socketRef.current.on("disconnect", (msg) => {
+      //dispatch(updateInputtedGameCode(""));
+      // dispatch(makeGameCode(5));
       console.log(msg);
     });
   }, []);

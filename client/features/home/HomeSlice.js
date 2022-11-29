@@ -23,6 +23,7 @@ const HomeSlice = createSlice({
       state.createdGameCode = result;
     },
     updateInputtedGameCode: (state, action) => {
+      console.log("action.payload for updateGC ===>", action.payload);
       state.inputtedGameCode = action.payload;
     },
   },

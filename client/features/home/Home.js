@@ -16,16 +16,22 @@ const Home = (props) => {
   const round = useRef(1);
 
   useEffect(() => {
-    !gameCode ? dispatch(makeGameCode(5)) : null;
+    //console.log("INSIDE USE HOME EFFECT GC", makeGameCode);
+    dispatch(makeGameCode(5));
+    dispatch(updateInputtedGameCode(""));
+
+    console.log("INSIDE HOME USE EFFECT PL ===>",promptList)
     if (!promptList.current[0]) {
       dispatch(fetchAllPrompts());
       const randomPrompts = shuffle(prompts);
+    //console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>",randomPromptList)
+
       promptList.current[0] = randomPrompts[0];
       promptList.current[1] = randomPrompts[1];
       promptList.current[2] = randomPrompts[2];
       promptList.current[3] = randomPrompts[3];
     }
-  });
+  }, []);
 
   function shuffle(array) {
     let prompts = array.slice();
@@ -43,7 +49,7 @@ const Home = (props) => {
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
-    //console.log("GAMECODE", gameCode);
+    console.log("GAMECODE before creating game ===>", gameCode);
     dispatch(
       makeSession({
         gameCode,

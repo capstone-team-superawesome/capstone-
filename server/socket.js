@@ -103,14 +103,15 @@ module.exports = (io) => {
         //     socket.emit("roomFull", true);
         //   }
         // });
+        console.log("INSIDE SOCKET ROOM", allRooms);
 
-        if (allRooms[roomName].length === 2) {
+        if (allRooms[roomName] && allRooms[roomName].length === 2) {
           console.log("inside room full BACKEND");
           //use roomName
           socket.to(roomName).emit("room_full", true);
         }
         socket.on("drawing", (data) => {
-          console.log("DRAWING DATA", data);
+          console.log("Recieved DATA inside Socket", data);
           const { roomName } = data;
           socket.to(roomName).emit("drawing", data);
         });
@@ -130,12 +131,12 @@ module.exports = (io) => {
       });
       //emit drawing to the room
     });
-
     socket.on("beginTimer", (roomName) => {
       console.log("backend", roomName);
       const { gameCode } = roomName;
       console.log("gameCode", gameCode);
-      if (allRooms[roomName].length === 2) {
+      console.log("all Room names length", allRooms[gameCode].length);
+      if (allRooms[gameCode].length === 2) {
         let timer = 60;
         let timerCountDown = setInterval(() => {
           io.to(gameCode).emit("timer", timer);

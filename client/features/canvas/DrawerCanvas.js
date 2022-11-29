@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import socket from "../../../server/socket";
 
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
-  const { id , totalScore} = useSelector((state) => state.auth.me);
+  const { id, totalScore } = useSelector((state) => state.auth.me);
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
@@ -36,16 +36,28 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
   const { gameSession } = useSelector((state) => state.game);
 
   useEffect(() => {
+    console.log("about to fetch prompt list", gameSession);
+    console.log("createdgameCode inside useEffect ", createdGameCode);
+    dispatch(fetchPromptList({ createdGameCode: createdGameCode }));
     window.scrollTo({ top: 100, left: 0, behavior: "smooth" });
-    const canvas = canvasRef.current;
-    canvas.width = "1000";
-    canvas.height = "500";
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      canvas.width = "1000";
+      canvas.height = "500";
+    }
   }, []);
 
   if (gameSession && gameSession[0]) {
-    promptList.current = gameSession[0].promptList;
-    currentRound.current = gameSession[0].round;
+    promptList.current = gameSession[0].promptList || gameSession.round;
+    currentRound.current = gameSession[0].round || gameSession.round;
   }
+
+  console.log(
+    "Prompt list and currentRound.current ==>",
+    promptList.current[currentRound.current]
+  );
+  console.log("Prompt list ===>", promptList.current);
+  console.log("currentRound.current ===>", currentRound.current);
 
   return (
     <div>
@@ -77,9 +89,7 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
           }}
         >
           You are Drawing:{" "}
-          {gameSession && gameSession[0]
-            ? promptList.current[currentRound.current]
-            : null}
+          {gameSession ? promptList.current[currentRound.current] : null}
         </span>
       </span>
       <canvas

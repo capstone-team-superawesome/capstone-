@@ -120,14 +120,14 @@ module.exports = (io) => {
         socket.emit("refuse_connection");
       }
 
+      socket.on("guessMade", (data) => {
+        if (data) {
+          io.to(roomName).emit("guessReceived", data);
+        }
+      });
       //emit drawing to the room
     });
 
-    socket.on("guessMade", (data) => {
-      if (data) {
-        io.emit("guessReceived", data);
-      }
-    });
     socket.on("beginTimer", (roomName) => {
       console.log("backend", roomName);
       const { gameCode } = roomName;

@@ -103,6 +103,7 @@ module.exports = (io) => {
         //     socket.emit("roomFull", true);
         //   }
         // });
+        console.log("INSIDE SOCKET ROOM", allRooms);
 
         if (allRooms[roomName].length === 2) {
           console.log("inside room full BACKEND");
@@ -110,7 +111,7 @@ module.exports = (io) => {
           socket.to(roomName).emit("room_full", true);
         }
         socket.on("drawing", (data) => {
-          console.log("DRAWING DATA", data);
+          // console.log("DRAWING DATA", data);
           const { roomName } = data;
           socket.to(roomName).emit("drawing", data);
         });

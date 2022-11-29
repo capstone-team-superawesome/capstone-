@@ -1,11 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPromptList } from "../game/gameSlice";
 import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import socket from "../../../server/socket";
 
-const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
-  const { id, totalScore } = useSelector((state) => state.auth.me);
+const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
+  const { id , totalScore} = useSelector((state) => state.auth.me);
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
@@ -16,6 +17,15 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         }
       })
     : null;
+
+  // socketRef.current.on("room_full", (data) => {
+  //   if (data) {
+  //     console.log("INSIDE ROOM_FULL");
+  //     setNotification("Player has joined, start drawing!");
+  //   }
+  // });
+
+  //
 
   const promptList = useRef([]);
   const currentRound = useRef(1);
@@ -43,6 +53,9 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         <div>
           Your game session code is {createdGameCode ? createdGameCode : null}
         </div>
+        <h3 class="text-center align-middle text-xl mt-5 m-2">
+          {notification}
+        </h3>
       </div>
       <span>
         <span style={{ display: "inline-block" }}>

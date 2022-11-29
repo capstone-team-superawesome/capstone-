@@ -9,7 +9,7 @@ import About from "../features/about/About";
 import Profile from "../features/profile/ProfilePage";
 import EditProfile from "../features/editprofile/EditProfilePage";
 import Info from "../features/about/Info";
-import FinalScore from "../features/scorePage/finalScore";
+import FinalScore from "../features/scorePage/FinalScore";
 
 /**
  * COMPONENT

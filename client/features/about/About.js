@@ -24,7 +24,7 @@ function About() {
               Emmanuel Cruz
             </div>
             <div class="mx-auto my-5 w-3/4 h-3/4 ">
-              <img class=" object-cover" src="img/Manny.png" />
+              <img class=" object-cover" src="img/Manny.jpg" />
             </div>
             <p className="paragraph" class="font-serif">
               Cruz possesses similar spider-based abilities as Peter Parker; he
@@ -113,7 +113,7 @@ function About() {
             </div>
             <img
               class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/Ethan.png"
+              src="img/Ethan.jpg"
             />
             <p className="paragraph" class="font-serif">
               Hello, my name is Ethan. Before attending Fullstack Academy to

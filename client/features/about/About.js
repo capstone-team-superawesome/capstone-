@@ -7,8 +7,12 @@ function About() {
         <img src="img/pictstickfigureyellow.png" />
         <img src="img/picstickfigureorange.png" />
         <div class="m-10">
-          <h1 class="text-center text-3xl">About Us</h1>
-          <div class="text-center text-2xl">Meet our skilled professionals</div>
+          <h1 class="text-center text-3xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+            About Us
+          </h1>
+          <div class="text-center text-2xl font-serif italic text-white">
+            Meet our skilled professionals
+          </div>
         </div>
         <img src="img/pictstickfigureblue.png" />
         <img src="img/pictstickfiguregreen.png" />
@@ -30,8 +34,15 @@ function About() {
               more resistant to injury or fatigue than normal people.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <FaLinkedin class="mr-5" />
-              <FaGithub />
+              <a
+                href="https://www.linkedin.com/in/emmanuel-cruz-53297694/"
+                target="_blank"
+              >
+                <FaLinkedin class="mr-5 hover:bg-amber-500" />
+              </a>
+              <a href="https://github.com/emmanuelcruz5" target="_blank">
+                <FaGithub class="hover:bg-amber-500" />
+              </a>
             </div>
           </div>
         </div>
@@ -54,11 +65,14 @@ function About() {
               digestible solutions to complex problems.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <a href="https://www.google.com" target="_blank">
-                <FaLinkedin class="mr-5" />
+              <a
+                href="https://www.linkedin.com/in/john-david-noguera/"
+                target="_blank"
+              >
+                <FaLinkedin class="mr-5 hover:bg-amber-500" />
               </a>
-              <a href="https://www.google.com" target="_blank">
-                <FaGithub />
+              <a href="https://github.com/JNOGUE" target="_blank">
+                <FaGithub class="hover:bg-amber-500" />
               </a>
             </div>
           </div>
@@ -80,7 +94,15 @@ function About() {
               technologies to further achieve my goals.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              <FaLinkedin class="mr-5" /> <FaGithub />
+              <a
+                href="https://www.linkedin.com/in/baez-alejandro/"
+                target="_blank"
+              >
+                <FaLinkedin class="mr-5 hover:bg-amber-500" />
+              </a>
+              <a href="https://github.com/alejandro-baez" target="_blank">
+                <FaGithub class="hover:bg-amber-500" />
+              </a>
             </div>
           </div>
         </div>
@@ -101,8 +123,12 @@ function About() {
               being accepted to Future Code program at Fullstack Academy.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
-              {" "}
-              <FaLinkedin class="mr-5" /> <FaGithub />{" "}
+              <a href="https://www.linkedin.com/in/ethanlee92/" target="_blank">
+                <FaLinkedin class="mr-5 hover:bg-amber-500" />
+              </a>
+              <a href="https://github.com/dalpong2014" target="_blank">
+                <FaGithub class="hover:bg-amber-500" />
+              </a>
             </div>
           </div>
         </div>

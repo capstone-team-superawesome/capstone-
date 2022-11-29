@@ -67,24 +67,75 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
           You have joined the session
         </h3>
       </div>
-      <div class="flex justify-center w-1/2 mx-auto">
-        <span ref={colorsRef} className="colors">
-          <div className="color black" />
-          <div className="color crimson" />
-          <div className="color green" />
-          <div className="color blue" />
-          <div className="color yellow" />
-          <div className="color white" />
+      <div className="guesserBar">
+        <span
+          classname="guesserBarColumn"
+          style={{
+            float: "left",
+            width: "33%",
+          }}
+        >
+          <span ref={colorsRef} className="colors">
+            <div className="color black" />
+            <div className="color crimson" />
+            <div className="color green" />
+            <div className="color blue" />
+            <div className="color yellow" />
+            <div className="color white" />
+          </span>
         </span>
-      </div>
-      <div
-        style={{
-          fontWeight: "bold",
-          textAlign: "center",
-          fontSize: "32px",
-        }}
-      >
-        You are guessing
+        <span
+          classname="guesserBarColumn"
+          style={{
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: "32px",
+            float: "left",
+            width: "33%",
+          }}
+        >
+          You are guessing
+        </span>
+        <span
+          classname="guesserBarColumn"
+          style={{
+            float: "left",
+            width: "33%",
+            //zIndex:"1000"
+          }}
+        >
+          <input
+            type="text"
+            placeholder="make a guess"
+            onChange={(event) => setGuess(event.target.value)}
+            style={{ width: "auto" }}
+          ></input>
+          <button
+            type="submit"
+            onClick={handleSubmit}
+            style={{ marginLeft: "25px" }}
+          >
+            Submit
+          </button>
+          <div
+            style={{
+              position: "absolute",
+              bottom: "9em",
+              right: "18em",
+              height: "150px",
+              overflow: "scroll",
+              zIndex: "1000",
+              opacity: "50%",
+            }}
+          >
+            {pastGuesses.length
+              ? pastGuesses.map((guess, index) => (
+                  <div key={index}>{guess}</div>
+                ))
+              : null}
+          </div>
+
+        </span>
       </div>
       <div
         className="canvas-wrapper"
@@ -104,19 +155,6 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
             backgroundColor: "white",
           }}
         />
-      </div>
-      <input
-        type="text"
-        placeholder="make a guess"
-        onChange={(event) => setGuess(event.target.value)}
-      ></input>
-      <button type="submit" onClick={handleSubmit}>
-        Submit
-      </button>
-      <div>
-        {pastGuesses.length
-          ? pastGuesses.map((guess, index) => <div key={index}>{guess}</div>)
-          : null}
       </div>
     </div>
   );

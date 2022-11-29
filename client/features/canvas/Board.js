@@ -47,6 +47,7 @@ const Board = () => {
 
   useEffect(() => {
     //prompts
+    window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
@@ -260,7 +261,7 @@ const Board = () => {
           {seconds} seconds
         </div>
         <button
-          class="w-1/4 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mx-auto self-center text-xl"
+          class="w-1/4 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mx-auto self-center text-xl transition-colors duration-300 ease-in-out hover:text-white"
           onClick={beginGame}
         >
           Begin!

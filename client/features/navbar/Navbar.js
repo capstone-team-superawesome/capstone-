@@ -23,6 +23,11 @@ const Navbar = () => {
               <img src="img/Pictionary-Logo.png " class="w-full" />
             </Link>
           </div>
+          <div>
+            {" "}
+            <img src="img/pictstickfigures.png" class="w-full" />
+          </div>
+
           {/* <!-- Menu Items --> */}
           <div class="flex w-3/4 justify-end">
             {isLoggedIn ? (
@@ -52,13 +57,13 @@ const Navbar = () => {
             ) : null}
             <Link
               to="/info"
-              class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
+              class="hover:text-veryLightGray font-serif text-zinc-900 text-2xl"
             >
               Info
             </Link>
             <Link
               to="/about"
-              class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
+              class="hover:text-veryLightGray font-serif text-zinc-900 text-2xl"
             >
               About Us
             </Link>
@@ -67,7 +72,7 @@ const Navbar = () => {
               <>
                 <Link
                   type="button"
-                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
+                  class="hover:text-veryLightGray font-serif text-zinc-900 text-2xl"
                   onClick={logoutAndRedirectHome}
                 >
                   Logout
@@ -77,13 +82,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  class="hover:text-veryLightGray font-serif text-zinc-900 text-xl"
+                  class="hover:text-veryLightGray font-serif text-zinc-900 text-2xl"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  class="hover:text-veryLightGray font-serif  text-zinc-900 text-xl"
+                  class="hover:text-veryLightGray font-serif  text-zinc-900 text-2xl"
                 >
                   Signup
                 </Link>

@@ -43,7 +43,7 @@ const Home = (props) => {
   const [inputGameCode, setInputGameCode] = useState("");
 
   const handleCreateGame = () => {
-    //console.log("GAMECODE", gameCode);
+    console.log("GAMECODE before creating game ===>", gameCode);
     dispatch(
       makeSession({
         gameCode,

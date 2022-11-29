@@ -17,7 +17,7 @@ const FinalScore = () => {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     window.localStorage.setItem("gameCode", result);
-    dispatch(updateInputtedGameCode(result));
+    dispatch(updateInputtedGameCode(""));
     dispatch(makeGameCode(5));
 
     navigate("/home");

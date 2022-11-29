@@ -5,8 +5,10 @@ import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import socket from "../../../server/socket";
 
+
 const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
-  const { id } = useSelector((state) => state.auth.me);
+  const { id , totalScore} = useSelector((state) => state.auth.me);
+
 
   // const [notification, setNotification] = useState(
   //   "Waiting for player to join..."
@@ -15,7 +17,8 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
         if (data) {
-          dispatch(addScore({ id: id, score: 1000 }));
+          const score = totalScore + 1000;
+      dispatch(addScore({ id: id, score: score }));
           navigate("/scorePage");
         }
       })
@@ -78,7 +81,9 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
         }}
       >
         You are Drawing:{" "}
-        {gameSession[0] ? promptList.current[currentRound.current] : null}
+        {gameSession && gameSession[0]
+          ? promptList.current[currentRound.current]
+          : null}
       </div>
 
       <canvas

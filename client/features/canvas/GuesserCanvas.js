@@ -32,7 +32,7 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
     const canvas = canvasRef.current;
     canvas.width = "1000";
     canvas.height = "500";
-  }, [guess]);
+  }, []);
 
   const handleSubmit = () => {
     const promptList = gameSession.promptList;

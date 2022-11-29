@@ -220,7 +220,7 @@ const Board = () => {
 
     socketRef.current.on("room_full", (data) => {
       if (data) {
-        console.log("INSIDE ROOM_FULL");
+        console.log("INSIDE ROOM_FULL FRONT END");
         setNotification("Player has joined, start drawing!");
       }
     });

@@ -83,13 +83,16 @@ module.exports = (io) => {
 
     socket.on("joinRoom", (roomName) => {
       if (!allRooms[roomName]) {
-        allRooms[roomName] = [newUser];
+        allRooms[roomName] = [];
       }
-      if (allRooms[roomName] && allRooms[roomName].length <= 2) {
+      if (allRooms[roomName] && allRooms[roomName].length < 2) {
         socket.join(roomName);
         console.log(
           `a user has connected with id of ${socket.id} to room ${roomName}`
         );
+
+        //Need to get this work
+        // if(allRooms[roomName][0] === )
 
         allRooms[roomName].push(newUser);
         // const host = users[0].id;
@@ -102,7 +105,7 @@ module.exports = (io) => {
         // });
 
         if (allRooms[roomName].length === 2) {
-          console.log("inside room full");
+          console.log("inside room full BACKEND");
           //use roomName
           socket.to(roomName).emit("room_full", true);
         }

@@ -71,23 +71,29 @@
 
 //};
 
-let users = [];
+// let users = [];
+
+const allRooms = {};
+
 module.exports = (io) => {
   io.on("connection", (socket) => {
-    if (users.length > 2) {
-      socket.emit("refuse_connection");
-    } else {
-      socket.on("joinRoom", (roomName) => {
+    let newUser = {
+      id: socket.id,
+    };
+
+    socket.on("joinRoom", (roomName) => {
+      if (!allRooms[roomName]) {
+        allRooms[roomName] = [newUser];
+      }
+      if (allRooms[roomName] && allRooms[roomName].length <= 2) {
         socket.join(roomName);
         console.log(
           `a user has connected with id of ${socket.id} to room ${roomName}`
         );
-        let newUser = {
-          id: socket.id,
-        };
-        users.push(newUser);
-        const host = users[0].id;
-        io.emit("new user", { users, host });
+
+        allRooms[roomName].push(newUser);
+        // const host = users[0].id;
+        io.emit("new user", allRooms);
 
         // socket.on("new user", (roomFull) => {
         //   if (roomFull) {
@@ -95,44 +101,48 @@ module.exports = (io) => {
         //   }
         // });
 
-        if (users.length === 2) {
+        if (allRooms[roomName].length === 2) {
           console.log("inside room full");
           //use roomName
           socket.to(roomName).emit("room_full", true);
         }
-
-        //emit drawing to the room
         socket.on("drawing", (data) => {
+          console.log("DRAWING DATA", data);
           const { roomName } = data;
           socket.to(roomName).emit("drawing", data);
         });
         //listen for user disconnecting
         socket.on("disconnect", () => {
-          users = users.filter((user) => user.id !== socket.id);
+          users = allRooms[roomName].filter((user) => user.id !== socket.id);
           io.emit("new user", users);
         });
-      });
-      socket.on("guessMade", (data) => {
-        if (data) {
-          io.emit("guessReceived", data);
-        }
-      });
-      socket.on("beginTimer", (roomName) => {
-        console.log("backend", roomName);
-        const { gameCode } = roomName;
-        console.log("gameCode", gameCode);
-        if (users.length === 2) {
-          let timer = 60;
-          let timerCountDown = setInterval(() => {
-            io.to(gameCode).emit("timer", timer);
-            timer--;
-            if (timer === 0) {
-              io.to(gameCode).emit("timer", "Time's up !");
-              clearInterval(timerCountDown);
-            }
-          }, 1000);
-        }
-      });
-    }
+      } else {
+        socket.emit("refuse_connection");
+      }
+
+      //emit drawing to the room
+    });
+
+    socket.on("guessMade", (data) => {
+      if (data) {
+        io.emit("guessReceived", data);
+      }
+    });
+    socket.on("beginTimer", (roomName) => {
+      console.log("backend", roomName);
+      const { gameCode } = roomName;
+      console.log("gameCode", gameCode);
+      if (allRooms[roomName].length === 2) {
+        let timer = 60;
+        let timerCountDown = setInterval(() => {
+          io.to(gameCode).emit("timer", timer);
+          timer--;
+          if (timer === 0) {
+            io.to(gameCode).emit("timer", "Time's up !");
+            clearInterval(timerCountDown);
+          }
+        }, 1000);
+      }
+    });
   });
 };

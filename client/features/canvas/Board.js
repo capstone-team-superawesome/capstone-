@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
 import { updateGameSession } from "../game/gameSlice";
+import { makeGameCode, updateInputtedGameCode } from "../home/HomeSlice";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -224,8 +225,24 @@ const Board = () => {
       }
     });
 
+    function newGameCode() {
+      let result = "";
+      let characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let charactersLength = characters.length;
+      for (let i = 0; i < 6; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      window.localStorage.setItem("gameCode", result);
+      return result;
+    }
+
     socketRef.current.on("refuse_connection", () => {
+      dispatch(updateInputtedGameCode(newGameCode()));
       navigate("/home");
+
       alert("Gameroom is full, try a different code");
     });
 

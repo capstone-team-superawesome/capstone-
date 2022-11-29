@@ -28,7 +28,7 @@ function About() {
             </div>
             <p className="paragraph" class="font-serif">
                 I have worked as a clerical service aide, and in a genetics lab
-              researching Alzihmers. I am passionate about work that helps people
+              researching Alzihemers. I am passionate about work that helps people
               or seeks to further our understanding of the world, and ideally
               both. I am excited to continue learning new skills and languages as
               I work towards that goal.

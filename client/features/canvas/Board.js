@@ -248,6 +248,8 @@ const Board = () => {
     });
 
     socketRef.current.on("disconnect", (msg) => {
+      //dispatch(updateInputtedGameCode(""));
+      // dispatch(makeGameCode(5));
       console.log(msg);
     });
   }, []);

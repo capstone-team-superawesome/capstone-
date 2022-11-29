@@ -119,8 +119,9 @@ function About() {
               Hello, my name is Ethan. Before attending Fullstack Academy to
               learn software engineering, I was a part-time server, barista, and
               part-time soldier in the US Army. I served the Army Reserve for 6
-              years, and I recently finished the contract in April, right before
-              being accepted to Future Code program at Fullstack Academy.
+              years. With interest in Cybersecurity, I've obtained CompTIA A+
+              and SEC+, and now I'm looking for an opportunity as a developer to
+              build apps with security!
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <a href="https://www.linkedin.com/in/ethanlee92/" target="_blank">

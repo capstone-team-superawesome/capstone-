@@ -5,12 +5,17 @@ import io from "socket.io-client";
 import DrawerCanvas from "./DrawerCanvas";
 import GuesserCanvas from "./GuesserCanvas";
 import { updateGameSession } from "../game/gameSlice";
+import { makeGameCode, updateInputtedGameCode } from "../home/HomeSlice";
 
 const Board = () => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const colorsRef = useRef(null);
   const socketRef = useRef();
+
+  const [notification, setNotification] = useState(
+    "Waiting for player to join..."
+  );
 
   const gameCode = useSelector((state) => state.home.createdGameCode);
   const inputtedGameCode = useSelector((state) => state.home.inputtedGameCode);
@@ -209,12 +214,35 @@ const Board = () => {
     });
 
     //listen for new user event which sends room information
-    socketRef.current.on("new user", ({ users, host }) => {
-      console.log("users : ", users, "host : ", host);
+    socketRef.current.on("new user", (rooms) => {
+      console.log("Front end rooms", rooms);
     });
 
+    socketRef.current.on("room_full", (data) => {
+      if (data) {
+        console.log("INSIDE ROOM_FULL");
+        setNotification("Player has joined, start drawing!");
+      }
+    });
+
+    function newGameCode() {
+      let result = "";
+      let characters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let charactersLength = characters.length;
+      for (let i = 0; i < 6; i++) {
+        result += characters.charAt(
+          Math.floor(Math.random() * charactersLength)
+        );
+      }
+      window.localStorage.setItem("gameCode", result);
+      return result;
+    }
+
     socketRef.current.on("refuse_connection", () => {
+      dispatch(updateInputtedGameCode(newGameCode()));
       navigate("/home");
+
       alert("Gameroom is full, try a different code");
     });
 
@@ -250,6 +278,7 @@ const Board = () => {
           colorsRef={colorsRef}
           canvasRef={canvasRef}
           socketRef={socketRef}
+          notification={notification}
         />
       ) : (
         <GuesserCanvas

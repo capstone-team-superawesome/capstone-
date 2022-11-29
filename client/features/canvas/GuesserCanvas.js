@@ -59,12 +59,15 @@ const GuesserCanvas = ({ canvasRef, colorsRef, socketRef }) => {
 
   return (
     <div>
-      <div>
-        <div>
+      <div class="my-10">
+        <div class="text-center align-middle text-xl mt-5 m-2">
           Your game session code is {inputtedGameCode ? inputtedGameCode : null}
         </div>
+        <h3 class="text-center align-middle text-xl mt-5 m-2">
+          You have joined the session
+        </h3>
       </div>
-      <div style={{ display: "inline-block" }}>
+      <div class="flex justify-center w-1/2 mx-auto">
         <span ref={colorsRef} className="colors">
           <div className="color black" />
           <div className="color crimson" />

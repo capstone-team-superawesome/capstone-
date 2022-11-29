@@ -1,11 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPromptList } from "../game/gameSlice";
 import { addScore } from "../auth/authSlice";
 import { useNavigate } from "react-router-dom";
+import socket from "../../../server/socket";
 
-const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
+
+const DrawerCanvas = ({ colorsRef, canvasRef, socketRef, notification }) => {
   const { id , totalScore} = useSelector((state) => state.auth.me);
+
+
+  // const [notification, setNotification] = useState(
+  //   "Waiting for player to join..."
+  // );
 
   socketRef.current
     ? socketRef.current.on("guessReceived", (data) => {
@@ -16,6 +23,15 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
         }
       })
     : null;
+
+  // socketRef.current.on("room_full", (data) => {
+  //   if (data) {
+  //     console.log("INSIDE ROOM_FULL");
+  //     setNotification("Player has joined, start drawing!");
+  //   }
+  // });
+
+  //
 
   const promptList = useRef([]);
   const currentRound = useRef(1);
@@ -39,9 +55,12 @@ const DrawerCanvas = ({ colorsRef, canvasRef, socketRef }) => {
   return (
     <div className="canvas-wrapper">
       <div class="my-10">
-        <div class="text-center align-middle text-xl mt-5">
+        <div class="text-center align-middle text-xl mt-5 m-2">
           Your game session code is {createdGameCode ? createdGameCode : null}
         </div>
+        <h3 class="text-center align-middle text-xl mt-5 m-2">
+          {notification}
+        </h3>
       </div>
 
       <div class="flex justify-center w-1/2 mx-auto">

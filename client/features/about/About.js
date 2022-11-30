@@ -24,14 +24,14 @@ function About() {
               Emmanuel Cruz
             </div>
             <div class="mx-auto my-5 w-3/4 h-3/4 ">
-              <img class=" object-cover" src="img/Manny.png" />
+              <img class=" object-cover" src="img/Manny.jpg" />
             </div>
             <p className="paragraph" class="font-serif">
-              Cruz possesses similar spider-based abilities as Peter Parker; he
-              has the proportionate strength, speed, stamina, durability, and
-              reflexes of a spider. He can lift up to ten tons, leap several
-              stories, move much faster than the average human, and is generally
-              more resistant to injury or fatigue than normal people.
+                I have worked as a clerical service aide, and in a genetics lab
+              researching Alzihemers. I am passionate about work that helps people
+              or seeks to further our understanding of the world, and ideally
+              both. I am excited to continue learning new skills and languages as
+              I work towards that goal.
             </p>
             <div class="flex w-1/2  mx-auto justify-center mt-5">
               <a
@@ -113,7 +113,7 @@ function About() {
             </div>
             <img
               class="mx-auto my-5 w-3/4 h-3/4 object-cover"
-              src="img/Ethan.png"
+              src="img/Ethan.jpg"
             />
             <p className="paragraph" class="font-serif">
               Hello, my name is Ethan. Before attending Fullstack Academy to

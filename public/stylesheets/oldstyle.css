@@ -20,6 +20,12 @@ nav a {
   box-sizing: border-box;
 }
 
+
+.navbar a,
+button {
+  font-family: "Caveat Brush", cursive;
+}
+
 /* .whiteboard {
   height: 100%;
   width: 100%;

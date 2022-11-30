@@ -20,7 +20,6 @@ nav a {
   box-sizing: border-box;
 }
 
-
 .navbar a {
   font-family: "Caveat Brush", cursive;
 }
@@ -29,7 +28,6 @@ nav a {
   font-family: "Caveat Brush", cursive;
   height: 500px;
 }
-
 
 button {
   font-family: "Caveat Brush", cursive;
@@ -56,10 +54,9 @@ button {
   display: inline-block;
   height: 48px;
   width: 48px;
-  border-radius: 25px;
   cursor: url("../img/paintbrushcursor.png"), pointer;
   border-radius: 50px;
-  margin-right: 10px;
+  margin-left: -20px;
 }
 
 .color.black {

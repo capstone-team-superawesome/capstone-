@@ -14,6 +14,15 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
+  const brushSizes = [5, 10, 32, 64];
+  const brushSize = useRef(5);
+
+  const brushHandler = (size) => {
+    console.log("size:", size);
+    brushSize.current = size;
+    console.log("brushSize:", brushSize);
+  };
+
   const { gameSession } = useSelector((state) => state.game);
 
   const promptList = useRef([]);
@@ -141,7 +150,7 @@ const Board = () => {
       context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
       context.strokeStyle = color;
       context.fillStyle = color;
-      context.lineWidth = 5;
+      context.lineWidth = brushSize.current;
       context.fill();
       context.stroke();
       context.closePath();
@@ -350,35 +359,68 @@ const Board = () => {
 
       {isDrawer ? (
         <div>
-          <div>
-            <div>Your game session code is {gameCode ? gameCode : null}</div>
-            <h3 class="text-center align-middle text-xl mt-5 m-2">
+          <div style={{ display: "flex" }}>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            >
+              Your game session code is: {gameCode ? gameCode : null}
+            </h3>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            >
               {notification}
             </h3>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            ></h3>
           </div>
-          <span>
-            <span style={{ display: "inline-block" }}>
-              <span ref={colorsRef} className="colors">
-                <div className="color black" />
-                <div className="color crimson" />
-                <div className="color green" />
-                <div className="color blue" />
-                <div className="color yellow" />
-                <div className="color white" />
+          <div>
+            <div style={{ display: "flex" }}>
+              <span style={{ flex: "1", display: "inline-block" }}>
+                <span ref={colorsRef} className="colors">
+                  <div className="color black" />
+                  <div className="color crimson" />
+                  <div className="color green" />
+                  <div className="color blue" />
+                  <div className="color yellow" />
+                  <div className="color white" />
+                </span>
               </span>
-            </span>
-            <span
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-                fontSize: "32px",
-                marginLeft: "10%",
-              }}
-            >
-              You are Drawing:{" "}
-              {gameSession ? promptList.current[currentRound.current] : null}
-            </span>
-          </span>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  fontSize: "32px",
+                  flex: "1",
+                  display: "inline",
+                }}
+              >
+                You are Drawing:{" "}
+                {gameSession ? promptList.current[currentRound.current] : null}
+              </span>
+              <span
+                style={{ flex: "1", display: "inline", marginLeft: "40px" }}
+              >
+                {brushSizes.map((size) => (
+                  <span
+                    key={size}
+                    onClick={() => brushHandler(size)}
+                    style={{
+                      height: `${size}px`,
+                      width: `${size}px`,
+                      backgroundColor: "#949494",
+                      borderRadius: "50%",
+                      display: "inline-block",
+                      marginRight: "15px",
+                    }}
+                  ></span>
+                ))}
+              </span>
+            </div>
+          </div>
           <canvas
             id="container-canvas"
             ref={canvasRef}
@@ -441,7 +483,6 @@ const Board = () => {
               style={{
                 float: "left",
                 width: "33%",
-                //zIndex:"1000"
               }}
             >
               <input
@@ -450,29 +491,31 @@ const Board = () => {
                 onChange={(event) => setGuess(event.target.value)}
                 style={{ width: "auto" }}
               ></input>
-              <button
-                type="submit"
-                onClick={handleSubmit}
-                style={{ marginLeft: "25px" }}
-              >
-                Submit
-              </button>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "9em",
-                  right: "18em",
-                  height: "150px",
-                  overflow: "scroll",
-                  zIndex: "1000",
-                  opacity: "50%",
-                }}
-              >
-                {pastGuesses.length
-                  ? pastGuesses.map((guess, index) => (
-                      <div key={index}>{guess}</div>
-                    ))
-                  : null}
+              <div>
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  style={{ marginLeft: "25px" }}
+                >
+                  Submit
+                </button>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: "9em",
+                    right: "18em",
+                    height: "150px",
+                    overflow: "scroll",
+                    zIndex: "1000",
+                    opacity: "50%",
+                  }}
+                >
+                  {pastGuesses.length
+                    ? pastGuesses.map((guess, index) => (
+                        <div key={index}>{guess}</div>
+                      ))
+                    : null}
+                </div>
               </div>
             </span>
           </div>

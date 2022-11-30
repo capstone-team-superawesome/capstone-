@@ -31,6 +31,7 @@ router.get("/:gameCode", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     const { gameCode, isInSession, promptList, round } = req.body;
+    console.log("In post route",gameCode, isInSession, promptList, round);
 
     const gameSessions = await GameSession.findOrCreate({
       where: {

@@ -20,6 +20,7 @@ nav a {
   box-sizing: border-box;
 }
 
+
 .navbar a {
   font-family: "Caveat Brush", cursive;
 }
@@ -29,11 +30,12 @@ nav a {
   height: 500px;
 }
 
+
 button {
   font-family: "Caveat Brush", cursive;
 }
 
-.whiteboard {
+/* .whiteboard {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -41,7 +43,7 @@ button {
   right: 0;
   bottom: 0;
   top: 100;
-}
+} */
 
 .colors {
   display: flex;

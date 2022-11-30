@@ -60,19 +60,21 @@ const EditProfile = () => {
             }}
             src={profileImage}
           />
-          <img
-            id="profilePictureEditIcon"
-            className="collapsible"
-            style={{
-              height: "25px",
-              position: "absolute",
-              bottom: "0",
-              right: "0",
-              cursor: "pointer",
-            }}
-            src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
-            onClick={() => setIsPresetsOpen(!isPresetsOpen)}
-          />
+          <div>
+            <img
+              id="profilePictureEditIcon"
+              className="collapsible"
+              style={{
+                height: "25px",
+                position: "relative",
+                bottom: "20px",
+                right: "-130px",
+                cursor: "pointer",
+              }}
+              src="https://cdn-icons-png.flaticon.com/512/1159/1159633.png"
+              onClick={() => setIsPresetsOpen(!isPresetsOpen)}
+            />
+          </div>
           {isPresetsOpen && (
             <div id="profilePicturePresets" class="flex w-full">
               {presetProfilePics.map((picture, index) => (

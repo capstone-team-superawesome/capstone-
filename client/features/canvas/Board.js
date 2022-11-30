@@ -491,6 +491,7 @@ import { fetchPromptList, updateGameSession } from "../game/gameSlice";
 import { makeGameCode, updateInputtedGameCode } from "../home/HomeSlice";
 
 import io from "socket.io-client";
+import { addScore } from "../auth/authSlice";
 
 const Board = () => {
   const dispatch = useDispatch();
@@ -503,6 +504,7 @@ const Board = () => {
 
   const promptList = useRef([]);
   const currentRound = useRef(1);
+  const [counter, setCounter] = useState(0);
 
   if (gameSession && gameSession[0]) {
     promptList.current = gameSession[0].promptList || gameSession.round;
@@ -539,7 +541,7 @@ const Board = () => {
   const [seconds, setSeconds] = useState(60);
 
   const beginGame = () => {
-    //socketRef.current.emit("beginTimer", { gameCode });
+    socketRef.current.emit("beginTimer", { gameCode });
   };
 
   //when time is 0
@@ -565,7 +567,7 @@ const Board = () => {
       console.log("you got it!");
       const score = totalScore + 1000;
       dispatch(addScore({ id: id, score: score }));
-      //socketRef.current.emit("guessMade", true);
+      socketRef.current.emit("guessMade", true);
       navigate("/scorePage");
     }
   };
@@ -573,7 +575,8 @@ const Board = () => {
   useEffect(() => {
     if (gameCode) {
       dispatch(fetchPromptList({ createdGameCode: gameCode }));
-    } else {
+    }
+    if (inputtedGameCode) {
       dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     }
     window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
@@ -629,22 +632,22 @@ const Board = () => {
       context.stroke();
       context.closePath();
 
-      // if (!emit) {
-      //   return;
-      // }
+      if (!emit) {
+        return;
+      }
       const w = canvas.width;
       const h = canvas.height;
 
       const roomName = gameCode ? gameCode : inputtedGameCode;
 
-      // socketRef.current.emit("drawing", {
-      //   x0: x0 / w,
-      //   y0: y0 / h,
-      //   x1: x1 / w,
-      //   y1: y1 / h,
-      //   color,
-      //   roomName,
-      // });
+      socketRef.current.emit("drawing", {
+        x0: x0 / w,
+        y0: y0 / h,
+        x1: x1 / w,
+        y1: y1 / h,
+        color,
+        roomName,
+      });
     };
 
     // ---------------- mouse movement --------------------------------------
@@ -736,13 +739,13 @@ const Board = () => {
 
     socketRef.current = io.connect("/");
 
-    // if (inputtedGameCode) {
-    //   socketRef.current.emit("joinRoom", inputtedGameCode);
-    // } else {
-    //   socketRef.current.emit("joinRoom", gameCode);
-    // }
+    if (inputtedGameCode) {
+      socketRef.current.emit("joinRoom", inputtedGameCode);
+    } else {
+      socketRef.current.emit("joinRoom", gameCode);
+    }
 
-    // socketRef.current.on("drawing", onDrawingEvent);
+    socketRef.current.on("drawing", onDrawingEvent);
 
     //timer
     socketRef.current.on("timer", (count) => {

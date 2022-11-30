@@ -47,7 +47,7 @@ const EditProfile = () => {
   };
 
   return (
-    <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 m-10 p-10 rounded-2xl flex justify-between h-96">
+    <div class="bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 m-10 p-10 rounded-2xl flex justify-between custom-profile-page">
       <div class="flex-col justify-start w-1/3">
         <div class="absolute">
           <img
@@ -88,7 +88,7 @@ const EditProfile = () => {
         </div>
       </div>
       <div class="flex-col justify-start w-2/3">
-        <h1 class="text-3xl mb-1">Editing profile for {upperCaseName}:</h1>
+        <h1 class="text-4xl mb-1">Editing profile for {upperCaseName}:</h1>
         <div>
           <textarea
             style={{
@@ -101,7 +101,7 @@ const EditProfile = () => {
             onChange={(event) => setUpdateBio(event.target.value)}
           ></textarea>
           <div>
-            <label class="font-serif" htmlFor="email">
+            <label class="text-2xl" htmlFor="email">
               Email:{" "}
             </label>
             <input
@@ -110,7 +110,7 @@ const EditProfile = () => {
               onChange={(e) => setUpdateEmail(e.target.value)}
               placeholder={updateEmail}
             />
-            <label class="font-serif" htmlFor="password">
+            <label class="text-2xl" htmlFor="password">
               Password:{" "}
             </label>
             <input
@@ -121,7 +121,7 @@ const EditProfile = () => {
             />
           </div>
           <button
-            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mt-2"
+            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-white font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 mt-2 font-caveat text-2xl"
             onClick={handleSubmit}
           >
             Save

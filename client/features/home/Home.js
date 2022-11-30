@@ -70,7 +70,7 @@ const Home = (props) => {
           <div class="flex items-center justify-center gap-5">
             <button
               id="newGameButton"
-              class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white"
+              class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white font-caveat text-2xl"
               onClick={() => handleCreateGame()}
             >
               Create a Room
@@ -88,7 +88,7 @@ const Home = (props) => {
 
             <button
               id="joinGameButton"
-              class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white"
+              class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white font-caveat text-2xl"
               onClick={() => handleJoinGame()}
             >
               Join Game
@@ -98,7 +98,7 @@ const Home = (props) => {
       ) : (
         <div class="flex justify-center my-5">
           <button
-            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white "
+            class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white font-caveat text-2xl "
             onClick={() => navigate("/login")}
           >
             Login to Play!

@@ -7,7 +7,7 @@ function About() {
         <img src="img/pictstickfigureyellow.png" />
         <img src="img/picstickfigureorange.png" />
         <div class="m-10">
-          <h1 class="text-center text-3xl font-serif underline decoration-2 decoration-blue-400 underline-offset-4">
+          <h1 class="text-center text-4xl font-caveat underline decoration-2 decoration-blue-400 underline-offset-4">
             About Us
           </h1>
           <div class="text-center text-2xl font-serif italic text-white">
@@ -20,7 +20,7 @@ function About() {
       <div className="about-us-container">
         <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
+            <div class="text-4xl font-caveat underline decoration-2 decoration-amber-400 underline-offset-4">
               Emmanuel Cruz
             </div>
             <div class="mx-auto my-5 w-3/4 h-3/4 ">
@@ -48,7 +48,7 @@ function About() {
         </div>
         <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
+            <div class="text-4xl font-caveat  underline decoration-2 decoration-amber-400 underline-offset-4">
               John-David Noguera
             </div>
             <img
@@ -79,7 +79,7 @@ function About() {
         </div>
         <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class=" text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
+            <div class=" text-4xl font-caveat underline decoration-2 decoration-amber-400 underline-offset-4">
               Alejandro Baez
             </div>
             <img
@@ -108,7 +108,7 @@ function About() {
         </div>
         <div class="w-96 mt-6 ml-4 p-3 shadow-2xl bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 rounded">
           <div className="custom-single-about" class="m-2">
-            <div class="text-xl font-serif underline decoration-2 decoration-amber-400 underline-offset-4">
+            <div class=" font-caveat text-4xl underline decoration-2 decoration-amber-400 underline-offset-4">
               Ethan Lee
             </div>
             <img

@@ -6,7 +6,7 @@ const Info = () => {
       <div class="h-3/6 flex justify-between">
         <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 mx-auto rounded-2xl w-2/3 p-10 mb-10">
           <p class="font-serif">
-            <h1 class="text-4xl italic text-white" id="game-title">
+            <h1 class="text-4xl italic text-white font-caveat" id="game-title">
               What is Pictionary?
             </h1>
           </p>
@@ -37,7 +37,7 @@ const Info = () => {
         />
         <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 mx-auto rounded-2xl w-1/2 p-10">
           <p class="font-serif">
-            <h1 class="text-4xl italic text-white" id="game-title">
+            <h1 class="text-4xl italic text-white font-caveat" id="game-title">
               How to ACTUALLY play Pictionary
             </h1>
           </p>

@@ -20,7 +20,7 @@ const Profile = () => {
   // });
 
   return (
-    <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between h-96">
+    <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between custom-profile-page">
       <div class="flex-col justify-start w-1/3 mx-2">
         <div class="absolute">
           <section
@@ -56,10 +56,10 @@ const Profile = () => {
         </div>
       </div>
       <div class="flex-col justify-start w-1/3 mx-2">
-        <h1 class="text-3xl mb-1">Welcome {upperCaseName}!</h1>
+        <h1 class="text-4xl mb-1">Welcome {upperCaseName}!</h1>
         <div>
-          <div>Email: {email}</div>
-          <div>Bio: {bio}</div>
+          <div class="text-2xl">Email: {email}</div>
+          <div class="text-2xl">Bio: {bio}</div>
         </div>
         <section
           style={{
@@ -71,7 +71,7 @@ const Profile = () => {
       </div>
       <div class="flex-col justify-start w-1/3 mx-2 text-center">
         <div class="text-4xl">High Score: </div>
-        <div> {totalScore}</div>
+        <div class="text-4xl"> {totalScore}</div>
       </div>
       {/* Not sure what this is for */}
       {/* <section

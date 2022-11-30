@@ -21,7 +21,16 @@ nav a {
 }
 
 
-.navbar a,
+.navbar a {
+  font-family: "Caveat Brush", cursive;
+}
+
+.custom-profile-page {
+  font-family: "Caveat Brush", cursive;
+  height: 500px;
+}
+
+
 button {
   font-family: "Caveat Brush", cursive;
 }

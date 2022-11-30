@@ -102,7 +102,7 @@ const Board = () => {
     if (inputtedGameCode) {
       dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     }
-    window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 220, left: 0, behavior: "smooth" });
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
@@ -144,13 +144,34 @@ const Board = () => {
         y: drawingContainer.offsetTop - scrollY,
       };
 
-      context.beginPath();
+      // context.beginPath();
 
-      context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
-      context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
-      context.strokeStyle = color;
-      context.fillStyle = color;
-      context.lineWidth = brushSize.current;
+      // context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+      // context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+      // context.strokeStyle = color;
+      // context.fillStyle = color;
+      // context.lineWidth = brushSize.current;
+      // context.fill();
+      // context.stroke();
+      // context.closePath();
+      context.beginPath();
+      if (brushSize.current <= 10) {
+        context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+        context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+        context.strokeStyle = color;
+        context.lineWidth = brushSize.current;
+      } else {
+        context.arc(
+          x0 - canvasOffset.x,
+          y0 - canvasOffset.y,
+          brushSize.current,
+          0,
+          2 * Math.PI,
+          false
+        );
+        context.fillStyle = color;
+        context.strokeStyle = color;
+      }
       context.fill();
       context.stroke();
       context.closePath();
@@ -379,7 +400,10 @@ const Board = () => {
           </div>
           <div>
             <div style={{ display: "flex" }}>
-              <span style={{ flex: "1", display: "inline-block" }}>
+              <span
+                style={{ flex: "1", display: "inline-block" }}
+                class="text-center align-middle text-xl mt-5 m-2"
+              >
                 <span ref={colorsRef} className="colors">
                   <div className="color black" />
                   <div className="color crimson" />
@@ -397,12 +421,14 @@ const Board = () => {
                   flex: "1",
                   display: "inline",
                 }}
+                class="text-center align-middle text-xl mt-5 m-2"
               >
                 You are Drawing:{" "}
                 {gameSession ? promptList.current[currentRound.current] : null}
               </span>
               <span
                 style={{ flex: "1", display: "inline", marginLeft: "40px" }}
+                class="text-center align-middle text-xl mt-5 m-2"
               >
                 {brushSizes.map((size) => (
                   <span
@@ -478,20 +504,21 @@ const Board = () => {
             >
               You are guessing
             </span>
-            <span
+            <div
               className="guesserBarColumn"
               style={{
                 float: "left",
                 width: "33%",
               }}
             >
-              <input
-                type="text"
-                placeholder="make a guess"
-                onChange={(event) => setGuess(event.target.value)}
-                style={{ width: "auto" }}
-              ></input>
               <div>
+                <input
+                  type="text"
+                  placeholder="make a guess"
+                  onChange={(event) => setGuess(event.target.value)}
+                  style={{ width: "auto", height: "50%" }}
+                ></input>
+
                 <button
                   type="submit"
                   onClick={handleSubmit}
@@ -499,12 +526,12 @@ const Board = () => {
                 >
                   Submit
                 </button>
+              </div>
+              <div style={{ position: "relative" }}>
                 <div
                   style={{
-                    position: "absolute",
-                    bottom: "9em",
-                    right: "18em",
-                    height: "150px",
+                    position: "fixed",
+                    height: "50%",
                     overflow: "scroll",
                     zIndex: "1000",
                     opacity: "50%",
@@ -517,7 +544,7 @@ const Board = () => {
                     : null}
                 </div>
               </div>
-            </span>
+            </div>
           </div>
           <div
             className="canvas-wrapper"

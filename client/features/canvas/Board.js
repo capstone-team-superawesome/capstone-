@@ -14,6 +14,15 @@ const Board = () => {
   const colorsRef = useRef(null);
   const socketRef = useRef();
 
+  const brushSizes = [5, 10, 32, 64];
+  const brushSize = useRef(5);
+
+  const brushHandler = (size) => {
+    console.log("size:", size);
+    brushSize.current = size;
+    console.log("brushSize:", brushSize);
+  };
+
   const { gameSession } = useSelector((state) => state.game);
 
   const promptList = useRef([]);
@@ -93,7 +102,7 @@ const Board = () => {
     if (inputtedGameCode) {
       dispatch(fetchPromptList({ createdGameCode: inputtedGameCode }));
     }
-    window.scrollTo({ top: 240, left: 0, behavior: "smooth" });
+    window.scrollTo({ top: 220, left: 0, behavior: "smooth" });
 
     // --------------- getContext() method returns a drawing context on the canvas-----
 
@@ -135,13 +144,34 @@ const Board = () => {
         y: drawingContainer.offsetTop - scrollY,
       };
 
-      context.beginPath();
+      // context.beginPath();
 
-      context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
-      context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
-      context.strokeStyle = color;
-      context.fillStyle = color;
-      context.lineWidth = 5;
+      // context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+      // context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+      // context.strokeStyle = color;
+      // context.fillStyle = color;
+      // context.lineWidth = brushSize.current;
+      // context.fill();
+      // context.stroke();
+      // context.closePath();
+      context.beginPath();
+      if (brushSize.current <= 10) {
+        context.moveTo(x0 - canvasOffset.x, y0 - canvasOffset.y);
+        context.lineTo(x1 - canvasOffset.x, y1 - canvasOffset.y);
+        context.strokeStyle = color;
+        context.lineWidth = brushSize.current;
+      } else {
+        context.arc(
+          x0 - canvasOffset.x,
+          y0 - canvasOffset.y,
+          brushSize.current,
+          0,
+          2 * Math.PI,
+          false
+        );
+        context.fillStyle = color;
+        context.strokeStyle = color;
+      }
       context.fill();
       context.stroke();
       context.closePath();
@@ -350,35 +380,73 @@ const Board = () => {
 
       {isDrawer ? (
         <div>
-          <div>
-            <div>Your game session code is {gameCode ? gameCode : null}</div>
-            <h3 class="text-center align-middle text-xl mt-5 m-2">
+          <div style={{ display: "flex" }}>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            >
+              Your game session code is: {gameCode ? gameCode : null}
+            </h3>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            >
               {notification}
             </h3>
+            <h3
+              style={{ flex: "1", display: "inline" }}
+              class="text-center align-middle text-xl mt-5 m-2"
+            ></h3>
           </div>
-          <span>
-            <span style={{ display: "inline-block" }}>
-              <span ref={colorsRef} className="colors">
-                <div className="color black" />
-                <div className="color crimson" />
-                <div className="color green" />
-                <div className="color blue" />
-                <div className="color yellow" />
-                <div className="color white" />
+          <div>
+            <div style={{ display: "flex" }}>
+              <span
+                style={{ flex: "1", display: "inline-block" }}
+                class="text-center align-middle text-xl mt-5 m-2"
+              >
+                <span ref={colorsRef} className="colors">
+                  <div className="color black" />
+                  <div className="color crimson" />
+                  <div className="color green" />
+                  <div className="color blue" />
+                  <div className="color yellow" />
+                  <div className="color white" />
+                </span>
               </span>
-            </span>
-            <span
-              style={{
-                fontWeight: "bold",
-                textAlign: "center",
-                fontSize: "32px",
-                marginLeft: "10%",
-              }}
-            >
-              You are Drawing:{" "}
-              {gameSession ? promptList.current[currentRound.current] : null}
-            </span>
-          </span>
+              <span
+                style={{
+                  fontWeight: "bold",
+                  textAlign: "center",
+                  fontSize: "32px",
+                  flex: "1",
+                  display: "inline",
+                }}
+                class="text-center align-middle text-xl mt-5 m-2"
+              >
+                You are Drawing:{" "}
+                {gameSession ? promptList.current[currentRound.current] : null}
+              </span>
+              <span
+                style={{ flex: "1", display: "inline", marginLeft: "40px" }}
+                class="text-center align-middle text-xl mt-5 m-2"
+              >
+                {brushSizes.map((size) => (
+                  <span
+                    key={size}
+                    onClick={() => brushHandler(size)}
+                    style={{
+                      height: `${size}px`,
+                      width: `${size}px`,
+                      backgroundColor: "#949494",
+                      borderRadius: "50%",
+                      display: "inline-block",
+                      marginRight: "15px",
+                    }}
+                  ></span>
+                ))}
+              </span>
+            </div>
+          </div>
           <canvas
             id="container-canvas"
             ref={canvasRef}
@@ -436,45 +504,47 @@ const Board = () => {
             >
               You are guessing
             </span>
-            <span
+            <div
               className="guesserBarColumn"
               style={{
                 float: "left",
                 width: "33%",
-                //zIndex:"1000"
               }}
             >
-              <input
-                type="text"
-                placeholder="make a guess"
-                onChange={(event) => setGuess(event.target.value)}
-                style={{ width: "auto" }}
-              ></input>
-              <button
-                type="submit"
-                onClick={handleSubmit}
-                style={{ marginLeft: "25px" }}
-              >
-                Submit
-              </button>
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "9em",
-                  right: "18em",
-                  height: "150px",
-                  overflow: "scroll",
-                  zIndex: "1000",
-                  opacity: "50%",
-                }}
-              >
-                {pastGuesses.length
-                  ? pastGuesses.map((guess, index) => (
-                      <div key={index}>{guess}</div>
-                    ))
-                  : null}
+              <div>
+                <input
+                  type="text"
+                  placeholder="make a guess"
+                  onChange={(event) => setGuess(event.target.value)}
+                  style={{ width: "auto", height: "50%" }}
+                ></input>
+
+                <button
+                  type="submit"
+                  onClick={handleSubmit}
+                  style={{ marginLeft: "25px" }}
+                >
+                  Submit
+                </button>
               </div>
-            </span>
+              <div style={{ position: "relative" }}>
+                <div
+                  style={{
+                    position: "fixed",
+                    height: "50%",
+                    overflow: "scroll",
+                    zIndex: "1000",
+                    opacity: "50%",
+                  }}
+                >
+                  {pastGuesses.length
+                    ? pastGuesses.map((guess, index) => (
+                        <div key={index}>{guess}</div>
+                      ))
+                    : null}
+                </div>
+              </div>
+            </div>
           </div>
           <div
             className="canvas-wrapper"

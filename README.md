@@ -1,44 +1,23 @@
-# FS-App-Template
+# Pictionary!
+
+## Intro
+
+Welcome everyone! We are Alejandro, Emmanuel, Ethan, and John-David and we form team We Byte and today we are pleased to bring to you our version of Pictionary!
+Our version is free and you can play with your closest friend! We take distance out of the equation for you and your loved one so the only thing you have to worry about is making the time!
 
 ## Setup
 
-To use this as boilerplate, you'll need to take the following steps:
+To run this app locally on your machine,
 
-- Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+1. npm run seed (start your server and also seed your database)
+2. npm run start:dev (will both start your server and build your client side files using webpack)
+3. Login and create a room for other player to join.
+4. Draw the prompt on your board so that other player can guess.
+5. Get points!
 
-- Now you will have to add the fs-app-template as a remote and merge it into your own repository.
-
-```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template-v2.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
-```
-
-## Customize
-
-Now that you've got the code, follow these steps to get acclimated:
-
-- Update project name and description in `package.json`
-- `npm install`
-- Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-- These commands will create both your **development** and **test** databases
+You can also find the deployed version here :
+https://capstone-rv05.onrender.com/
 
 ```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+
 ```
-
-- By default, running `npm test` will use your test database, while
-  regular development uses development database
-
-## Start
-
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
-
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)

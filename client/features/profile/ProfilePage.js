@@ -13,11 +13,32 @@ const Profile = () => {
   const { id, username, profilePicture, bio, email, totalScore } = useSelector(
     (state) => state.auth.me
   );
-  //Take first letter and make uppercase
+
   const upperCaseName = username.charAt(0).toUpperCase() + username.slice(1);
-  // const { } = useSelector((state) => {
-  //   state.editProfilePage;
-  // });
+
+  //Level up and Ranking System. 10 level ups, each requires ~1.3x the experience of the last.
+  let exp = 10000;
+  let currentLvl = 0;
+  const levels = {};
+
+  for (let i = 1; i <= 10; i++) {
+    levels[exp] = i;
+    exp *= 2;
+  }
+
+  const levelsArray = Object.keys(levels);
+  const lastLevel = levelsArray[levelsArray.length - 1];
+
+  for (let i = 0; i < levelsArray.length; i++) {
+    if (totalScore >= levelsArray[i] && totalScore < levelsArray[i + 1]) {
+      currentLvl = levelsArray[i];
+      break;
+    }
+  }
+
+  totalScore > lastLevel ? (currentLvl = levels[lastLevel]) : null;
+  //console.log(levels);
+  //
 
   return (
     <div class="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 m-10 p-10 rounded-2xl flex justify-between custom-profile-page">
@@ -70,8 +91,9 @@ const Profile = () => {
         ></section>
       </div>
       <div class="flex-col justify-start w-1/3 mx-2 text-center">
-        <div class="text-4xl">High Score: </div>
-        <div class="text-4xl"> {totalScore}</div>
+        <div class="text-4xl">Level {currentLvl} </div>
+        <div>Level Up Bar</div>
+        <div class="text-4xl"> {totalScore} exp</div>
       </div>
       {/* Not sure what this is for */}
       {/* <section

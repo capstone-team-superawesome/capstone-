@@ -28,6 +28,7 @@ const FinalScore = () => {
       <button
         class="w-1/2 bg-blue-400 hover:bg-blue-500 text-black font-serif py-2  border-b-4 border-blue-700 hover:border-blue-500 rounded hover:shadow-lg hover:shadow-cyan-500 transition-colors duration-300 ease-in-out hover:text-white mx-auto self-center text-xl "
         onClick={restart}
+        style={{ marginBottom: "20px" }}
       >
         <span class="text-center mx-auto">Play again!</span>
       </button>

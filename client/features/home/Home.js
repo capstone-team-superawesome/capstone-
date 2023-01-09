@@ -17,14 +17,16 @@ const Home = (props) => {
 
   useEffect(() => {
     //console.log("INSIDE USE HOME EFFECT GC", makeGameCode);
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
     dispatch(makeGameCode(5));
     dispatch(updateInputtedGameCode(""));
 
-    console.log("INSIDE HOME USE EFFECT PL ===>",promptList)
+    console.log("INSIDE HOME USE EFFECT PL ===>", promptList);
     if (!promptList.current[0]) {
       dispatch(fetchAllPrompts());
       const randomPrompts = shuffle(prompts);
-    //console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>",randomPromptList)
+      //console.log("INSIDE HOME USE EFFECT RANDOM Pr ===>",randomPromptList)
 
       promptList.current[0] = randomPrompts[0];
       promptList.current[1] = randomPrompts[1];

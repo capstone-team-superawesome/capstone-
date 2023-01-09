@@ -117,7 +117,6 @@ export const updateDrawerFalse = createAsyncThunk(
 
 export const addScore = createAsyncThunk("addScore", async ({ id, score }) => {
   try {
-    console.log("score ", score);
     const { data } = await axios.put(`api/users/${id}/addScore`, {
       totalScore: score,
     });
@@ -166,7 +165,7 @@ export const authSlice = createSlice({
       state.me = action.payload;
     });
     builder.addCase(addScore.fulfilled, (state, action) => {
-      state.me.totalScore = action.payload;
+      state.me.totalScore = action.payload.totalScore;
     });
   },
 });
